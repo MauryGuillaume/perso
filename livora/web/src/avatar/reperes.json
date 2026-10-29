@@ -1,0 +1,3635 @@
+{
+ "corps": {
+  "homme": [
+   {
+    "stade": 1,
+    "w": 161,
+    "h": 609,
+    "teteHaut": 2,
+    "teteCx": 94.0,
+    "teteLargeur": 60,
+    "tetePic": 41,
+    "teteLargeurHaut": 47
+   },
+   {
+    "stade": 2,
+    "w": 182,
+    "h": 614,
+    "teteHaut": 2,
+    "teteCx": 94.0,
+    "teteLargeur": 60,
+    "tetePic": 41,
+    "teteLargeurHaut": 48
+   },
+   {
+    "stade": 3,
+    "w": 203,
+    "h": 619,
+    "teteHaut": 2,
+    "teteCx": 103.5,
+    "teteLargeur": 59,
+    "tetePic": 39,
+    "teteLargeurHaut": 48
+   },
+   {
+    "stade": 4,
+    "w": 213,
+    "h": 623,
+    "teteHaut": 2,
+    "teteCx": 106.5,
+    "teteLargeur": 61,
+    "tetePic": 40,
+    "teteLargeurHaut": 49
+   },
+   {
+    "stade": 5,
+    "w": 240,
+    "h": 635,
+    "teteHaut": 2,
+    "teteCx": 122.0,
+    "teteLargeur": 62,
+    "tetePic": 40,
+    "teteLargeurHaut": 49
+   },
+   {
+    "stade": 6,
+    "w": 275,
+    "h": 636,
+    "teteHaut": 1,
+    "teteCx": 141.0,
+    "teteLargeur": 62,
+    "tetePic": 38,
+    "teteLargeurHaut": 48
+   }
+  ],
+  "femme": [
+   {
+    "stade": 1,
+    "w": 195,
+    "h": 613,
+    "teteHaut": 2,
+    "teteCx": 97.0,
+    "teteLargeur": 70,
+    "tetePic": 50,
+    "teteLargeurHaut": 52
+   },
+   {
+    "stade": 2,
+    "w": 196,
+    "h": 613,
+    "teteHaut": 2,
+    "teteCx": 97.5,
+    "teteLargeur": 69,
+    "tetePic": 47,
+    "teteLargeurHaut": 51
+   },
+   {
+    "stade": 3,
+    "w": 206,
+    "h": 613,
+    "teteHaut": 2,
+    "teteCx": 102.5,
+    "teteLargeur": 69,
+    "tetePic": 47,
+    "teteLargeurHaut": 52
+   },
+   {
+    "stade": 4,
+    "w": 213,
+    "h": 614,
+    "teteHaut": 2,
+    "teteCx": 106.5,
+    "teteLargeur": 69,
+    "tetePic": 50,
+    "teteLargeurHaut": 50
+   }
+  ]
+ },
+ "cheveux": [
+  {
+   "cle": "g2",
+   "nom": "Rasé court",
+   "genre": "homme",
+   "type": "face",
+   "w": 99,
+   "h": 41,
+   "visageLargeur": 85,
+   "visageCx": 50.5,
+   "visagePic": 74,
+   "visageHaut": 41,
+   "visageLargeurHaut": 74,
+   "fichier": "personnage/cheveux/g2.webp",
+   "fond": "personnage/cheveux/g2-fond.webp"
+  },
+  {
+   "cle": "g3",
+   "nom": "Brosse",
+   "genre": "homme",
+   "type": "face",
+   "w": 105,
+   "h": 54,
+   "visageLargeur": 82,
+   "visageCx": 53.0,
+   "visagePic": 76,
+   "visageHaut": 52,
+   "visageLargeurHaut": 74,
+   "fichier": "personnage/cheveux/g3.webp",
+   "fond": "personnage/cheveux/g3-fond.webp"
+  },
+  {
+   "cle": "g4",
+   "nom": "Court texturé",
+   "genre": "homme",
+   "type": "face",
+   "w": 106,
+   "h": 58,
+   "visageLargeur": 82,
+   "visageCx": 53.0,
+   "visagePic": 72,
+   "visageHaut": 40,
+   "visageLargeurHaut": 69,
+   "fichier": "personnage/cheveux/g4.webp",
+   "fond": "personnage/cheveux/g4-fond.webp"
+  },
+  {
+   "cle": "g5",
+   "nom": "Raie sur le côté",
+   "genre": "homme",
+   "type": "face",
+   "w": 112,
+   "h": 109,
+   "visageLargeur": 80,
+   "visageCx": 55.0,
+   "visagePic": 76,
+   "visageHaut": 45,
+   "visageLargeurHaut": 73,
+   "fichier": "personnage/cheveux/g5.webp",
+   "fond": "personnage/cheveux/g5-fond.webp"
+  },
+  {
+   "cle": "g6",
+   "nom": "Plaqué en arrière",
+   "genre": "homme",
+   "type": "face",
+   "w": 120,
+   "h": 113,
+   "visageLargeur": 77,
+   "visageCx": 59.5,
+   "visagePic": 98,
+   "visageHaut": 54,
+   "visageLargeurHaut": 64,
+   "fichier": "personnage/cheveux/g6.webp",
+   "fond": "personnage/cheveux/g6-fond.webp"
+  },
+  {
+   "cle": "g7",
+   "nom": "Boucles courtes",
+   "genre": "homme",
+   "type": "face",
+   "w": 118,
+   "h": 108,
+   "visageLargeur": 78,
+   "visageCx": 58.0,
+   "visagePic": 89,
+   "visageHaut": 49,
+   "visageLargeurHaut": 51,
+   "fichier": "personnage/cheveux/g7.webp",
+   "fond": "personnage/cheveux/g7-fond.webp"
+  },
+  {
+   "cle": "g8",
+   "nom": "Frange décoiffée",
+   "genre": "homme",
+   "type": "face",
+   "w": 114,
+   "h": 110,
+   "visageLargeur": 78,
+   "visageCx": 56.0,
+   "visagePic": 91,
+   "visageHaut": 59,
+   "visageLargeurHaut": 48,
+   "fichier": "personnage/cheveux/g8.webp",
+   "fond": "personnage/cheveux/g8-fond.webp"
+  },
+  {
+   "cle": "g9",
+   "nom": "Frange balayée",
+   "genre": "homme",
+   "type": "face",
+   "w": 124,
+   "h": 139,
+   "visageLargeur": 71,
+   "visageCx": 61.5,
+   "visagePic": 103,
+   "visageHaut": 73,
+   "visageLargeurHaut": 63,
+   "fichier": "personnage/cheveux/g9.webp",
+   "fond": "personnage/cheveux/g9-fond.webp"
+  },
+  {
+   "cle": "g10",
+   "nom": "Mèche sur l'œil",
+   "genre": "homme",
+   "type": "face",
+   "w": 115,
+   "h": 113,
+   "visageLargeur": 70,
+   "visageCx": 58.0,
+   "visagePic": 100,
+   "visageHaut": 62,
+   "visageLargeurHaut": 21,
+   "fichier": "personnage/cheveux/g10.webp",
+   "fond": "personnage/cheveux/g10-fond.webp"
+  },
+  {
+   "cle": "g11",
+   "nom": "Pointes d'anime",
+   "genre": "homme",
+   "type": "face",
+   "w": 154,
+   "h": 131,
+   "visageLargeur": 69,
+   "visageCx": 76.5,
+   "visagePic": 110,
+   "visageHaut": 75,
+   "visageLargeurHaut": 47,
+   "fichier": "personnage/cheveux/g11.webp",
+   "fond": "personnage/cheveux/g11-fond.webp"
+  },
+  {
+   "cle": "g12",
+   "nom": "Pointes en flammes",
+   "genre": "homme",
+   "type": "face",
+   "w": 118,
+   "h": 143,
+   "visageLargeur": 69,
+   "visageCx": 58.5,
+   "visagePic": 119,
+   "visageHaut": 94,
+   "visageLargeurHaut": 69,
+   "fichier": "personnage/cheveux/g12.webp",
+   "fond": "personnage/cheveux/g12-fond.webp"
+  },
+  {
+   "cle": "g13",
+   "nom": "Mi-longs ondulés",
+   "genre": "homme",
+   "type": "face",
+   "w": 149,
+   "h": 159,
+   "visageLargeur": 71,
+   "visageCx": 74.5,
+   "visagePic": 89,
+   "visageHaut": 48,
+   "visageLargeurHaut": 42,
+   "fichier": "personnage/cheveux/g13.webp",
+   "fond": "personnage/cheveux/g13-fond.webp"
+  },
+  {
+   "cle": "g14",
+   "nom": "Afro",
+   "genre": "homme",
+   "type": "face",
+   "w": 167,
+   "h": 157,
+   "visageLargeur": 67,
+   "visageCx": 83.5,
+   "visagePic": 105,
+   "visageHaut": 78,
+   "visageLargeurHaut": 57,
+   "fichier": "personnage/cheveux/g14.webp",
+   "fond": "personnage/cheveux/g14-fond.webp"
+  },
+  {
+   "cle": "g15",
+   "nom": "Crête",
+   "genre": "homme",
+   "type": "face",
+   "w": 89,
+   "h": 75,
+   "visageLargeur": 83,
+   "visageCx": 44.5,
+   "visagePic": 85,
+   "visageHaut": 47,
+   "visageLargeurHaut": 73,
+   "fichier": "personnage/cheveux/g15.webp",
+   "fond": "personnage/cheveux/g15-fond.webp"
+  },
+  {
+   "cle": "g16",
+   "nom": "Crête courte",
+   "genre": "homme",
+   "type": "face",
+   "w": 54,
+   "h": 68,
+   "visageLargeur": 83,
+   "visageCx": 27.5,
+   "visagePic": 80,
+   "visageHaut": 45,
+   "visageLargeurHaut": 78,
+   "fichier": "personnage/cheveux/g16.webp",
+   "fond": "personnage/cheveux/g16-fond.webp"
+  },
+  {
+   "cle": "g17",
+   "nom": "Crête en pointes",
+   "genre": "homme",
+   "type": "face",
+   "w": 86,
+   "h": 76,
+   "visageLargeur": 76,
+   "visageCx": 42.0,
+   "visagePic": 66,
+   "visageHaut": 41,
+   "visageLargeurHaut": 70,
+   "fichier": "personnage/cheveux/g17.webp",
+   "fond": "personnage/cheveux/g17-fond.webp"
+  },
+  {
+   "cle": "g18",
+   "nom": "Faux-hawk",
+   "genre": "homme",
+   "type": "face",
+   "w": 86,
+   "h": 68,
+   "visageLargeur": 78,
+   "visageCx": 42.0,
+   "visagePic": 74,
+   "visageHaut": 41,
+   "visageLargeurHaut": 71,
+   "fichier": "personnage/cheveux/g18.webp",
+   "fond": "personnage/cheveux/g18-fond.webp"
+  },
+  {
+   "cle": "g19",
+   "nom": "Undercut",
+   "genre": "homme",
+   "type": "face",
+   "w": 96,
+   "h": 53,
+   "visageLargeur": 73,
+   "visageCx": 43.5,
+   "visagePic": 76,
+   "visageHaut": 45,
+   "visageLargeurHaut": 60,
+   "fichier": "personnage/cheveux/g19.webp",
+   "fond": "personnage/cheveux/g19-fond.webp"
+  },
+  {
+   "cle": "g20",
+   "nom": "Chignon",
+   "genre": "homme",
+   "type": "face",
+   "w": 100,
+   "h": 109,
+   "visageLargeur": 73,
+   "visageCx": 49.5,
+   "visagePic": 81,
+   "visageHaut": 53,
+   "visageLargeurHaut": 64,
+   "fichier": "personnage/cheveux/g20.webp",
+   "fond": "personnage/cheveux/g20-fond.webp"
+  },
+  {
+   "cle": "g21",
+   "nom": "Chignon de samouraï",
+   "genre": "homme",
+   "type": "face",
+   "w": 100,
+   "h": 109,
+   "visageLargeur": 70,
+   "visageCx": 49.0,
+   "visagePic": 81,
+   "visageHaut": 54,
+   "visageLargeurHaut": 61,
+   "fichier": "personnage/cheveux/g21.webp",
+   "fond": "personnage/cheveux/g21-fond.webp"
+  },
+  {
+   "cle": "g22",
+   "nom": "Tresse sur le dessus",
+   "genre": "homme",
+   "type": "face",
+   "w": 97,
+   "h": 41,
+   "visageLargeur": 78,
+   "visageCx": 57.0,
+   "visagePic": 65,
+   "visageHaut": 35,
+   "visageLargeurHaut": 68,
+   "fichier": "personnage/cheveux/g22.webp",
+   "fond": "personnage/cheveux/g22-fond.webp"
+  },
+  {
+   "cle": "g23",
+   "nom": "Tresses plaquées",
+   "genre": "homme",
+   "type": "face",
+   "w": 79,
+   "h": 133,
+   "visageLargeur": 76,
+   "visageCx": 39.0,
+   "visagePic": 70,
+   "visageHaut": 38,
+   "visageLargeurHaut": 63,
+   "fichier": "personnage/cheveux/g23.webp",
+   "fond": "personnage/cheveux/g23-fond.webp"
+  },
+  {
+   "cle": "g24",
+   "nom": "Nattes africaines",
+   "genre": "homme",
+   "type": "face",
+   "w": 93,
+   "h": 39,
+   "visageLargeur": 77,
+   "visageCx": 45.5,
+   "visagePic": 67,
+   "visageHaut": 38,
+   "visageLargeurHaut": 64,
+   "fichier": "personnage/cheveux/g24.webp",
+   "fond": "personnage/cheveux/g24-fond.webp"
+  },
+  {
+   "cle": "g25",
+   "nom": "Longs et lisses",
+   "genre": "homme",
+   "type": "face",
+   "w": 111,
+   "h": 170,
+   "visageLargeur": 63,
+   "visageCx": 54.5,
+   "visagePic": 88,
+   "visageHaut": 33,
+   "visageLargeurHaut": 49,
+   "fichier": "personnage/cheveux/g25.webp",
+   "fond": "personnage/cheveux/g25-fond.webp"
+  },
+  {
+   "cle": "g26",
+   "nom": "Longs ondulés",
+   "genre": "homme",
+   "type": "face",
+   "w": 145,
+   "h": 169,
+   "visageLargeur": 64,
+   "visageCx": 72.0,
+   "visagePic": 80,
+   "visageHaut": 40,
+   "visageLargeurHaut": 49,
+   "fichier": "personnage/cheveux/g26.webp",
+   "fond": "personnage/cheveux/g26-fond.webp"
+  },
+  {
+   "cle": "g27",
+   "nom": "Dreadlocks",
+   "genre": "homme",
+   "type": "face",
+   "w": 132,
+   "h": 166,
+   "visageLargeur": 57,
+   "visageCx": 72.5,
+   "visagePic": 70,
+   "visageHaut": 31,
+   "visageLargeurHaut": 45,
+   "fichier": "personnage/cheveux/g27.webp",
+   "fond": "personnage/cheveux/g27-fond.webp"
+  },
+  {
+   "cle": "g28",
+   "nom": "Locks longues",
+   "genre": "homme",
+   "type": "face",
+   "w": 131,
+   "h": 166,
+   "visageLargeur": 52,
+   "visageCx": 65.0,
+   "visagePic": 78,
+   "visageHaut": 38,
+   "visageLargeurHaut": 38,
+   "fichier": "personnage/cheveux/g28.webp",
+   "fond": "personnage/cheveux/g28-fond.webp"
+  },
+  {
+   "cle": "g29",
+   "nom": "Queue de cheval basse",
+   "genre": "homme",
+   "type": "face",
+   "w": 102,
+   "h": 160,
+   "visageLargeur": 71,
+   "visageCx": 51.5,
+   "visagePic": 65,
+   "visageHaut": 33,
+   "visageLargeurHaut": 63,
+   "fichier": "personnage/cheveux/g29.webp",
+   "fond": "personnage/cheveux/g29-fond.webp"
+  },
+  {
+   "cle": "g31",
+   "nom": "Tresses vikings",
+   "genre": "homme",
+   "type": "face",
+   "w": 105,
+   "h": 170,
+   "visageLargeur": 75,
+   "visageCx": 52.5,
+   "visagePic": 77,
+   "visageHaut": 41,
+   "visageLargeurHaut": 63,
+   "fichier": "personnage/cheveux/g31.webp",
+   "fond": "personnage/cheveux/g31-fond.webp"
+  },
+  {
+   "cle": "g32",
+   "nom": "Tresses fines",
+   "genre": "homme",
+   "type": "face",
+   "w": 83,
+   "h": 38,
+   "visageLargeur": 78,
+   "visageCx": 37.0,
+   "visagePic": 62,
+   "visageHaut": 28,
+   "visageLargeurHaut": 69,
+   "fichier": "personnage/cheveux/g32.webp",
+   "fond": "personnage/cheveux/g32-fond.webp"
+  },
+  {
+   "cle": "h1",
+   "nom": "Pixie",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 118,
+   "h": 110,
+   "visageLargeur": 77,
+   "visageCx": 58.5,
+   "visagePic": 85,
+   "visageHaut": 53,
+   "visageLargeurHaut": 60,
+   "fichier": "personnage/cheveux/h1.webp",
+   "fond": "personnage/cheveux/h1-fond.webp"
+  },
+  {
+   "cle": "h2",
+   "nom": "Carré",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 142,
+   "h": 144,
+   "visageLargeur": 76,
+   "visageCx": 71.0,
+   "visagePic": 80,
+   "visageHaut": 43,
+   "visageLargeurHaut": 26,
+   "fichier": "personnage/cheveux/h2.webp",
+   "fond": "personnage/cheveux/h2-fond.webp"
+  },
+  {
+   "cle": "h3",
+   "nom": "Carré frangé",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 154,
+   "h": 151,
+   "visageLargeur": 76,
+   "visageCx": 77.0,
+   "visagePic": 83,
+   "visageHaut": 64,
+   "visageLargeurHaut": 75,
+   "fichier": "personnage/cheveux/h3.webp",
+   "fond": "personnage/cheveux/h3-fond.webp"
+  },
+  {
+   "cle": "h4",
+   "nom": "Longs à frange",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 137,
+   "h": 226,
+   "visageLargeur": 76,
+   "visageCx": 68.0,
+   "visagePic": 85,
+   "visageHaut": 69,
+   "visageLargeurHaut": 76,
+   "fichier": "personnage/cheveux/h4.webp",
+   "fond": "personnage/cheveux/h4-fond.webp"
+  },
+  {
+   "cle": "h5",
+   "nom": "Longs ondulés",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 157,
+   "h": 226,
+   "visageLargeur": 75,
+   "visageCx": 79.5,
+   "visagePic": 90,
+   "visageHaut": 34,
+   "visageLargeurHaut": 50,
+   "fichier": "personnage/cheveux/h5.webp",
+   "fond": "personnage/cheveux/h5-fond.webp"
+  },
+  {
+   "cle": "h6",
+   "nom": "Court plaqué",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 111,
+   "h": 112,
+   "visageLargeur": 83,
+   "visageCx": 55.5,
+   "visagePic": 72,
+   "visageHaut": 40,
+   "visageLargeurHaut": 75,
+   "fichier": "personnage/cheveux/h6.webp",
+   "fond": "personnage/cheveux/h6-fond.webp"
+  },
+  {
+   "cle": "h7",
+   "nom": "Mi-longs ondulés",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 158,
+   "h": 225,
+   "visageLargeur": 75,
+   "visageCx": 78.5,
+   "visagePic": 95,
+   "visageHaut": 41,
+   "visageLargeurHaut": 50,
+   "fichier": "personnage/cheveux/h7.webp",
+   "fond": "personnage/cheveux/h7-fond.webp"
+  },
+  {
+   "cle": "h8",
+   "nom": "Boucles longues",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 198,
+   "h": 238,
+   "visageLargeur": 69,
+   "visageCx": 99.5,
+   "visagePic": 88,
+   "visageHaut": 45,
+   "visageLargeurHaut": 32,
+   "fichier": "personnage/cheveux/h8.webp",
+   "fond": "personnage/cheveux/h8-fond.webp"
+  },
+  {
+   "cle": "h9",
+   "nom": "Afro",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 170,
+   "h": 164,
+   "visageLargeur": 82,
+   "visageCx": 85.0,
+   "visagePic": 132,
+   "visageHaut": 89,
+   "visageLargeurHaut": 68,
+   "fichier": "personnage/cheveux/h9.webp",
+   "fond": "personnage/cheveux/h9-fond.webp"
+  },
+  {
+   "cle": "h10",
+   "nom": "Queue de cheval haute",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 136,
+   "h": 214,
+   "visageLargeur": 82,
+   "visageCx": 55.0,
+   "visagePic": 105,
+   "visageHaut": 66,
+   "visageLargeurHaut": 73,
+   "fichier": "personnage/cheveux/h10.webp",
+   "fond": "personnage/cheveux/h10-fond.webp"
+  },
+  {
+   "cle": "h11",
+   "nom": "Queue basse",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 117,
+   "h": 187,
+   "visageLargeur": 81,
+   "visageCx": 57.5,
+   "visagePic": 69,
+   "visageHaut": 32,
+   "visageLargeurHaut": 71,
+   "fichier": "personnage/cheveux/h11.webp",
+   "fond": "personnage/cheveux/h11-fond.webp"
+  },
+  {
+   "cle": "h12",
+   "nom": "Queue sur le côté",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 130,
+   "h": 210,
+   "visageLargeur": 79,
+   "visageCx": 54.5,
+   "visagePic": 76,
+   "visageHaut": 41,
+   "visageLargeurHaut": 29,
+   "fichier": "personnage/cheveux/h12.webp",
+   "fond": "personnage/cheveux/h12-fond.webp"
+  },
+  {
+   "cle": "h13",
+   "nom": "Queue sur l'épaule",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 128,
+   "h": 222,
+   "visageLargeur": 81,
+   "visageCx": 71.5,
+   "visagePic": 78,
+   "visageHaut": 41,
+   "visageLargeurHaut": 31,
+   "fichier": "personnage/cheveux/h13.webp",
+   "fond": "personnage/cheveux/h13-fond.webp"
+  },
+  {
+   "cle": "h14",
+   "nom": "Tresse sur le côté",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 112,
+   "h": 217,
+   "visageLargeur": 82,
+   "visageCx": 55.0,
+   "visagePic": 72,
+   "visageHaut": 31,
+   "visageLargeurHaut": 68,
+   "fichier": "personnage/cheveux/h14.webp",
+   "fond": "personnage/cheveux/h14-fond.webp"
+  },
+  {
+   "cle": "h15",
+   "nom": "Couettes",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 216,
+   "h": 183,
+   "visageLargeur": 81,
+   "visageCx": 107.5,
+   "visagePic": 91,
+   "visageHaut": 46,
+   "visageLargeurHaut": 38,
+   "fichier": "personnage/cheveux/h15.webp",
+   "fond": "personnage/cheveux/h15-fond.webp"
+  },
+  {
+   "cle": "h16",
+   "nom": "Macarons tressés",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 153,
+   "h": 254,
+   "visageLargeur": 85,
+   "visageCx": 75.5,
+   "visagePic": 88,
+   "visageHaut": 49,
+   "visageLargeurHaut": 72,
+   "fichier": "personnage/cheveux/h16.webp",
+   "fond": "personnage/cheveux/h16-fond.webp"
+  },
+  {
+   "cle": "h17",
+   "nom": "Chignon haut",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 112,
+   "h": 146,
+   "visageLargeur": 84,
+   "visageCx": 56.0,
+   "visagePic": 110,
+   "visageHaut": 73,
+   "visageLargeurHaut": 74,
+   "fichier": "personnage/cheveux/h17.webp",
+   "fond": "personnage/cheveux/h17-fond.webp"
+  },
+  {
+   "cle": "h18",
+   "nom": "Couronne tressée",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 125,
+   "h": 114,
+   "visageLargeur": 83,
+   "visageCx": 62.5,
+   "visagePic": 83,
+   "visageHaut": 40,
+   "visageLargeurHaut": 66,
+   "fichier": "personnage/cheveux/h18.webp",
+   "fond": "personnage/cheveux/h18-fond.webp"
+  },
+  {
+   "cle": "h19",
+   "nom": "Box braids",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 144,
+   "h": 239,
+   "visageLargeur": 67,
+   "visageCx": 71.5,
+   "visagePic": 101,
+   "visageHaut": 36,
+   "visageLargeurHaut": 43,
+   "fichier": "personnage/cheveux/h19.webp",
+   "fond": "personnage/cheveux/h19-fond.webp"
+  },
+  {
+   "cle": "h20",
+   "nom": "Demi-queue",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 158,
+   "h": 254,
+   "visageLargeur": 69,
+   "visageCx": 78.5,
+   "visagePic": 117,
+   "visageHaut": 62,
+   "visageLargeurHaut": 40,
+   "fichier": "personnage/cheveux/h20.webp",
+   "fond": "personnage/cheveux/h20-fond.webp"
+  },
+  {
+   "cle": "h21",
+   "nom": "Queue haute à bandeau",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 142,
+   "h": 200,
+   "visageLargeur": 85,
+   "visageCx": 55.5,
+   "visagePic": 94,
+   "visageHaut": 76,
+   "visageLargeurHaut": 85,
+   "fichier": "personnage/cheveux/h21.webp",
+   "fond": "personnage/cheveux/h21-fond.webp"
+  },
+  {
+   "cle": "h22",
+   "nom": "Boucles volumineuses",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 128,
+   "h": 144,
+   "visageLargeur": 50,
+   "visageCx": 65.0,
+   "visagePic": 66,
+   "visageHaut": 31,
+   "visageLargeurHaut": 26,
+   "fichier": "personnage/cheveux/h22.webp",
+   "fond": "personnage/cheveux/h22-fond.webp"
+  },
+  {
+   "cle": "h23",
+   "nom": "Pixie décoiffé",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 75,
+   "h": 74,
+   "visageLargeur": 51,
+   "visageCx": 37.5,
+   "visagePic": 53,
+   "visageHaut": 33,
+   "visageLargeurHaut": 40,
+   "fichier": "personnage/cheveux/h23.webp",
+   "fond": "personnage/cheveux/h23-fond.webp"
+  },
+  {
+   "cle": "h24",
+   "nom": "Frange droite",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 98,
+   "h": 156,
+   "visageLargeur": 50,
+   "visageCx": 48.0,
+   "visagePic": 55,
+   "visageHaut": 53,
+   "visageLargeurHaut": 50,
+   "fichier": "personnage/cheveux/h24.webp",
+   "fond": "personnage/cheveux/h24-fond.webp"
+  },
+  {
+   "cle": "h25",
+   "nom": "Ondulés glamour",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 117,
+   "h": 159,
+   "visageLargeur": 47,
+   "visageCx": 58.5,
+   "visagePic": 61,
+   "visageHaut": 27,
+   "visageLargeurHaut": 35,
+   "fichier": "personnage/cheveux/h25.webp",
+   "fond": "personnage/cheveux/h25-fond.webp"
+  },
+  {
+   "cle": "h26",
+   "nom": "Queue latérale",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 90,
+   "h": 152,
+   "visageLargeur": 51,
+   "visageCx": 37.5,
+   "visagePic": 52,
+   "visageHaut": 26,
+   "visageLargeurHaut": 22,
+   "fichier": "personnage/cheveux/h26.webp",
+   "fond": "personnage/cheveux/h26-fond.webp"
+  },
+  {
+   "cle": "h27",
+   "nom": "Chignon flou",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 75,
+   "h": 87,
+   "visageLargeur": 50,
+   "visageCx": 37.0,
+   "visagePic": 69,
+   "visageHaut": 46,
+   "visageLargeurHaut": 37,
+   "fichier": "personnage/cheveux/h27.webp",
+   "fond": "personnage/cheveux/h27-fond.webp"
+  },
+  {
+   "cle": "h28",
+   "nom": "Longs en arrière",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 94,
+   "h": 140,
+   "visageLargeur": 53,
+   "visageCx": 46.5,
+   "visagePic": 55,
+   "visageHaut": 31,
+   "visageLargeurHaut": 46,
+   "fichier": "personnage/cheveux/h28.webp",
+   "fond": "personnage/cheveux/h28-fond.webp"
+  },
+  {
+   "cle": "h29",
+   "nom": "Tresses collées",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 77,
+   "h": 133,
+   "visageLargeur": 55,
+   "visageCx": 38.5,
+   "visagePic": 47,
+   "visageHaut": 26,
+   "visageLargeurHaut": 49,
+   "fichier": "personnage/cheveux/h29.webp",
+   "fond": "personnage/cheveux/h29-fond.webp"
+  },
+  {
+   "cle": "h30",
+   "nom": "Tresse diadème",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 80,
+   "h": 90,
+   "visageLargeur": 55,
+   "visageCx": 40.5,
+   "visagePic": 46,
+   "visageHaut": 21,
+   "visageLargeurHaut": 46,
+   "fichier": "personnage/cheveux/h30.webp",
+   "fond": "personnage/cheveux/h30-fond.webp"
+  },
+  {
+   "cle": "h31",
+   "nom": "Court rasé sur le côté",
+   "genre": "femme",
+   "type": "face",
+   "calage": "pic",
+   "w": 75,
+   "h": 74,
+   "visageLargeur": 55,
+   "visageCx": 37.5,
+   "visagePic": 50,
+   "visageHaut": 25,
+   "visageLargeurHaut": 49,
+   "fichier": "personnage/cheveux/h31.webp",
+   "fond": "personnage/cheveux/h31-fond.webp"
+  }
+ ],
+ "barbes": [
+  {
+   "cle": "b19",
+   "w": 96,
+   "h": 86,
+   "fichier": "personnage/barbes/b19.webp"
+  },
+  {
+   "cle": "b20",
+   "w": 88,
+   "h": 78,
+   "fichier": "personnage/barbes/b20.webp"
+  },
+  {
+   "cle": "b21",
+   "w": 84,
+   "h": 79,
+   "fichier": "personnage/barbes/b21.webp"
+  },
+  {
+   "cle": "b22",
+   "w": 87,
+   "h": 72,
+   "fichier": "personnage/barbes/b22.webp"
+  }
+ ],
+ "yeux": [
+  {
+   "cle": "m1",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 81,
+     "h": 79,
+     "fichier": "personnage/yeux/m1-g.webp",
+     "iris": "personnage/yeux/m1-g-iris.webp"
+    },
+    {
+     "w": 82,
+     "h": 79,
+     "fichier": "personnage/yeux/m1-d.webp",
+     "iris": "personnage/yeux/m1-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m18",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 83,
+     "h": 71,
+     "fichier": "personnage/yeux/m18-g.webp",
+     "iris": "personnage/yeux/m18-g-iris.webp"
+    },
+    {
+     "w": 84,
+     "h": 71,
+     "fichier": "personnage/yeux/m18-d.webp",
+     "iris": "personnage/yeux/m18-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m24",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 93,
+     "h": 74,
+     "fichier": "personnage/yeux/m24-g.webp",
+     "iris": "personnage/yeux/m24-g-iris.webp"
+    },
+    {
+     "w": 96,
+     "h": 74,
+     "fichier": "personnage/yeux/m24-d.webp",
+     "iris": "personnage/yeux/m24-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m36",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 96,
+     "h": 70,
+     "fichier": "personnage/yeux/m36-g.webp",
+     "iris": "personnage/yeux/m36-g-iris.webp"
+    },
+    {
+     "w": 96,
+     "h": 70,
+     "fichier": "personnage/yeux/m36-d.webp",
+     "iris": "personnage/yeux/m36-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m54",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 80,
+     "h": 82,
+     "fichier": "personnage/yeux/m54-g.webp",
+     "iris": "personnage/yeux/m54-g-iris.webp"
+    },
+    {
+     "w": 83,
+     "h": 82,
+     "fichier": "personnage/yeux/m54-d.webp",
+     "iris": "personnage/yeux/m54-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m56",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 95,
+     "h": 76,
+     "fichier": "personnage/yeux/m56-g.webp",
+     "iris": "personnage/yeux/m56-g-iris.webp"
+    },
+    {
+     "w": 97,
+     "h": 76,
+     "fichier": "personnage/yeux/m56-d.webp",
+     "iris": "personnage/yeux/m56-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "m14",
+   "genre": "homme",
+   "oeil": [
+    {
+     "w": 86,
+     "h": 80,
+     "fichier": "personnage/yeux/m14-g.webp",
+     "iris": "personnage/yeux/m14-g-iris.webp"
+    },
+    {
+     "w": 87,
+     "h": 80,
+     "fichier": "personnage/yeux/m14-d.webp",
+     "iris": "personnage/yeux/m14-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f8",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 85,
+     "h": 74,
+     "fichier": "personnage/yeux/f8-g.webp",
+     "iris": "personnage/yeux/f8-g-iris.webp"
+    },
+    {
+     "w": 86,
+     "h": 74,
+     "fichier": "personnage/yeux/f8-d.webp",
+     "iris": "personnage/yeux/f8-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f22",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 84,
+     "h": 70,
+     "fichier": "personnage/yeux/f22-g.webp",
+     "iris": "personnage/yeux/f22-g-iris.webp"
+    },
+    {
+     "w": 87,
+     "h": 70,
+     "fichier": "personnage/yeux/f22-d.webp",
+     "iris": "personnage/yeux/f22-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f34",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 85,
+     "h": 77,
+     "fichier": "personnage/yeux/f34-g.webp",
+     "iris": "personnage/yeux/f34-g-iris.webp"
+    },
+    {
+     "w": 87,
+     "h": 78,
+     "fichier": "personnage/yeux/f34-d.webp",
+     "iris": "personnage/yeux/f34-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f36",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 94,
+     "h": 67,
+     "fichier": "personnage/yeux/f36-g.webp",
+     "iris": "personnage/yeux/f36-g-iris.webp"
+    },
+    {
+     "w": 96,
+     "h": 67,
+     "fichier": "personnage/yeux/f36-d.webp",
+     "iris": "personnage/yeux/f36-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f10",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 81,
+     "h": 81,
+     "fichier": "personnage/yeux/f10-g.webp",
+     "iris": "personnage/yeux/f10-g-iris.webp"
+    },
+    {
+     "w": 83,
+     "h": 81,
+     "fichier": "personnage/yeux/f10-d.webp",
+     "iris": "personnage/yeux/f10-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f40",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 102,
+     "h": 91,
+     "fichier": "personnage/yeux/f40-g.webp",
+     "iris": "personnage/yeux/f40-g-iris.webp"
+    },
+    {
+     "w": 104,
+     "h": 91,
+     "fichier": "personnage/yeux/f40-d.webp",
+     "iris": "personnage/yeux/f40-d-iris.webp"
+    }
+   ]
+  },
+  {
+   "cle": "f1",
+   "genre": "femme",
+   "oeil": [
+    {
+     "w": 84,
+     "h": 80,
+     "fichier": "personnage/yeux/f1-g.webp",
+     "iris": "personnage/yeux/f1-g-iris.webp"
+    },
+    {
+     "w": 84,
+     "h": 80,
+     "fichier": "personnage/yeux/f1-d.webp",
+     "iris": "personnage/yeux/f1-d-iris.webp"
+    }
+   ]
+  }
+ ],
+ "bouches": [
+  {
+   "cle": "neutre",
+   "w": 152,
+   "h": 48,
+   "fichier": "personnage/bouches/neutre.webp"
+  },
+  {
+   "cle": "sourire",
+   "w": 167,
+   "h": 65,
+   "fichier": "personnage/bouches/sourire.webp"
+  },
+  {
+   "cle": "grand_sourire",
+   "w": 183,
+   "h": 92,
+   "fichier": "personnage/bouches/grand_sourire.webp"
+  },
+  {
+   "cle": "rire",
+   "w": 176,
+   "h": 119,
+   "fichier": "personnage/bouches/rire.webp"
+  },
+  {
+   "cle": "determine",
+   "w": 169,
+   "h": 64,
+   "fichier": "personnage/bouches/determine.webp"
+  },
+  {
+   "cle": "en_coin",
+   "w": 165,
+   "h": 76,
+   "fichier": "personnage/bouches/en_coin.webp"
+  },
+  {
+   "cle": "effort",
+   "w": 144,
+   "h": 145,
+   "fichier": "personnage/bouches/effort.webp"
+  },
+  {
+   "cle": "dents_serrees",
+   "w": 182,
+   "h": 87,
+   "fichier": "personnage/bouches/dents_serrees.webp"
+  },
+  {
+   "cle": "surpris",
+   "w": 82,
+   "h": 105,
+   "fichier": "personnage/bouches/surpris.webp"
+  },
+  {
+   "cle": "moue",
+   "w": 83,
+   "h": 75,
+   "fichier": "personnage/bouches/moue.webp"
+  },
+  {
+   "cle": "triste",
+   "w": 165,
+   "h": 58,
+   "fichier": "personnage/bouches/triste.webp"
+  },
+  {
+   "cle": "langue",
+   "w": 176,
+   "h": 115,
+   "fichier": "personnage/bouches/langue.webp"
+  },
+  {
+   "cle": "sifflote",
+   "w": 55,
+   "h": 88,
+   "fichier": "personnage/bouches/sifflote.webp"
+  },
+  {
+   "cle": "essouffle",
+   "w": 177,
+   "h": 87,
+   "fichier": "personnage/bouches/essouffle.webp"
+  },
+  {
+   "cle": "confiant",
+   "w": 177,
+   "h": 77,
+   "fichier": "personnage/bouches/confiant.webp"
+  },
+  {
+   "cle": "cri",
+   "w": 164,
+   "h": 107,
+   "fichier": "personnage/bouches/cri.webp"
+  }
+ ],
+ "nez": [
+  {
+   "cle": "bouton",
+   "w": 89,
+   "h": 51,
+   "fichier": "personnage/nez/bouton.webp"
+  },
+  {
+   "cle": "petit",
+   "w": 91,
+   "h": 52,
+   "fichier": "personnage/nez/petit.webp"
+  },
+  {
+   "cle": "droit",
+   "w": 84,
+   "h": 70,
+   "fichier": "personnage/nez/droit.webp"
+  },
+  {
+   "cle": "large",
+   "w": 105,
+   "h": 106,
+   "fichier": "personnage/nez/large.webp"
+  },
+  {
+   "cle": "aquilin",
+   "w": 99,
+   "h": 122,
+   "fichier": "personnage/nez/aquilin.webp"
+  },
+  {
+   "cle": "trait",
+   "w": 63,
+   "h": 80,
+   "fichier": "personnage/nez/trait.webp"
+  }
+ ],
+ "tenues": [
+  {
+   "cle": "kimono_karate",
+   "nom": "Kimono de karaté",
+   "rarete": "peu_commun",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-1.webp",
+      "x": 5,
+      "y": 83,
+      "w": 148,
+      "h": 472,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-2.webp",
+      "x": 3,
+      "y": 78,
+      "w": 178,
+      "h": 484,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-3.webp",
+      "x": 5,
+      "y": 74,
+      "w": 191,
+      "h": 502,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-4.webp",
+      "x": 3,
+      "y": 71,
+      "w": 198,
+      "h": 506,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-5.webp",
+      "x": 3,
+      "y": 62,
+      "w": 237,
+      "h": 535,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/kimono_karate/tenue-6.webp",
+      "x": 7,
+      "y": 55,
+      "w": 265,
+      "h": 539,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "gi_violet",
+   "nom": "Gi de combat violet",
+   "rarete": "rare",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-1.webp",
+      "x": -30,
+      "y": 94,
+      "w": 190,
+      "h": 448,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-2.webp",
+      "x": -9,
+      "y": 87,
+      "w": 194,
+      "h": 473,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-3.webp",
+      "x": -6,
+      "y": 81,
+      "w": 209,
+      "h": 481,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-4.webp",
+      "x": 3,
+      "y": 73,
+      "w": 209,
+      "h": 485,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-5.webp",
+      "x": 0,
+      "y": 70,
+      "w": 246,
+      "h": 502,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/gi_violet/tenue-6.webp",
+      "x": 3,
+      "y": 66,
+      "w": 305,
+      "h": 507,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "jogging_capuche",
+   "nom": "Jogging à capuche",
+   "rarete": "commun",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-1.webp",
+      "x": 4,
+      "y": 84,
+      "w": 152,
+      "h": 464,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-2.webp",
+      "x": 3,
+      "y": 78,
+      "w": 173,
+      "h": 472,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-3.webp",
+      "x": 5,
+      "y": 72,
+      "w": 191,
+      "h": 497,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-4.webp",
+      "x": 4,
+      "y": 67,
+      "w": 204,
+      "h": 506,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-5.webp",
+      "x": 7,
+      "y": 58,
+      "w": 233,
+      "h": 522,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/jogging_capuche/tenue-6.webp",
+      "x": 6,
+      "y": 56,
+      "w": 264,
+      "h": 514,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "tenue_saiyan",
+   "nom": "Tenue de Saiyan",
+   "rarete": "epique",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-1.webp",
+      "x": 8,
+      "y": 97,
+      "w": 148,
+      "h": 401,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-2.webp",
+      "x": 12,
+      "y": 95,
+      "w": 164,
+      "h": 411,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-3.webp",
+      "x": 12,
+      "y": 92,
+      "w": 186,
+      "h": 422,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-4.webp",
+      "x": 12,
+      "y": 86,
+      "w": 196,
+      "h": 433,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-5.webp",
+      "x": 13,
+      "y": 79,
+      "w": 225,
+      "h": 448,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/tenue_saiyan/tenue-6.webp",
+      "x": 19,
+      "y": 73,
+      "w": 250,
+      "h": 456,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "armure_samourai_or",
+   "nom": "Armure de samouraï dorée",
+   "rarete": "legendaire",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-1.webp",
+      "x": 2,
+      "y": 68,
+      "w": 143,
+      "h": 480,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-1-dessus.webp",
+      "x": 2,
+      "y": 68,
+      "w": 143,
+      "h": 480,
+      "ordre": 10
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-2.webp",
+      "x": 6,
+      "y": 79,
+      "w": 157,
+      "h": 469,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-3.webp",
+      "x": 9,
+      "y": 46,
+      "w": 172,
+      "h": 506,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-3-dessus.webp",
+      "x": 9,
+      "y": 46,
+      "w": 172,
+      "h": 506,
+      "ordre": 10
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-4.webp",
+      "x": 9,
+      "y": 40,
+      "w": 187,
+      "h": 518,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-4-dessus.webp",
+      "x": 9,
+      "y": 40,
+      "w": 187,
+      "h": 518,
+      "ordre": 10
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-5.webp",
+      "x": 12,
+      "y": 22,
+      "w": 216,
+      "h": 552,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-5-dessus.webp",
+      "x": 12,
+      "y": 22,
+      "w": 216,
+      "h": 552,
+      "ordre": 10
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-6.webp",
+      "x": 12,
+      "y": -31,
+      "w": 259,
+      "h": 603,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/armure_samourai_or/tenue-6-dessus.webp",
+      "x": 12,
+      "y": -31,
+      "w": 259,
+      "h": 603,
+      "ordre": 10
+     }
+    ]
+   }
+  },
+  {
+   "cle": "costume_noir",
+   "nom": "Combinaison noire",
+   "rarete": "rare",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-1.webp",
+      "x": 3,
+      "y": 39,
+      "w": 159,
+      "h": 570,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-1-dessus.webp",
+      "x": 3,
+      "y": 39,
+      "w": 159,
+      "h": 570,
+      "ordre": 10
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-2.webp",
+      "x": 2,
+      "y": 39,
+      "w": 179,
+      "h": 578,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-2-dessus.webp",
+      "x": 2,
+      "y": 39,
+      "w": 179,
+      "h": 578,
+      "ordre": 10
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-3.webp",
+      "x": 2,
+      "y": 33,
+      "w": 201,
+      "h": 588,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-3-dessus.webp",
+      "x": 2,
+      "y": 33,
+      "w": 201,
+      "h": 588,
+      "ordre": 10
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-4.webp",
+      "x": 3,
+      "y": 30,
+      "w": 211,
+      "h": 595,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-4-dessus.webp",
+      "x": 3,
+      "y": 30,
+      "w": 211,
+      "h": 595,
+      "ordre": 10
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-5.webp",
+      "x": 3,
+      "y": 27,
+      "w": 237,
+      "h": 609,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-5-dessus.webp",
+      "x": 3,
+      "y": 27,
+      "w": 237,
+      "h": 609,
+      "ordre": 10
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-6.webp",
+      "x": 1,
+      "y": 21,
+      "w": 273,
+      "h": 615,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/costume_noir/tenue-6-dessus.webp",
+      "x": 1,
+      "y": 21,
+      "w": 273,
+      "h": 615,
+      "ordre": 10
+     }
+    ]
+   }
+  },
+  {
+   "cle": "super_heros_cape",
+   "nom": "Super-héros à cape rouge",
+   "rarete": "epique",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-1.webp",
+      "x": -17,
+      "y": 87,
+      "w": 191,
+      "h": 307,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-2.webp",
+      "x": -15,
+      "y": 84,
+      "w": 206,
+      "h": 323,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-3.webp",
+      "x": -9,
+      "y": 81,
+      "w": 214,
+      "h": 323,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-4.webp",
+      "x": -9,
+      "y": 75,
+      "w": 227,
+      "h": 326,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-5.webp",
+      "x": -6,
+      "y": 69,
+      "w": 248,
+      "h": 337,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/super_heros_cape/tenue-6.webp",
+      "x": -2,
+      "y": 63,
+      "w": 277,
+      "h": 357,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "chevalier_noir",
+   "nom": "Justicier de la nuit",
+   "rarete": "epique",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-1.webp",
+      "x": -18,
+      "y": 88,
+      "w": 169,
+      "h": 440,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-2.webp",
+      "x": -25,
+      "y": 87,
+      "w": 208,
+      "h": 522,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-3.webp",
+      "x": -28,
+      "y": 75,
+      "w": 230,
+      "h": 544,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-4.webp",
+      "x": -26,
+      "y": 76,
+      "w": 246,
+      "h": 537,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-5.webp",
+      "x": -31,
+      "y": 66,
+      "w": 288,
+      "h": 567,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/chevalier_noir/tenue-6.webp",
+      "x": -33,
+      "y": 66,
+      "w": 317,
+      "h": 559,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "boxeur",
+   "nom": "Boxeur",
+   "rarete": "peu_commun",
+   "genre": "homme",
+   "emplacements": [
+    "bas",
+    "chaussures"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-1.webp",
+      "x": 2,
+      "y": 269,
+      "w": 167,
+      "h": 114,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-1.webp",
+      "x": 4,
+      "y": 523,
+      "w": 158,
+      "h": 85,
+      "ordre": 0
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-2.webp",
+      "x": 6,
+      "y": 261,
+      "w": 182,
+      "h": 129,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-2.webp",
+      "x": 7,
+      "y": 521,
+      "w": 179,
+      "h": 91,
+      "ordre": 0
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-3.webp",
+      "x": 3,
+      "y": 245,
+      "w": 205,
+      "h": 149,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-3.webp",
+      "x": 10,
+      "y": 525,
+      "w": 199,
+      "h": 94,
+      "ordre": 0
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-4.webp",
+      "x": 3,
+      "y": 236,
+      "w": 216,
+      "h": 144,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-4.webp",
+      "x": 13,
+      "y": 528,
+      "w": 203,
+      "h": 95,
+      "ordre": 0
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-5.webp",
+      "x": 1,
+      "y": 231,
+      "w": 238,
+      "h": 132,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-5.webp",
+      "x": 8,
+      "y": 531,
+      "w": 225,
+      "h": 102,
+      "ordre": 0
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/boxeur/bas-6.webp",
+      "x": 4,
+      "y": 226,
+      "w": 276,
+      "h": 136,
+      "ordre": 1
+     },
+     {
+      "fichier": "personnage/tenues/boxeur/chaussures-6.webp",
+      "x": 9,
+      "y": 530,
+      "w": 272,
+      "h": 104,
+      "ordre": 0
+     }
+    ]
+   }
+  },
+  {
+   "cle": "bottes_tech",
+   "nom": "Bottes techno",
+   "rarete": "rare",
+   "genre": "homme",
+   "emplacements": [
+    "chaussures"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-1.webp",
+      "x": -3,
+      "y": 455,
+      "w": 162,
+      "h": 152,
+      "ordre": 0
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-2.webp",
+      "x": 1,
+      "y": 445,
+      "w": 178,
+      "h": 167,
+      "ordre": 0
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-3.webp",
+      "x": 6,
+      "y": 438,
+      "w": 192,
+      "h": 179,
+      "ordre": 0
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-4.webp",
+      "x": 7,
+      "y": 428,
+      "w": 206,
+      "h": 194,
+      "ordre": 0
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-5.webp",
+      "x": 3,
+      "y": 416,
+      "w": 229,
+      "h": 216,
+      "ordre": 0
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/bottes_tech/chaussures-6.webp",
+      "x": 9,
+      "y": 381,
+      "w": 266,
+      "h": 252,
+      "ordre": 0
+     }
+    ]
+   }
+  },
+  {
+   "cle": "short_sport",
+   "nom": "Short de sport",
+   "rarete": "commun",
+   "genre": "homme",
+   "emplacements": [
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-1.webp",
+      "x": 30,
+      "y": 269,
+      "w": 103,
+      "h": 114,
+      "ordre": 1
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-2.webp",
+      "x": 31,
+      "y": 260,
+      "w": 121,
+      "h": 129,
+      "ordre": 1
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-3.webp",
+      "x": 36,
+      "y": 244,
+      "w": 133,
+      "h": 150,
+      "ordre": 1
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-4.webp",
+      "x": 41,
+      "y": 236,
+      "w": 136,
+      "h": 144,
+      "ordre": 1
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-5.webp",
+      "x": 41,
+      "y": 230,
+      "w": 152,
+      "h": 133,
+      "ordre": 1
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/short_sport/bas-6.webp",
+      "x": 54,
+      "y": 226,
+      "w": 176,
+      "h": 137,
+      "ordre": 1
+     }
+    ]
+   }
+  },
+  {
+   "cle": "plastron_or",
+   "nom": "Plastron doré",
+   "rarete": "legendaire",
+   "genre": "homme",
+   "emplacements": [
+    "haut",
+    "chaussures"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-1.webp",
+      "x": 4,
+      "y": 41,
+      "w": 148,
+      "h": 258,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-1-dessus.webp",
+      "x": 4,
+      "y": 41,
+      "w": 148,
+      "h": 258,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-1.webp",
+      "x": 6,
+      "y": 501,
+      "w": 150,
+      "h": 107,
+      "ordre": 0
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-2.webp",
+      "x": 2,
+      "y": 38,
+      "w": 172,
+      "h": 259,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-2-dessus.webp",
+      "x": 2,
+      "y": 38,
+      "w": 172,
+      "h": 259,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-2.webp",
+      "x": 11,
+      "y": 502,
+      "w": 167,
+      "h": 111,
+      "ordre": 0
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-3.webp",
+      "x": 3,
+      "y": 34,
+      "w": 191,
+      "h": 266,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-3-dessus.webp",
+      "x": 3,
+      "y": 34,
+      "w": 191,
+      "h": 266,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-3.webp",
+      "x": 17,
+      "y": 507,
+      "w": 183,
+      "h": 111,
+      "ordre": 0
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-4.webp",
+      "x": 3,
+      "y": 30,
+      "w": 204,
+      "h": 268,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-4-dessus.webp",
+      "x": 3,
+      "y": 30,
+      "w": 204,
+      "h": 268,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-4.webp",
+      "x": 21,
+      "y": 508,
+      "w": 188,
+      "h": 114,
+      "ordre": 0
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-5.webp",
+      "x": 3,
+      "y": 27,
+      "w": 234,
+      "h": 320,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-5-dessus.webp",
+      "x": 3,
+      "y": 27,
+      "w": 234,
+      "h": 320,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-5.webp",
+      "x": 19,
+      "y": 516,
+      "w": 215,
+      "h": 117,
+      "ordre": 0
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-6.webp",
+      "x": 4,
+      "y": 21,
+      "w": 263,
+      "h": 327,
+      "ordre": 2
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/haut-6-dessus.webp",
+      "x": 4,
+      "y": 21,
+      "w": 263,
+      "h": 327,
+      "ordre": 10
+     },
+     {
+      "fichier": "personnage/tenues/plastron_or/chaussures-6.webp",
+      "x": 21,
+      "y": 515,
+      "w": 253,
+      "h": 121,
+      "ordre": 0
+     }
+    ]
+   }
+  },
+  {
+   "cle": "escarpins",
+   "nom": "Escarpins vernis",
+   "rarete": "peu_commun",
+   "genre": "homme",
+   "emplacements": [
+    "chaussures"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-1.webp",
+      "x": 3,
+      "y": 474,
+      "w": 157,
+      "h": 133,
+      "ordre": 0
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-2.webp",
+      "x": 7,
+      "y": 464,
+      "w": 176,
+      "h": 149,
+      "ordre": 0
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-3.webp",
+      "x": 12,
+      "y": 462,
+      "w": 193,
+      "h": 156,
+      "ordre": 0
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-4.webp",
+      "x": 14,
+      "y": 459,
+      "w": 200,
+      "h": 163,
+      "ordre": 0
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-5.webp",
+      "x": 9,
+      "y": 453,
+      "w": 224,
+      "h": 179,
+      "ordre": 0
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/escarpins/chaussures-6.webp",
+      "x": 13,
+      "y": 431,
+      "w": 267,
+      "h": 202,
+      "ordre": 0
+     }
+    ]
+   }
+  },
+  {
+   "cle": "flammes_combat",
+   "nom": "Flammes de combat",
+   "rarete": "epique",
+   "genre": "homme",
+   "emplacements": [
+    "chaussures",
+    "haut"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-1.webp",
+      "x": 1,
+      "y": 516,
+      "w": 161,
+      "h": 92,
+      "ordre": 0
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-2.webp",
+      "x": 6,
+      "y": 508,
+      "w": 180,
+      "h": 104,
+      "ordre": 0
+     },
+     {
+      "fichier": "personnage/tenues/flammes_combat/haut-2.webp",
+      "x": 177,
+      "y": 139,
+      "w": 16,
+      "h": 104,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-3.webp",
+      "x": 10,
+      "y": 520,
+      "w": 197,
+      "h": 99,
+      "ordre": 0
+     },
+     {
+      "fichier": "personnage/tenues/flammes_combat/haut-3.webp",
+      "x": -1,
+      "y": 148,
+      "w": 210,
+      "h": 148,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-4.webp",
+      "x": 14,
+      "y": 520,
+      "w": 200,
+      "h": 103,
+      "ordre": 0
+     },
+     {
+      "fichier": "personnage/tenues/flammes_combat/haut-4.webp",
+      "x": -2,
+      "y": 86,
+      "w": 226,
+      "h": 207,
+      "ordre": 2
+     }
+    ],
+    "5": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-5.webp",
+      "x": 8,
+      "y": 523,
+      "w": 224,
+      "h": 110,
+      "ordre": 0
+     },
+     {
+      "fichier": "personnage/tenues/flammes_combat/haut-5.webp",
+      "x": 1,
+      "y": 85,
+      "w": 252,
+      "h": 208,
+      "ordre": 2
+     }
+    ],
+    "6": [
+     {
+      "fichier": "personnage/tenues/flammes_combat/chaussures-6.webp",
+      "x": 11,
+      "y": 518,
+      "w": 269,
+      "h": 117,
+      "ordre": 0
+     },
+     {
+      "fichier": "personnage/tenues/flammes_combat/haut-6.webp",
+      "x": 4,
+      "y": 110,
+      "w": 277,
+      "h": 183,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "soubrette",
+   "nom": "Tenue de soubrette",
+   "rarete": "rare",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/soubrette/tenue-1.webp",
+      "x": 16,
+      "y": 90,
+      "w": 168,
+      "h": 344,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/soubrette/tenue-2.webp",
+      "x": 5,
+      "y": 93,
+      "w": 187,
+      "h": 349,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/soubrette/tenue-3.webp",
+      "x": 9,
+      "y": 86,
+      "w": 190,
+      "h": 356,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/soubrette/tenue-4.webp",
+      "x": 6,
+      "y": 81,
+      "w": 203,
+      "h": 376,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "combinaison_or_noir",
+   "nom": "Combinaison noir et or",
+   "rarete": "epique",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/combinaison_or_noir/tenue-1.webp",
+      "x": 15,
+      "y": 93,
+      "w": 168,
+      "h": 467,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/combinaison_or_noir/tenue-2.webp",
+      "x": 9,
+      "y": 88,
+      "w": 183,
+      "h": 506,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/combinaison_or_noir/tenue-3.webp",
+      "x": 10,
+      "y": 82,
+      "w": 193,
+      "h": 513,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/combinaison_or_noir/tenue-4.webp",
+      "x": 6,
+      "y": 78,
+      "w": 204,
+      "h": 504,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "robe_fleurie_longue",
+   "nom": "Robe longue fleurie",
+   "rarete": "peu_commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/robe_fleurie_longue/tenue-1.webp",
+      "x": 17,
+      "y": 117,
+      "w": 162,
+      "h": 379,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/robe_fleurie_longue/tenue-2.webp",
+      "x": 12,
+      "y": 115,
+      "w": 171,
+      "h": 382,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/robe_fleurie_longue/tenue-3.webp",
+      "x": 11,
+      "y": 111,
+      "w": 183,
+      "h": 385,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/robe_fleurie_longue/tenue-4.webp",
+      "x": 12,
+      "y": 109,
+      "w": 190,
+      "h": 388,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "robe_dentelle",
+   "nom": "Robe de dentelle noire",
+   "rarete": "rare",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/robe_dentelle/tenue-1.webp",
+      "x": 7,
+      "y": 99,
+      "w": 181,
+      "h": 316,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/robe_dentelle/tenue-2.webp",
+      "x": 7,
+      "y": 95,
+      "w": 181,
+      "h": 320,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/robe_dentelle/tenue-3.webp",
+      "x": 7,
+      "y": 91,
+      "w": 192,
+      "h": 323,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/robe_dentelle/tenue-4.webp",
+      "x": 6,
+      "y": 89,
+      "w": 201,
+      "h": 328,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "super_heroine",
+   "nom": "Super-héroïne",
+   "rarete": "epique",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/super_heroine/tenue-1.webp",
+      "x": 19,
+      "y": 89,
+      "w": 165,
+      "h": 349,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/super_heroine/tenue-2.webp",
+      "x": 11,
+      "y": 89,
+      "w": 176,
+      "h": 345,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/super_heroine/tenue-3.webp",
+      "x": 9,
+      "y": 83,
+      "w": 190,
+      "h": 369,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/super_heroine/tenue-4.webp",
+      "x": 8,
+      "y": 83,
+      "w": 206,
+      "h": 368,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "bikini_bleu",
+   "nom": "Bikini bleu",
+   "rarete": "peu_commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/bikini_bleu/tenue-1.webp",
+      "x": 42,
+      "y": 145,
+      "w": 114,
+      "h": 174,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/bikini_bleu/tenue-2.webp",
+      "x": 38,
+      "y": 143,
+      "w": 122,
+      "h": 177,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/bikini_bleu/tenue-3.webp",
+      "x": 39,
+      "y": 140,
+      "w": 127,
+      "h": 179,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/bikini_bleu/tenue-4.webp",
+      "x": 42,
+      "y": 137,
+      "w": 130,
+      "h": 181,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "petite_robe_noire",
+   "nom": "Petite robe noire",
+   "rarete": "rare",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/petite_robe_noire/tenue-1.webp",
+      "x": 5,
+      "y": 116,
+      "w": 186,
+      "h": 492,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/petite_robe_noire/tenue-2.webp",
+      "x": 4,
+      "y": 112,
+      "w": 187,
+      "h": 496,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/petite_robe_noire/tenue-3.webp",
+      "x": 4,
+      "y": 108,
+      "w": 198,
+      "h": 501,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/petite_robe_noire/tenue-4.webp",
+      "x": 4,
+      "y": 102,
+      "w": 205,
+      "h": 508,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "combinaison_surf",
+   "nom": "Combinaison de surf",
+   "rarete": "peu_commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/combinaison_surf/tenue-1.webp",
+      "x": 5,
+      "y": 109,
+      "w": 186,
+      "h": 499,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/combinaison_surf/tenue-2.webp",
+      "x": 4,
+      "y": 105,
+      "w": 187,
+      "h": 503,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/combinaison_surf/tenue-3.webp",
+      "x": 4,
+      "y": 101,
+      "w": 197,
+      "h": 508,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/combinaison_surf/tenue-4.webp",
+      "x": 4,
+      "y": 98,
+      "w": 205,
+      "h": 512,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "robe_ete",
+   "nom": "Robe d'été",
+   "rarete": "commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/robe_ete/tenue-1.webp",
+      "x": 5,
+      "y": 88,
+      "w": 186,
+      "h": 518,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/robe_ete/tenue-2.webp",
+      "x": 4,
+      "y": 87,
+      "w": 187,
+      "h": 519,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/robe_ete/tenue-3.webp",
+      "x": 4,
+      "y": 84,
+      "w": 197,
+      "h": 522,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/robe_ete/tenue-4.webp",
+      "x": 4,
+      "y": 82,
+      "w": 205,
+      "h": 525,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "robe_soiree_rouge",
+   "nom": "Robe de soirée rouge",
+   "rarete": "epique",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/robe_soiree_rouge/tenue-1.webp",
+      "x": 23,
+      "y": 114,
+      "w": 149,
+      "h": 394,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/robe_soiree_rouge/tenue-2.webp",
+      "x": 19,
+      "y": 111,
+      "w": 156,
+      "h": 396,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/robe_soiree_rouge/tenue-3.webp",
+      "x": 17,
+      "y": 106,
+      "w": 172,
+      "h": 399,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/robe_soiree_rouge/tenue-4.webp",
+      "x": 17,
+      "y": 101,
+      "w": 181,
+      "h": 407,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "ange_defile",
+   "nom": "Ange du défilé",
+   "rarete": "legendaire",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/ange_defile/tenue-1.webp",
+      "x": -38,
+      "y": -61,
+      "w": 235,
+      "h": 399,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/ange_defile/tenue-2.webp",
+      "x": -3,
+      "y": -64,
+      "w": 203,
+      "h": 526,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/ange_defile/tenue-3.webp",
+      "x": 0,
+      "y": -67,
+      "w": 209,
+      "h": 541,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/ange_defile/tenue-4.webp",
+      "x": 0,
+      "y": -71,
+      "w": 218,
+      "h": 578,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "brassiere_sport",
+   "nom": "Brassière et short de sport",
+   "rarete": "commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/brassiere_sport/tenue-1.webp",
+      "x": 44,
+      "y": 116,
+      "w": 108,
+      "h": 177,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/brassiere_sport/tenue-2.webp",
+      "x": 39,
+      "y": 112,
+      "w": 118,
+      "h": 179,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/brassiere_sport/tenue-3.webp",
+      "x": 40,
+      "y": 107,
+      "w": 126,
+      "h": 181,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/brassiere_sport/tenue-4.webp",
+      "x": 41,
+      "y": 103,
+      "w": 131,
+      "h": 185,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "maillot_une_piece",
+   "nom": "Maillot une pièce",
+   "rarete": "peu_commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/maillot_une_piece/tenue-1.webp",
+      "x": 55,
+      "y": 116,
+      "w": 86,
+      "h": 202,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/maillot_une_piece/tenue-2.webp",
+      "x": 52,
+      "y": 112,
+      "w": 92,
+      "h": 205,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/maillot_une_piece/tenue-3.webp",
+      "x": 53,
+      "y": 108,
+      "w": 100,
+      "h": 210,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/maillot_une_piece/tenue-4.webp",
+      "x": 55,
+      "y": 103,
+      "w": 103,
+      "h": 214,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "kimono_rouge",
+   "nom": "Kimono rouge",
+   "rarete": "epique",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/kimono_rouge/tenue-1.webp",
+      "x": 2,
+      "y": 105,
+      "w": 192,
+      "h": 512,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/kimono_rouge/tenue-2.webp",
+      "x": 1,
+      "y": 102,
+      "w": 194,
+      "h": 413,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/kimono_rouge/tenue-3.webp",
+      "x": 2,
+      "y": 99,
+      "w": 203,
+      "h": 415,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/kimono_rouge/tenue-4.webp",
+      "x": 2,
+      "y": 96,
+      "w": 211,
+      "h": 418,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "robe_bal_or",
+   "nom": "Robe de bal dorée",
+   "rarete": "legendaire",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/robe_bal_or/tenue-1.webp",
+      "x": -28,
+      "y": 108,
+      "w": 225,
+      "h": 508,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/robe_bal_or/tenue-2.webp",
+      "x": -3,
+      "y": 103,
+      "w": 203,
+      "h": 513,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/robe_bal_or/tenue-3.webp",
+      "x": 0,
+      "y": 98,
+      "w": 209,
+      "h": 519,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/robe_bal_or/tenue-4.webp",
+      "x": 0,
+      "y": 93,
+      "w": 218,
+      "h": 525,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "legging_sport",
+   "nom": "Ensemble legging",
+   "rarete": "commun",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/legging_sport/tenue-1.webp",
+      "x": 49,
+      "y": 117,
+      "w": 98,
+      "h": 436,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/legging_sport/tenue-2.webp",
+      "x": 47,
+      "y": 112,
+      "w": 102,
+      "h": 443,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/legging_sport/tenue-3.webp",
+      "x": 48,
+      "y": 108,
+      "w": 111,
+      "h": 448,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/legging_sport/tenue-4.webp",
+      "x": 45,
+      "y": 103,
+      "w": 122,
+      "h": 454,
+      "ordre": 2
+     }
+    ]
+   }
+  },
+  {
+   "cle": "body_dentelle",
+   "nom": "Body en dentelle",
+   "rarete": "rare",
+   "genre": "femme",
+   "emplacements": [
+    "haut",
+    "bas"
+   ],
+   "stades": {
+    "1": [
+     {
+      "fichier": "personnage/tenues/body_dentelle/tenue-1.webp",
+      "x": 54,
+      "y": 142,
+      "w": 88,
+      "h": 176,
+      "ordre": 2
+     }
+    ],
+    "2": [
+     {
+      "fichier": "personnage/tenues/body_dentelle/tenue-2.webp",
+      "x": 51,
+      "y": 139,
+      "w": 94,
+      "h": 179,
+      "ordre": 2
+     }
+    ],
+    "3": [
+     {
+      "fichier": "personnage/tenues/body_dentelle/tenue-3.webp",
+      "x": 52,
+      "y": 135,
+      "w": 101,
+      "h": 184,
+      "ordre": 2
+     }
+    ],
+    "4": [
+     {
+      "fichier": "personnage/tenues/body_dentelle/tenue-4.webp",
+      "x": 53,
+      "y": 131,
+      "w": 107,
+      "h": 190,
+      "ordre": 2
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Legumly",
+  "short_name": "Legumly",
+  "description": "Votre quotidien, en plus simple : calendrier des semis et récoltes, fiches légumes, plan de vos bacs, rappels et alerte gel.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f8f2",
+  "theme_color": "#4D7C0F",
+  "icons": [
+    { "src": "icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

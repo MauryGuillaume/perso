@@ -1,0 +1,15 @@
+{
+  "nom": "⟦Nom de l'app⟧",
+  "description": "⟦Une phrase : ce que fait l'app et pour qui⟧",
+  "version": "1.0.0",
+  "icone": "mdi-application",
+  "stack": "⟦HTML, CSS, JavaScript + Node.js + PostgreSQL⟧",
+  "web": "⟦public⟧",
+  "schema": ["db/migrations"],
+  "env": [
+    { "cle": "DATABASE_URL", "role": "Connexion à la base PostgreSQL", "secret": true },
+    { "cle": "PORT", "role": "Port HTTP", "secret": false }
+  ],
+  "fonctionnalites": [["⟦Fonctionnalité⟧", "⟦bloc de l'Atelier utilisé, ou vide⟧"]],
+  "notes": "⟦Ce que l'Atelier doit savoir : déploiement, particularités⟧"
+}

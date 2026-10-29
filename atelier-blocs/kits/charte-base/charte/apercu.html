@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte de base — aperçu</title>
+<meta name="description" content="Aperçu des couleurs et composants de la charte">
+<link rel="stylesheet" href="charte.css">
+<style>
+  main { max-width: 720px; margin: 0 auto; padding: var(--e4); }
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--e3); }
+  .nuance { border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; background: var(--carte); }
+  .nuance div { height: 56px; }
+  .nuance p { margin: 0; padding: var(--e2) var(--e3); font-size: var(--t-petit); }
+</style>
+</head>
+<body>
+<header class="barre" style="padding: var(--e4)"><strong>Charte de base</strong></header>
+<main>
+  <h1>Aperçu de la charte</h1>
+  <p class="doux">Référence visuelle : toute l'app doit ressembler à cette page. Rien d'autre que ces couleurs, cette police, ces arrondis et cette ombre.</p>
+
+  <h2>Couleurs</h2>
+  <div class="nuancier">
+    <div class="nuance"><div style="background: var(--primaire)"></div><p>primaire</p></div>
+    <div class="nuance"><div style="background: var(--accent)"></div><p>accent</p></div>
+    <div class="nuance"><div style="background: var(--fond)"></div><p>fond</p></div>
+    <div class="nuance"><div style="background: var(--carte)"></div><p>carte</p></div>
+    <div class="nuance"><div style="background: var(--texte)"></div><p>texte</p></div>
+    <div class="nuance"><div style="background: var(--doux)"></div><p>doux</p></div>
+    <div class="nuance"><div style="background: var(--bordure)"></div><p>bordure</p></div>
+    <div class="nuance"><div style="background: var(--danger)"></div><p>danger</p></div>
+    <div class="nuance"><div style="background: var(--succes)"></div><p>succes</p></div>
+    <div class="nuance"><div style="background: var(--alerte)"></div><p>alerte</p></div>
+  </div>
+
+  <h2>Textes</h2>
+  <div class="carte">
+    <p class="grand-titre" style="margin:0">Grand titre 28 px</p>
+    <p class="titre">Titre 22 px</p>
+    <p>Texte normal 16 px, lisible sur téléphone. <a href="#">Un lien</a>.</p>
+    <p class="doux">Texte doux 14 px pour les informations secondaires.</p>
+    <p class="erreur" role="alert">Message d'erreur : le champ email est obligatoire.</p>
+    <p class="succes">Enregistré.</p>
+  </div>
+
+  <h2>Boutons et pastilles</h2>
+  <div class="carte">
+    <p><button class="btn">Enregistrer</button> <button class="btn btn-secondaire">Annuler</button> <button class="btn btn-danger">Supprimer</button> <button class="btn" disabled>Envoi…</button></p>
+    <p><span class="pastille">Brouillon</span> <span class="pastille pastille-succes">Payée</span> <span class="pastille pastille-alerte">En retard</span> <span class="pastille pastille-danger">Annulée</span></p>
+  </div>
+
+  <h2>Formulaire</h2>
+  <form class="carte carte-relief" novalidate>
+    <label class="champ"><span>Nom</span><input value="Dupont"></label>
+    <label class="champ"><span>Email</span><input type="email" aria-invalid="true" value="dupont@"></label>
+    <p class="erreur">Adresse email incomplète.</p>
+    <label class="champ"><span>Statut</span><select><option>Actif</option><option>Archivé</option></select></label>
+    <button class="btn" type="button">Valider</button>
+  </form>
+</main>
+</body>
+</html>

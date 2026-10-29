@@ -1,0 +1,140 @@
+{
+ "id": "app-complete",
+ "nom": "App complète",
+ "version": "1.2.1",
+ "type": "libre",
+ "parDefaut": true,
+ "etiquettes": [
+  "app",
+  "Node.js",
+  "PostgreSQL",
+  "comptes",
+  "administration",
+  "variables d’environnement",
+  "rôles",
+  "abonnements",
+  "publicité",
+  "charte commune"
+ ],
+ "description": "Le point de départ de toute app avec comptes et données : socle prêt et testé (variables d’environnement vérifiées, base PostgreSQL automatique et optimisée, comptes et rôles, sécurité, journal, RGPD), API d’administration pour gérer l’app depuis l’Atelier, et charte commune à toutes les apps : même style, rôles admin / vip / utilisateur, offre Gratuit avec pub / Premium sans pub, écran Abonnement et bandeau de pub identiques (éteints par défaut). Compte admin / adminadmin à changer à la première connexion.",
+ "criteres": {
+  "contexte": "L’app part du kit « App complète » : le dossier `modele/` est une app Node.js + PostgreSQL qui tourne déjà. Elle apporte les variables d’environnement déclarées et vérifiées, la base créée automatiquement, les comptes, la sécurité, le journal, le RGPD et l’API d’administration que j’utilise depuis l’Atelier (tableur des données, comptes, journal, sauvegarde). Tu écris seulement le métier : `app/app.js`, `db/migrations/` et `public/app-ecrans.js`. Si l’écran est un front séparé (Vue, React, Vite) ou une app mobile, il se connecte par jetons (KIT.md § 10.1). Toutes mes apps suivent la même charte (KIT.md § 17) : même style, rôles `admin`, `vip` et `utilisateur` fournis par le socle, offre Gratuit (avec pub) / Premium (sans pub), écran Abonnement et bandeau de pub du socle, éteints tant que `PUB_ACTIVE` et `PAIEMENT_ACTIF` ne sont pas à 1.",
+  "avant": "Lis le `KIT.md` du kit « App complète » en entier, puis `modele/app/app.js`, `modele/db/migrations/0001_init.sql` et `modele/public/app-ecrans.js`. Présente-moi ensuite en une page : le modèle de données (un tableau par table : colonne, type, obligatoire, défaut, unique, lien et on delete, index, description), les rôles (admin, vip, utilisateur et les rôles métier utiles) avec la matrice des droits (une ligne par action, une colonne par rôle, le palier qui ouvre chaque fonction payante), l’offre (paliers, limites, avantages, prix TTC mensuel et annuel), les variables d’environnement propres à l’app, les routes et les écrans. Attends ma validation.",
+  "regles": "- Copie `modele/` en entier. Ne modifie jamais `serveur.js`, `noyau/`, `public/noyau.js`, `public/socle.css` (contrôlé par empreintes). Si le socle ne permet pas quelque chose, dis-le-moi.\n- Chaque variable d’environnement est déclarée dans `app/app.js → variables` (type, rôle, secret, obligatoire) et lue par `env.get()` : jamais de `process.env` ailleurs que dans `noyau/env.js`. `.env.example` régénéré par `npm run env:exemple`.\n- Le compte par défaut `admin` / `adminadmin` reste tel que le socle le crée : changement de mot de passe imposé à la première connexion.\n- Charte commune (KIT.md § 17) : la charte telle quelle, seules les 4 couleurs de marque, `theme-color` et les icônes changent ; `admin`, `vip` et `utilisateur` viennent du socle (vip = tous les avantages du palier le plus haut sans payer), chaque rôle métier se déclare `{ id, libelle, description }` ; `app.offre` au format commun ; fonctions payantes par `{ palier }` ou `offre.limite()` ; pub, abonnement et paiement uniquement ceux du socle, aucun SDK ajouté.",
+  "donnees": "- Base optimisée (KIT.md § 9) : `id uuid`, `cree_le`/`modifie_le` (déclencheur `maj_modifie_le`), `numeric(12,2)` pour l’argent, `timestamptz`, clé étrangère + `on delete` + index pour chaque relation, `check` pour les valeurs fermées, index sur ce qui est filtré ou trié, `comment on` en français sur chaque table et chaque colonne non évidente.\n- Migrations `db/migrations/NNNN_nom.sql`, rejouables, sans begin/commit ; une migration appliquée ne se modifie jamais ; suppression ou changement de type seulement avec `-- accord` écrit.\n- `app/app.js` renseigne `tables` (libellé, colonne d’affichage, colonnes masquées), `rgpd` (où sont les données personnelles, action, durée de conservation) et `reglages` : c’est ce qui sert à gérer l’app depuis l’Atelier.",
+  "demarche": "1. Copie `modele/`, remplace l’exemple « Suivi clients » : `app/app.js`, `db/migrations/0001_init.sql`, `public/app-ecrans.js`, titre, icônes, `atelier-app.json`, README.\n2. Routes dans `app.routes` (KIT.md § 7) : SQL paramétré, `erreur(400, 'message')`, rôles, journal des actions sensibles.\n3. Écrans avec `appli.ecran` (KIT.md § 8) : `esc()` sur toute donnée, `fr.*` pour dates et montants, `appli.formulaire`.\n4. `npm run env:exemple`, puis les deux outils de recette.",
+  "recette": "- `node outils/verifier-app.js` → **« Conforme »** (25 règles, KIT.md § 13.1).\n- `node outils/recette-app.js postgres://…/postgres` sur un serveur de test → **« Conforme »** (33 scénarios, KIT.md § 13.2).\n- À la main : chaque écran sur téléphone et ordinateur, chaque formulaire avec une erreur, un compte de chaque rôle (utilisateur, vip, rôles métier), l’écran Abonnement, le bandeau avec `PUB_ACTIVE=1` ; import du ZIP dans l’Atelier, Gestion › Tester la connexion › Données.",
+  "livraison": "Dans le ZIP (sans node_modules ni .env) : l’app complète, `package-lock.json`, `.env.example` et `atelier-app.json` (`\"kit\": \"app-complete\"`, `\"admin\": { \"api\": \"/api/admin\" }`) à jour, un README (tables, variables propres, routes publiques justifiées, rôles et matrice des droits, paliers de l’offre) et les sorties « Conforme » des deux outils.",
+  "pieges": "- Modifier un fichier du socle casse la règle 02 et les mises à jour du kit.\n- `process.env.X` dans le code de l’app : variable ni vérifiée, ni documentée, ni visible dans l’Atelier.\n- Une clé étrangère sans index : lent dès que la table grossit.\n- `innerHTML` sans `esc()` : une fiche peut injecter du code dans l’écran de l’admin.\n- `DB_CREER_BASE=1` chez un hébergeur qui fournit la base : l’app ne démarre pas.\n- `ADMIN_API_KEY` donne tous les droits d’admin : seulement chez l’hébergeur et dans l’Atelier.\n- Tester `role === 'vip'` ou calculer un palier dans le code de l’app : passe par `{ palier }` et `offre.limite()` (règle 23).\n- Ajouter un SDK de pub ou de paiement : la CSP le bloque et la règle 23 échoue ; tout passe par le socle."
+ },
+ "regles": [
+  {
+   "id": "socle-intact",
+   "texte": "Le socle (serveur.js, noyau/, public/noyau.js, public/socle.css) est copié tel quel, jamais modifié",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "variables-declarees",
+   "texte": "Chaque variable d’environnement est déclarée (type, rôle, secret) et lue par env.get ; .env.example à jour",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "admin-defaut",
+   "texte": "Compte admin / adminadmin créé d’office, changement de mot de passe imposé à la première connexion",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "modele-valide",
+   "texte": "Modèle de données, rôles, variables, routes et écrans présentés et validés avant de coder",
+   "niveau": "obligatoire",
+   "critere": "avant"
+  },
+  {
+   "id": "base-optimisee",
+   "texte": "Base optimisée : uuid, timestamptz, numeric pour l’argent, index sur chaque clé étrangère, check, commentaires",
+   "niveau": "obligatoire",
+   "critere": "donnees"
+  },
+  {
+   "id": "gestion-atelier",
+   "texte": "app/app.js renseigne tables, rgpd et reglages pour la gestion depuis l’Atelier",
+   "niveau": "obligatoire",
+   "critere": "donnees"
+  },
+  {
+   "id": "front-sur",
+   "texte": "Écrans : esc() sur toute donnée, aucun script ni style en ligne, formats français",
+   "niveau": "obligatoire",
+   "critere": "demarche"
+  },
+  {
+   "id": "recette-conforme",
+   "texte": "verifier-app.js et recette-app.js affichent « Conforme »",
+   "niveau": "obligatoire",
+   "critere": "recette"
+  },
+  {
+   "id": "livraison-complete",
+   "texte": "ZIP livré avec package-lock.json, .env.example, atelier-app.json et README à jour",
+   "niveau": "obligatoire",
+   "critere": "livraison"
+  },
+  {
+   "id": "roles-communs",
+   "texte": "Rôles admin, vip (tous les avantages payants sans payer) et utilisateur fournis par le socle ; rôles métier utiles déclarés avec leur description",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "matrice-droits",
+   "texte": "Matrice des droits (action × rôle, palier des fonctions payantes) et offre présentées avant de coder",
+   "niveau": "obligatoire",
+   "critere": "avant"
+  },
+  {
+   "id": "offre-commune",
+   "texte": "Offre au format commun : Gratuit avec pub et limites, Premium sans pub, prix TTC mensuel et annuel",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "pub-abonnement-socle",
+   "texte": "Bandeau de pub, écran Abonnement et paiement uniquement ceux du socle, éteints par défaut",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  },
+  {
+   "id": "style-commun",
+   "texte": "Charte commune : seules les couleurs de marque, theme-color et les icônes changent",
+   "niveau": "obligatoire",
+   "critere": "regles"
+  }
+ ],
+ "css": "",
+ "valeurs": {},
+ "journal": [
+  {
+   "version": "1.2.1",
+   "date": "2026-10-26",
+   "texte": "Écran Mot de passe : premier champ « Mot de passe actuel » dans tous les cas, champ « Confirmer le nouveau mot de passe » vérifié à l’écran et par le serveur (confirmation dans /api/moi/mdp) ; écrans de connexion, d’inscription, d’installation et de mot de passe imposé mis en forme (bandeau aux couleurs de l’app, logo, carte en relief, bouton Afficher) ; scénario 26 complété"
+  },
+  {
+   "version": "1.2.0",
+   "date": "2026-10-23",
+   "texte": "Charte commune des apps : rôles admin / vip / utilisateur du socle et rôles métier décrits, offre en paliers (Gratuit avec pub, Premium sans pub), table abonnements, routes { palier } et offre.limite(), écran Abonnement, invitation et bandeau de pub communs, paiement Stripe et RevenueCat par webhooks, AdMob sur mobile, le tout éteint par défaut ; verifier-app.js 25 règles, recette-app.js 33 scénarios"
+  },
+  {
+   "version": "1.1.0",
+   "date": "2026-10-22",
+   "texte": "Connexion par jetons pour fronts séparés et apps mobiles (jeton d’accès signé, renouvellement à usage unique), ORIGINES capacitor://localhost, null et * (hors production), corps JSON accepté contre le CSRF, option limite et mdpProvisoire des routes, erreurs { erreur, message } ; recette 27 scénarios"
+  },
+  {
+   "version": "1.0.0",
+   "date": "2026-10-22",
+   "texte": "Première version : socle serveur et front, API d’administration pour l’Atelier, compte admin / adminadmin à changer, verifier-app.js (20 règles) et recette-app.js (26 scénarios), testés sur Node 22 et PostgreSQL 16"
+  }
+ ]
+}

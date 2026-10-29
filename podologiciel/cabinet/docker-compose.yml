@@ -1,0 +1,55 @@
+# PodoLogiciel : base PostgreSQL + API + HTTPS automatique (Caddy)
+# Lancer : docker compose up -d --build   (après avoir rempli .env, voir .env.example)
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: podo
+      POSTGRES_USER: podo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U podo -d podo"]
+      interval: 5s
+      retries: 20
+    networks: [interne]            # la base n'est jamais exposée sur Internet
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://podo:${POSTGRES_PASSWORD}@db:5432/podo?sslmode=disable
+      PODO_CLE: ${PODO_CLE:?PODO_CLE manquant dans .env}
+      PODO_ORIGINE: https://${PODO_DOMAINE:?PODO_DOMAINE manquant dans .env}
+      PODO_PROXY: "1"
+      PODO_INACTIVITE_MIN: ${PODO_INACTIVITE_MIN:-30}
+      PODO_NOM: ${PODO_NOM:-PodoLogiciel}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [interne]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PODO_DOMAINE: ${PODO_DOMAINE}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+    networks: [interne]
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  interne:

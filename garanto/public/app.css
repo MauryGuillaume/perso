@@ -1,0 +1,18 @@
+/* app.css — styles propres à Garanto (après charte.css et socle.css). Uniquement les variables de la charte. */
+.pastille-ok { background: var(--claire-fond); color: var(--primaire); }
+.pastille-bientot { background: var(--ambre); color: var(--sur-ambre); }
+.pastille-expiree { background: var(--danger); color: var(--sur-accent); }
+.filtres { margin: 0 0 var(--e3); }
+.filtres .btn[aria-pressed="true"] { background: var(--accent); color: var(--sur-accent); }
+.vignette { width: 64px; height: 64px; object-fit: cover; border-radius: calc(var(--rayon) - 4px); border: 1px solid var(--bordure); background: var(--fond); flex: none; }
+.vignette-doc { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--t-petit); color: var(--primaire); }
+.note { white-space: pre-wrap; background: var(--fond); padding: var(--e3); border-radius: calc(var(--rayon) - 4px); margin: var(--e3) 0 0; }
+.case { display: flex; align-items: flex-start; gap: var(--e2); margin: var(--e2) 0; }
+.case input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--accent); }
+fieldset.champ { border: 0; padding: 0; margin: 0 0 var(--e3); }
+fieldset.champ legend { font-size: var(--t-petit); color: var(--doux); margin-bottom: var(--e1); padding: 0; }
+.liste select { width: auto; font: inherit; padding: 8px; border: 1px solid var(--bordure); border-radius: calc(var(--rayon) - 4px); background: var(--carte); }
+.vide .btn { margin-top: var(--e3); }
+h3 { font-size: var(--t-normal); margin: var(--e4) 0 var(--e2); }
+.nom-fichier { overflow-wrap: anywhere; }
+.liste a.btn-secondaire { color: var(--accent); display: inline-flex; }

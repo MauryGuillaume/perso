@@ -1,0 +1,25 @@
+{
+  "nom": "Garanto",
+  "description": "Vos tickets et garanties, toujours sous la main : coffre des tickets de caisse et des bons de garantie, rappel avant la fin de garantie, envoi au SAV par e-mail.",
+  "version": "1.0.1",
+  "kit": "app-complete",
+  "icone": "mdi-receipt-text-check",
+  "stack": "HTML, CSS, JavaScript + Node.js + PostgreSQL",
+  "web": "public",
+  "schema": ["noyau/migrations", "db/migrations"],
+  "admin": { "api": "/api/admin", "cle": "ADMIN_API_KEY" },
+  "hebergement": "Scalingo (osc-fr1) + add-on PostgreSQL",
+  "env": [
+    { "cle": "DATABASE_URL", "role": "Connexion à la base PostgreSQL (fournie par l'add-on Scalingo)", "secret": true },
+    { "cle": "ADMIN_API_KEY", "role": "Clé de gestion depuis l'Atelier (générée par l'Atelier)", "secret": true },
+    { "cle": "APP_URL", "role": "Adresse publique de l'app", "secret": false },
+    { "cle": "APP_ENV", "role": "production en ligne", "secret": false },
+    { "cle": "INSCRIPTION_OUVERTE", "role": "1 : inscription libre", "secret": false },
+    { "cle": "BREVO_API_KEY", "role": "Clé de l'API transactionnelle Brevo", "secret": true },
+    { "cle": "EMAIL_EXPEDITEUR", "role": "Adresse d'expédition validée chez Brevo", "secret": false },
+    { "cle": "EMAIL_EXPEDITEUR_NOM", "role": "Nom affiché de l'expéditeur", "secret": false },
+    { "cle": "TACHE_QUOTIDIENNE", "role": "Rappels et suppressions pour inactivité (1 par défaut)", "secret": false }
+  ],
+  "fonctionnalites": [["Comptes et rôles", "app-complete"], ["Mes achats", ""], ["Justificatifs (photo, PDF, JPEG, PNG)", ""], ["Envoi par e-mail (Brevo)", ""], ["Rappel de fin de garantie", ""], ["Export et suppression du compte", ""]],
+  "notes": "Liste complète des variables : .env.example. Fichiers stockés dans PostgreSQL (table justificatifs_contenu, contenu masqué dans l'Atelier). Gestion des données, comptes, journal, RGPD et sauvegarde depuis l'Atelier (Gestion de l'app)."
+}

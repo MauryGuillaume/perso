@@ -1,0 +1,434 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../node_modules/.prisma/livora-client"
+  // "native" reste nécessaire pour `prisma generate` en dev local (Windows/macOS) — sans lui,
+  // le dev quotidien casse. "linux-musl-openssl-3.0.x" est ajouté pour la prod (image Docker
+  // Alpine, OpenSSL 3.0), même schéma que les autres apps du Builder (cf Dockerfile.api).
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  passwordHash     String
+  role             String   @default("user")
+  suspended        Boolean  @default(false)
+  refreshTokenHash String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Champs métier Livora (onboarding, cf src/onboarding/onboarding.dto.ts)
+  prenom          String  @default("")
+  age             Int?
+  sexe            String? // "homme" | "femme" | "autre" | null (non renseigné)
+  tailleCm        Int?
+  poidsKg         Float?
+  onboardingDone  Boolean @default(false)
+}
+
+model UserPermission {
+  id         String    @id @default(uuid())
+  userId     String
+  permission String
+  deletedAt  DateTime?
+
+  @@unique([userId, permission])
+}
+
+model RolePermission {
+  id         String    @id @default(uuid())
+  role       String
+  permission String
+  deletedAt  DateTime?
+
+  @@unique([role, permission])
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Onboarding — réponses brutes du formulaire initial, conservées pour permettre
+// de régénérer/adapter le programme sans tout redemander à l'utilisateur.
+// ═══════════════════════════════════════════════════════════════════════════
+
+model OnboardingResponse {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  // Étape 2 — Objectif
+  objectifPrincipal String // "perdre_poids" | "prendre_muscle" | "condition_physique" | "energie" | "sommeil" | "alimentation" | "autre"
+  objectifsSecondaires Json @default("[]")
+
+  // Étape 3 — Sport
+  niveauSport      String // "debutant" | "intermediaire" | "avance"
+  joursDisponibles Json   // number[] (1=lundi..7=dimanche)
+  dureeSeance      Int    // minutes
+  heureEntrainement String @default("18:30") // "HH:MM" — heure habituelle d'entraînement
+  lieu             String // "maison" | "salle" | "exterieur" | "mixte"
+  materiel         Json   @default("[]") // string[]
+  sportsPreferres  Json   @default("[]") // string[]
+
+  // Étape 4 — Nutrition
+  habitudesAlimentaires String?
+  alimentsAimes         Json    @default("[]")
+  alimentsDetestes      Json    @default("[]")
+  regimeAlimentaire     String? // "omnivore" | "vegetarien" | "vegan" | "sans_gluten" | ...
+  allergies             Json    @default("[]")
+  nombreRepasSouhaite   Int     @default(4)
+  tempsCuisine          Int? // minutes disponibles par repas
+  budget                String? // "serre" | "moyen" | "confortable"
+
+  // Étape 5 — Sommeil
+  heureCoucher     String // "HH:MM"
+  heureReveil      String // "HH:MM"
+  qualitePercue    String? // "mauvaise" | "moyenne" | "bonne"
+  contraintesHoraires String?
+
+  // Étape 6 — Organisation
+  horairesTravail String?
+  contraintes     String?
+  tempsQuotidien  Int? // minutes disponibles par jour pour le programme
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Program — le plan généré par Claude à partir de l'onboarding. Un programme
+// couvre plusieurs semaines ; PlannedDay représente un jour de ce planning
+// (jour 1 à durationWeeks*7), pas une date calendaire fixe — la date réelle
+// se calcule à partir de la date de début du programme (startDate + dayIndex).
+// ═══════════════════════════════════════════════════════════════════════════
+
+model Program {
+  id            String    @id @default(uuid())
+  userId        String
+  objectifPrincipal String
+  durationWeeks Int
+  startDate     DateTime
+  summary       Json // résumé affiché après génération (séances/sem, repas planifiés, etc.)
+  status        String    @default("active") // "active" | "archived"
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+
+  days PlannedDay[]
+
+  @@index([userId])
+  @@index([deletedAt])
+}
+
+model PlannedDay {
+  id        String  @id @default(uuid())
+  programId String
+  program   Program @relation(fields: [programId], references: [id])
+  dayIndex  Int // 0-indexé depuis Program.startDate
+
+  workouts PlannedWorkout[]
+  meals    PlannedMeal[]
+  habits   PlannedHabitEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([programId, dayIndex])
+  @@index([programId])
+}
+
+// ── Sport ──────────────────────────────────────────────────────────────────
+
+model PlannedWorkout {
+  id           String     @id @default(uuid())
+  plannedDayId String
+  plannedDay   PlannedDay @relation(fields: [plannedDayId], references: [id])
+  nom          String
+  dureeMin     Int
+  difficulte   String // "debutant" | "intermediaire" | "avance"
+  objectif     String // "force" | "hypertrophie" | "cardio" | "mobilite"
+  status       String  @default("a_faire") // "a_faire" | "termine" | "ignore" | "reporte"
+
+  exercises WorkoutExercise[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([plannedDayId])
+}
+
+model WorkoutExercise {
+  id               String         @id @default(uuid())
+  plannedWorkoutId String
+  plannedWorkout   PlannedWorkout @relation(fields: [plannedWorkoutId], references: [id])
+  ordre            Int
+  nom              String
+  groupeMusculaire String?
+  series           Int
+  repetitions      String // texte libre ("10" ou "AMRAP" ou "30 sec")
+  poidsKg          Float?
+  reposSec         Int
+  consignes        String?
+  status           String  @default("a_faire") // "a_faire" | "termine"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([plannedWorkoutId])
+}
+
+// ── Nutrition ──────────────────────────────────────────────────────────────
+
+model PlannedMeal {
+  id           String     @id @default(uuid())
+  plannedDayId String
+  plannedDay   PlannedDay @relation(fields: [plannedDayId], references: [id])
+  type         String // "petit_dejeuner" | "dejeuner" | "collation" | "diner"
+  nom          String
+  tempsPrepMin Int?
+  calories     Int?
+  proteinesG   Float?
+  glucidesG    Float?
+  lipidesG     Float?
+  status       String @default("a_faire") // "a_faire" | "termine" | "ignore"
+
+  ingredients MealIngredient[]
+  preparation Json             @default("[]") // string[] (étapes de préparation)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([plannedDayId])
+}
+
+model MealIngredient {
+  id            String      @id @default(uuid())
+  plannedMealId String
+  plannedMeal   PlannedMeal @relation(fields: [plannedMealId], references: [id])
+  nom           String
+  quantite      Float
+  unite         String // "g" | "kg" | "ml" | "L" | "piece" | "cas" | "cac"
+  categorie     String // "fruits_legumes" | "proteines" | "feculents" | "produits_laitiers" | "epicerie" | "autre" (pour le regroupement en liste de courses)
+
+  @@index([plannedMealId])
+}
+
+// ── Habitudes ──────────────────────────────────────────────────────────────
+
+model HabitDefinition {
+  id        String    @id @default(uuid())
+  userId    String
+  libelle   String
+  icone     String? // emoji
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  entries PlannedHabitEntry[]
+
+  @@index([userId])
+}
+
+model PlannedHabitEntry {
+  id                String          @id @default(uuid())
+  plannedDayId      String
+  plannedDay        PlannedDay      @relation(fields: [plannedDayId], references: [id])
+  habitDefinitionId String
+  habitDefinition   HabitDefinition @relation(fields: [habitDefinitionId], references: [id])
+  status            String          @default("a_faire") // "a_faire" | "termine" | "ignore"
+
+  @@unique([plannedDayId, habitDefinitionId])
+  @@index([plannedDayId])
+}
+
+// ── Hydratation & sommeil (log quotidien réel, distinct du planning) ────────
+
+model HydrationEntry {
+  id        String   @id @default(uuid())
+  userId    String
+  date      String // "YYYY-MM-DD"
+  amountMl  Int
+  createdAt DateTime @default(now())
+
+  @@index([userId, date])
+}
+
+model SleepEntry {
+  id           String  @id @default(uuid())
+  userId       String
+  date         String // "YYYY-MM-DD" (nuit du ... au lendemain)
+  heureCoucher String? // "HH:MM" réel, si renseigné
+  heureReveil  String? // "HH:MM" réel, si renseigné
+  dureeMin     Int?
+
+  @@unique([userId, date])
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Gamification — cf docs/gamification-content-guide.md. Toute action réelle (séance/repas/hydratation/
+// habitude terminée) déclenche un gain d'XP (XPTransaction, source de vérité —
+// UserGamification.xp/level sont des valeurs dérivées, recalculables à partir de la
+// somme des transactions, jamais modifiées directement ailleurs que par le service
+// XP). Catalogues (CosmeticItem/CompanionSpecies/WorldZoneDefinition/AchievementDefinition/
+// QuestDefinition/ChestDefinition) = données statiques de contenu, définies dans le code
+// (cf gamification-catalog.ts côté web pour le mock), pas éditables par l'utilisateur.
+// Entités "User*" = l'état/progression de CE user par rapport au catalogue.
+// ═══════════════════════════════════════════════════════════════════════════
+
+model UserGamification {
+  userId          String   @id
+  level           Int      @default(1)
+  xp              Int      @default(0) // XP dans le niveau courant
+  totalXp         Int      @default(0) // XP cumulé depuis le début (ne redescend jamais)
+  currentStreak   Int      @default(0) // jours consécutifs avec au moins une action complétée
+  bestStreak      Int      @default(0)
+  lastActiveDate  String? // "YYYY-MM-DD" — dernier jour où une action a compté pour la série
+  recoveryJokers  Int      @default(2) // jokers de récupération de série disponibles
+  equippedItems   Json     @default("{}") // { slot: cosmeticItemKey } — ex: { "coiffure": "casquette_verte" }
+  companionId     String? // FK logique vers UserCompanion.id (le compagnon actif, s'il en a plusieurs un jour)
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// Historique append-only de tout gain d'XP — source de vérité, jamais modifié ni supprimé
+// (règle anti-abus section 23 : chaque gain est tracé avec sa source, permet de détecter/
+// plafonner les abus a posteriori sans avoir à faire confiance à un compteur mutable seul).
+model XPTransaction {
+  id               String   @id @default(uuid())
+  userId           String
+  amount           Int
+  source           String // "workout_completed" | "meal_completed" | "hydration_goal" | "habit_completed" | "quest_daily" | "quest_weekly" | "quest_monthly" | "achievement_unlocked" | "challenge_completed" | "streak_bonus"
+  relatedEntityId  String? // ex: id du PlannedWorkout, de la Quest, de l'Achievement...
+  createdAt        DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([userId, source, createdAt]) // pour les règles de plafond quotidien par source
+}
+
+// Compteurs quotidiens dérivés — évite de re-scanner XPTransaction à chaque action pour
+// vérifier un plafond (ex: max 1x hydratation/jour compté en XP, cf section 23 anti-abus).
+model DailyGamificationProgress {
+  id             String   @id @default(uuid())
+  userId         String
+  date           String // "YYYY-MM-DD"
+  xpEarned       Int      @default(0)
+  actionsCounted Json     @default("{}") // { "hydration_goal": 1, "habit_completed": 3, ... } — compteur par source, purement pour appliquer les plafonds
+
+  @@unique([userId, date])
+  @@index([userId, date])
+}
+
+model UserCosmeticItem {
+  id             String    @id @default(uuid())
+  userId         String
+  itemKey        String // clé du catalogue CosmeticItem (défini dans le code, pas en base)
+  unlockedAt     DateTime  @default(now())
+  unlockedSource String // "chest" | "level" | "quest" | "achievement" | "event"
+
+  @@unique([userId, itemKey])
+  @@index([userId])
+}
+
+model UserCompanion {
+  id        String   @id @default(uuid())
+  userId    String
+  species   String // clé du catalogue CompanionSpecies ("dragon" | "renard" | ...)
+  nom       String? // nom donné par l'utilisateur, optionnel
+  level     Int      @default(1) // XP propre au compagnon, distinct du niveau du joueur
+  xp        Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model UserWorldZone {
+  id         String   @id @default(uuid())
+  userId     String
+  zoneKey    String // clé du catalogue WorldZoneDefinition
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, zoneKey])
+  @@index([userId])
+}
+
+model UserExerciseUnlock {
+  id           String   @id @default(uuid())
+  userId       String
+  exerciseKey  String // clé du catalogue d'exercices débloquables
+  unlockedAt   DateTime @default(now())
+  // Décidé par l'IA (Game Master), pas automatiquement par XP seul — cf section 7 du prompt :
+  // le déblocage tient compte du niveau sportif réel, pas seulement de l'XP cumulé.
+  decidedBy    String   @default("ai") // "ai" | "level_default" (fallback si l'IA n'est pas dispo)
+
+  @@unique([userId, exerciseKey])
+  @@index([userId])
+}
+
+model UserAchievement {
+  id              String   @id @default(uuid())
+  userId          String
+  achievementKey  String // clé du catalogue AchievementDefinition
+  unlockedAt      DateTime @default(now())
+
+  @@unique([userId, achievementKey])
+  @@index([userId])
+}
+
+// Instance d'une quête assignée à un utilisateur — le contenu (titre, objectifs, récompense)
+// vient soit du catalogue statique (quêtes quotidiennes/hebdo/mensuelles standard) soit est
+// généré par l'IA (quêtes spéciales, cf QuestDefinition.generatedByAi) et alors stocké
+// directement dans `objectives`/`titre` plutôt que référencé par clé de catalogue.
+model UserQuest {
+  id           String    @id @default(uuid())
+  userId       String
+  questKey     String? // clé du catalogue si quête standard ; null si générée par l'IA
+  type         String // "quotidienne" | "hebdomadaire" | "mensuelle" | "speciale"
+  titre        String
+  description  String?
+  objectives   Json // [{ key, label, target, current }]
+  rewardXp     Int
+  rewardChestKey String?
+  status       String    @default("en_cours") // "en_cours" | "terminee" | "expiree"
+  startedAt    DateTime  @default(now())
+  expiresAt    DateTime?
+  completedAt  DateTime?
+
+  @@index([userId, status])
+}
+
+// Défis surprise (section 10) — même forme qu'une UserQuest mais volontairement distincts
+// (statut "optionnel", jamais affichés comme un objectif principal du programme).
+model UserChallenge {
+  id           String    @id @default(uuid())
+  userId       String
+  titre        String
+  raisonAbsurde String? // ex: "Parce que le canard l'exige."
+  description  String
+  rewardXp     Int
+  rewardChestKey String?
+  status       String    @default("proposee") // "proposee" | "acceptee" | "terminee" | "ignoree" | "expiree"
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime?
+  completedAt  DateTime?
+
+  @@index([userId, status])
+}
+
+model UserChest {
+  id         String    @id @default(uuid())
+  userId     String
+  chestKey   String // clé du catalogue ChestDefinition ("quotidien" | "quete" | "rare" | "legendaire")
+  source     String // "workout_completed" | "day_completed" | "quest_completed" | "level_up" | "streak"
+  opened     Boolean   @default(false)
+  contents   Json? // rempli à l'ouverture : [{ type: "xp"|"cosmetic"|"companion"|"badge", ...}]
+  earnedAt   DateTime  @default(now())
+  openedAt   DateTime?
+
+  @@index([userId, opened])
+}
+
+// __BRICK_PRISMA_MODELS__

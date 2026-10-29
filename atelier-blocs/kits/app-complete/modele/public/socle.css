@@ -1,0 +1,96 @@
+/* socle.css — mise en page du kit « App complète » (après charte.css). PRÊT ET TESTÉ : ne pas modifier.
+   Uniquement les variables de la charte. */
+html, body { height: 100%; }
+.barre { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--e3); min-height: calc(56px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) var(--e4) 0; }
+.barre-titre { font-weight: 600; font-size: 18px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.barre-compte { background: transparent; border: 1px solid var(--sur-primaire); color: var(--sur-primaire); border-radius: 999px; min-height: 36px; padding: 0 var(--e3); font: inherit; cursor: pointer; }
+.vue { padding: var(--e4) var(--e4) calc(64px + var(--e5) + env(safe-area-inset-bottom)); max-width: 960px; margin: 0 auto; outline: none; }
+.vue.sans-onglets { padding-bottom: var(--e5); }
+.onglets { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; background: var(--carte); border-top: 1px solid var(--bordure); padding-bottom: env(safe-area-inset-bottom); }
+.onglets a { flex: 1; min-height: 64px; display: flex; align-items: center; justify-content: center; color: var(--doux); text-decoration: none; font-size: var(--t-petit); padding: 0 var(--e1); text-align: center; }
+.onglets a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+.toast { position: fixed; left: var(--e4); right: var(--e4); bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 20; max-width: 480px; margin: 0 auto;
+  background: var(--texte); color: var(--sur-primaire); padding: var(--e3) var(--e4); border-radius: var(--rayon); }
+.toast.erreur { background: var(--danger); }
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste > li { padding: var(--e3) 0; border-bottom: 1px solid var(--bordure); }
+.liste > li:last-child { border-bottom: 0; }
+.liste a { color: inherit; text-decoration: none; display: block; }
+.ligne { display: flex; align-items: center; gap: var(--e3); flex-wrap: wrap; }
+.ligne > .pousse { flex: 1; min-width: 0; }
+.actions { display: flex; gap: var(--e2); flex-wrap: wrap; margin-top: var(--e3); }
+.centre { max-width: 440px; margin: var(--e6) auto; }
+.etapes { display: flex; gap: var(--e2); margin-bottom: var(--e4); }
+.etapes span { flex: 1; height: 4px; border-radius: 2px; background: var(--bordure); }
+.etapes span.faite { background: var(--accent); }
+.tableau { width: 100%; border-collapse: collapse; font-size: var(--t-petit); }
+.tableau th, .tableau td { text-align: left; padding: var(--e2); border-bottom: 1px solid var(--bordure); vertical-align: top; }
+.defile { overflow-x: auto; }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--fond); padding: 2px var(--e1); border-radius: 4px; word-break: break-all; }
+.vide { color: var(--doux); text-align: center; padding: var(--e5) var(--e3); }
+[hidden] { display: none !important; }
+
+/* ---------- Offre commune (KIT.md § 17) : même bandeau, même écran Abonnement, même invitation dans toutes les apps ---------- */
+.pastille-offre { background: var(--accent); color: var(--sur-accent); }
+.pub { position: fixed; left: 0; right: 0; bottom: env(safe-area-inset-bottom); z-index: 4; display: flex; align-items: center; gap: var(--e2);
+  min-height: 56px; padding: var(--e2) var(--e4); background: var(--carte); border-top: 1px solid var(--bordure); font-size: var(--t-petit); }
+body.avec-onglets .pub { bottom: calc(64px + env(safe-area-inset-bottom)); }
+body.avec-pub .vue { padding-bottom: calc(64px + 56px + var(--e5) + env(safe-area-inset-bottom)); }
+body.avec-pub .toast { bottom: calc(80px + 56px + env(safe-area-inset-bottom)); }
+.pub-etiquette { border: 1px solid var(--bordure); border-radius: 4px; padding: 0 var(--e1); color: var(--doux); font-size: 12px; }
+.pub-texte { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pub-lien { font-weight: 600; white-space: nowrap; }
+.feuille-fond { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; background: color-mix(in srgb, var(--texte) 45%, transparent); }
+.feuille { width: 100%; max-width: 520px; background: var(--carte); border-radius: var(--rayon) var(--rayon) 0 0; padding: var(--e5) var(--e4) calc(var(--e5) + env(safe-area-inset-bottom)); }
+.feuille h2 { margin-top: var(--e3); }
+.avantages { list-style: none; margin: var(--e3) 0; padding: 0; }
+.avantages li { padding: var(--e1) 0 var(--e1) var(--e5); position: relative; }
+.avantages li::before { content: "✓"; position: absolute; left: 0; color: var(--succes); font-weight: 600; }
+.avantages li.doux::before { content: "·"; color: var(--doux); }
+.bascule { display: inline-flex; border: 1px solid var(--bordure); border-radius: 999px; padding: var(--e1); margin-bottom: var(--e4); background: var(--carte); }
+.bascule button { border: 0; background: transparent; font: inherit; color: var(--doux); min-height: 36px; padding: 0 var(--e4); border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: var(--e2); }
+.bascule button[aria-pressed="true"] { background: var(--accent); color: var(--sur-accent); font-weight: 600; }
+.offres { display: grid; gap: var(--e3); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: var(--e4); }
+.offre { display: flex; flex-direction: column; margin-bottom: 0; }
+.offre .actions { margin-top: auto; }
+.offre-conseillee { border: 2px solid var(--accent); }
+.offre-actuelle { background: var(--fond); }
+.prix { font-size: var(--t-grand-titre); font-weight: 700; margin: 0; }
+.prix .doux { font-weight: 400; }
+.btn[aria-disabled="true"] { opacity: .6; cursor: default; }
+
+/* ---------- Écrans d'accueil : connexion, inscription, installation, mot de passe imposé ---------- */
+body.ecran-accueil .barre { display: none; }
+body.ecran-accueil { background: var(--fond); }
+body.ecran-accueil .vue { max-width: none; padding: 0 0 calc(var(--e6) + env(safe-area-inset-bottom)); }
+.accueil { position: relative; isolation: isolate; min-height: 100%; padding: calc(var(--e6) + env(safe-area-inset-top)) var(--e4) 0; }
+.accueil::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(260px + env(safe-area-inset-top)); z-index: -1;
+  background: radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--sur-primaire) 14%, transparent) 0 90px, transparent 91px),
+    radial-gradient(circle at 8% 90%, color-mix(in srgb, var(--accent) 45%, transparent) 0 70px, transparent 71px),
+    linear-gradient(160deg, var(--primaire), color-mix(in srgb, var(--primaire) 72%, var(--accent)));
+  border-radius: 0 0 var(--e6) var(--e6); }
+.accueil-entete { display: flex; flex-direction: column; align-items: center; gap: var(--e3); margin-bottom: var(--e5); color: var(--sur-primaire); text-align: center; }
+.accueil-logo { width: 72px; height: 72px; padding: var(--e2); border-radius: 20px; background: var(--carte); box-shadow: var(--ombre); }
+.accueil-nom { margin: 0; font-size: var(--t-titre); font-weight: 700; letter-spacing: -0.01em; }
+.accueil-carte { max-width: 420px; margin: 0 auto; padding: var(--e5); animation: accueil-entree .35s ease-out both; }
+.accueil-carte h1 { font-size: var(--t-titre); margin-bottom: var(--e1); }
+.accueil-intro { color: var(--doux); margin: 0 0 var(--e5); }
+.accueil-note { text-align: center; margin: var(--e4) 0 0; }
+.accueil-pied { max-width: 420px; margin: var(--e4) auto 0; text-align: center; color: var(--doux); font-size: var(--t-petit); }
+.accueil-pied a { font-weight: 600; }
+.accueil .etapes { margin-bottom: var(--e5); }
+.actions-pleines { margin-top: var(--e5); }
+.actions-pleines .btn { flex: 1; }
+@keyframes accueil-entree { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (min-width: 720px) { .accueil { padding-top: calc(72px + env(safe-area-inset-top)); } .accueil::before { height: 320px; } }
+
+/* Champs mot de passe : bouton « Afficher » dans le champ ; la confirmation se signale pendant la saisie */
+.champ-mdp { position: relative; display: block; }
+.champ-mdp input { padding-right: 92px; }
+.voir-mdp { position: absolute; right: var(--e1); top: 50%; transform: translateY(-50%); min-height: 36px; padding: 0 var(--e3); border: 0; border-radius: calc(var(--rayon) - 6px);
+  background: transparent; color: var(--accent); font: inherit; font-size: var(--t-petit); font-weight: 600; cursor: pointer; }
+.voir-mdp:hover { background: var(--fond); }
+.aide-mdp { margin: calc(-1 * var(--e2)) 0 var(--e3); }
+.champ input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.champ input[aria-invalid="true"]:focus { border-color: var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 22%, transparent); }

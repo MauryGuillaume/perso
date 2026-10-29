@@ -1,0 +1,17 @@
+{
+  "nom": "Cabinet Démo",
+  "description": "Prise de rendez-vous et suivi des clients d'un cabinet.",
+  "version": "1.0.0",
+  "icone": "mdi-calendar-account",
+  "stack": "HTML, CSS, JavaScript + Node.js (Express) + PostgreSQL",
+  "web": "public",
+  "schema": ["db/migrations"],
+  "env": [
+    { "cle": "DATABASE_URL", "role": "Connexion à la base PostgreSQL", "secret": true },
+    { "cle": "DB_CREER_BASE", "role": "1 : créer la base si elle n'existe pas", "secret": false },
+    { "cle": "DB_SSL", "role": "1 : connexion chiffrée (base distante)", "secret": false },
+    { "cle": "PORT", "role": "Port HTTP", "secret": false }
+  ],
+  "fonctionnalites": [["Prise de rendez-vous", "agenda"], ["Fiches clients", "cabinet"]],
+  "notes": "Les tables sont créées au démarrage par db/migrer.js."
+}

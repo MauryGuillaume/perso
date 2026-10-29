@@ -1,0 +1,76 @@
+{
+  "id": "socle-pwa",
+  "nom": "Socle PWA",
+  "version": "2.0.0",
+  "type": "libre",
+  "parDefaut": false,
+  "etiquettes": [
+    "technique",
+    "mobile"
+  ],
+  "description": "Base technique d’une app mobile vanilla : socle prêt et testé (routeur, écrans, API, service worker, manifeste), installable, hors ligne, prête pour l’App Store avec l’Atelier.",
+  "criteres": {
+    "contexte": "L’app est une PWA mobile en HTML, CSS et JavaScript vanilla, sans framework ni build. Tu pars du socle `modele/` du kit « Socle PWA » (routeur, écrans, `appli.api`, `appli.esc`, toast, service worker, manifeste) : prêt et testé, tu le remplis au lieu de réécrire la structure.",
+    "avant": "1. Lis entièrement le `KIT.md` du kit « Socle PWA » et tout `modele/`.\n2. Établis la liste des écrans (onglets, données, actions), les appels à l’API et le modèle de données.\n3. Présente-les-moi en une page et attends ma validation si un point est ambigu.",
+    "demarche": "1. Copie `modele/` ; remplace nom, couleurs, icônes et les écrans de `ECRANS` (un fichier `ecran-<nom>.js` par écran pour une grande app).\n2. Écris les écrans avec les classes prêtes (`titre`, `carte`, `liste`, `champ`, `btn`) et `appli.esc` pour toute valeur.\n3. Appelle l’API par `appli.api('/api/…')` (chemins relatifs).\n4. Change `VERSION` dans `sw.js` à chaque livraison.\n5. Teste avec `outils/servir.js` sur un téléphone (390 px) et dans un navigateur de bureau.",
+    "livraison": "- L’app complète, à plat, prête à héberger (avec `manifest.webmanifest` et `sw.js`).\n- Le dossier `supabase/` s’il y a un backend.\n- Un README : lancement, déploiement, mise à jour.\n- Le tableau des variables d’environnement : clé, rôle, obligatoire ou facultative, défaut, secrète.\n- Le résultat de la recette (checklist finale cochée).",
+    "pieges": "- Le service worker garde l’ancienne version en cache : change son numéro de version à chaque livraison.\n- Une table sans règle RLS est lisible par tout le monde avec la clé publique.\n- Ne teste pas un paiement avec des clés de production.\n- `onclick=\"\"` dans le HTML est bloqué par la CSP : brancher les événements en JavaScript.\n- Une adresse `http://localhost` oubliée dans le code coupe l’app mobile de son serveur.",
+    "recette": "- `node outils/verifier-pwa.js .` doit afficher « Conforme » (21 contrôles, KIT.md § 7).\n- Sur téléphone : chaque parcours, installation sur l’écran d’accueil, réouverture hors ligne, nouvelle version visible après livraison, console sans erreur."
+  },
+  "regles": [
+    {
+      "id": "vanilla",
+      "texte": "HTML, CSS et JavaScript vanilla uniquement : pas de framework, pas de build",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "socle",
+      "texte": "Structure du socle modele/ gardée : ECRANS, appli.api (chemins relatifs), appli.esc, sw.js versionné",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "echappement",
+      "texte": "Toute valeur affichée est échappée (aucun innerHTML avec une donnée brute)",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "mobile",
+      "texte": "Utilisable à 390 px de large, sans défilement horizontal",
+      "niveau": "obligatoire",
+      "critere": "affichage"
+    },
+    {
+      "id": "console",
+      "texte": "Console du navigateur sans erreur sur tous les écrans",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "hors-ligne",
+      "texte": "L’app s’ouvre hors ligne après une première visite (service worker)",
+      "niveau": "recommande",
+      "critere": "recette"
+    },
+    {
+      "id": "verifier-pwa",
+      "texte": "outils/verifier-pwa.js affiche « Conforme »",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    }
+  ],
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : socle prêt et testé (modele/), outil de recette verifier-pwa.js, serveur local de test"
+    }
+  ]
+}

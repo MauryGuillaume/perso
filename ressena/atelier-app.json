@@ -1,0 +1,37 @@
+{
+  "nom": "Ressena",
+  "description": "Simple, rapide, toujours avec vous : plan progressif marche / course (0-5 km), guidage vocal et chronomètre, séance suivante adaptée au ressenti.",
+  "version": "1.0.0",
+  "kit": "app-complete",
+  "icone": "mdi-run",
+  "stack": "HTML, CSS, JavaScript + Node.js + PostgreSQL",
+  "web": "public",
+  "schema": [
+    "noyau/migrations",
+    "db/migrations"
+  ],
+  "admin": {
+    "api": "/api/admin",
+    "cle": "ADMIN_API_KEY"
+  },
+  "env": [
+    { "cle": "DATABASE_URL", "role": "Connexion à la base PostgreSQL", "secret": true },
+    { "cle": "ADMIN_API_KEY", "role": "Clé de gestion depuis l'Atelier (générée par l'Atelier)", "secret": true },
+    { "cle": "APP_URL", "role": "Adresse publique de l'app", "secret": false },
+    { "cle": "APP_ENV", "role": "production en ligne", "secret": false },
+    { "cle": "INSCRIPTION_OUVERTE", "role": "1 : chacun crée son compte (app grand public)", "secret": false },
+    { "cle": "ORIGINES", "role": "capacitor://localhost,https://localhost pour l'app mobile", "secret": false },
+    { "cle": "PUB_ACTIVE", "role": "1 : bandeau de pub pour le palier Gratuit (0 par défaut)", "secret": false },
+    { "cle": "PAIEMENT_ACTIF", "role": "1 : abonnement Premium achetable (0 par défaut)", "secret": false }
+  ],
+  "fonctionnalites": [
+    ["Comptes et rôles", "app-complete"],
+    ["Offre Gratuit / Premium (charte commune)", "app-complete"],
+    ["Plan 0-5 km (9 semaines)", ""],
+    ["Séance guidée à la voix avec chronomètre", ""],
+    ["Ressenti et adaptation de la séance suivante", ""],
+    ["Historique des sorties", ""],
+    ["Records et statistiques (Premium)", ""]
+  ],
+  "notes": "Liste complète des variables : .env.example (aucune variable propre en v1). Plans, profils et séances se gèrent depuis l'Atelier (Données) ; réglages : plan de départ, avertissement santé, conseils d'échauffement, langue de la voix. Rôles admin, vip et utilisateur du socle, aucun rôle métier. Offre : Gratuit (pub) / Premium 3,99 €/mois ou 29,99 €/an (records, sans pub). GPS et carte prévus en v2 dans l'app mobile."
+}

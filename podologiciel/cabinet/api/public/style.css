@@ -1,0 +1,127 @@
+/* Style généré par l'Atelier de Blocs — thème de l'app */
+:root {
+  --primaire: #0f3d4c; --accent: #0e7c86; --fond: #f4f5f7; --texte: #101012;
+  --carte: #fff; --bordure: #e4e7ec; --discret: #6b6e78; --rayon: 12px;
+  --police: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font: 15px/1.5 var(--police); color: var(--texte); background: var(--fond); display: flex; flex-direction: column; }
+.ap-entete { background: var(--primaire); color: #fff; padding: 14px 16px; font-weight: 600; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+.ap-pages { flex: 1; overflow: auto; }
+.ap-page { display: none; padding: 16px; }
+.ap-page.active { display: block; }
+.ap-onglets { display: flex; background: var(--carte); border-top: 1px solid var(--bordure); overflow-x: auto; }
+.ap-onglet { flex: 1; min-width: 64px; border: none; background: none; font: inherit; font-size: 11px; color: var(--discret); padding: 6px 4px 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; }
+.ap-onglet .mdi { font-size: 22px; }
+.ap-onglet.active { color: var(--accent); }
+.ap-erreur { background: #fdecea; color: #c62828; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+.ap-info { background: #e1f5fe; color: #01579b; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+.ap-succes { background: #e8f5e9; color: #1b5e20; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+.ap-mentions { color: var(--discret); font-size: 11px; text-align: center; padding: 16px; white-space: pre-line; }
+.ap-cookies { position: fixed; left: 12px; right: 12px; bottom: 76px; background: #101012; color: #fff; padding: 12px; border-radius: var(--rayon); font-size: 13px; display: flex; gap: 10px; align-items: center; z-index: 20; }
+.ap-cookies button { background: #fff; color: #101012; border: none; border-radius: 6px; padding: 6px 12px; font: inherit; font-weight: 600; cursor: pointer; }
+.avec-cookies .ap-page { padding-bottom: 110px; }
+.ap-verrou { text-align: center; padding: 32px 16px; color: var(--discret); }
+.ap-verrou .mdi { font-size: 40px; display: block; }
+/* Composants utilisables par les blocs */
+.titre { font-size: 22px; font-weight: 700; margin: 0 0 8px; }
+.sous-titre { color: var(--discret); margin: 0 0 16px; }
+.carte { background: var(--carte); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 16px; margin-bottom: 12px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font: inherit; font-weight: 600; border: none; border-radius: var(--rayon); padding: 12px 18px; background: var(--accent); color: #fff; cursor: pointer; text-decoration: none; }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn.secondaire { background: var(--carte); color: var(--accent); border: 1px solid var(--accent); }
+.btn.lien { background: none; color: var(--accent); padding: 6px 0; font-weight: 500; }
+.btn.large { width: 100%; }
+.champ { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.champ label { font-size: 13px; font-weight: 600; }
+.champ input, .champ textarea, .champ select { font: inherit; padding: 10px 12px; border: 1px solid var(--bordure); border-radius: var(--rayon); background: var(--carte); color: var(--texte); }
+.liste { list-style: none; margin: 0; padding: 0; background: var(--carte); border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; }
+.liste li { padding: 12px 16px; border-bottom: 1px solid var(--bordure); }
+.liste li:last-child { border-bottom: none; }
+.hero { background: var(--primaire); color: #fff; border-radius: var(--rayon); padding: 28px 20px; margin-bottom: 16px; }
+.hero h1 { margin: 0 0 6px; font-size: 26px; }
+.hero p { margin: 0 0 16px; opacity: .85; }
+[hidden] { display: none !important; }
+/* Impression (appli.imprimer) : seul le document demandé part à l'imprimante ou en PDF */
+#ap-impression { display: none; }
+@media print {
+  body.ap-imprime > *:not(#ap-impression) { display: none !important; }
+  body.ap-imprime #ap-impression { display: block; color: #000; font-size: 12pt; }
+}
+.prix { font-size: 28px; font-weight: 700; color: var(--primaire); }
+.discret { color: var(--discret); font-size: 13px; }
+.ap-toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); background: #101012; color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 13px; z-index: 30; max-width: 90%; }
+/* Kit Charte de base v1.1.0 */
+/* Ajouts communs à toutes les apps de cette charte */
+.titre { letter-spacing: -0.01em; }
+/* Bloc serveur-cabinet v1.0.0 */
+.sc-boite { max-width: 420px; margin: 24px auto; text-align: center; }
+.sc-boite form { text-align: left; }
+.sc-icone { font-size: 40px; color: var(--accent); }
+.sc-etapes { padding-left: 20px; font-size: 14px; }
+.sc-etapes li { margin-bottom: 6px; }
+.sc-secret { display: inline-block; font-size: 15px; letter-spacing: 1px; background: var(--fond); border: 1px solid var(--bordure); border-radius: 6px; padding: 4px 8px; margin: 4px 0; word-break: break-all; user-select: all; }
+.sc-lien { display: block; font-size: 13px; color: var(--accent); }
+.sc-bouton { margin-left: auto; background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: 6px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+/* Bloc agenda v1.1.0 */
+.ag-nav { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.ag-nav .btn.secondaire { padding: 8px 14px; }
+.ag-jour, .ag-pra { font: inherit; padding: 8px 10px; border: 1px solid var(--bordure); border-radius: var(--rayon); }
+.ag-rdv { display: flex; gap: 10px; align-items: flex-start; }
+.ag-heure { font-weight: 700; min-width: 92px; }
+.ag-rdv .ag-corps { flex: 1; min-width: 0; }
+.ag-rdv select { font: inherit; font-size: 13px; padding: 4px; border: 1px solid var(--bordure); border-radius: 6px; }
+.ag-annule { opacity: .55; text-decoration: line-through; }
+.ag-corps a { color: var(--accent); font-weight: 600; }
+.ag-form { margin-top: 16px; }
+/* Bloc patients v1.1.0 */
+.pt-barre { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.pt-cherche, .pt-barre select { flex: 1; min-width: 160px; font: inherit; padding: 10px 12px; border: 1px solid var(--bordure); border-radius: var(--rayon); background: var(--carte); color: var(--texte); }
+.pt-ligne { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; background: none; border: none; font: inherit; color: inherit; text-align: left; padding: 0; cursor: pointer; }
+.pt-ligne b { font-weight: 600; }
+.pt-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0 12px; }
+.pt-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+.pt-actions .btn { padding: 8px 12px; font-size: 13px; }
+.pt-danger { color: #c62828; }
+.pt-consent { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; margin: 4px 0 12px; }
+.pt-archives { display: block; margin-top: 10px; }
+.pt-tag { font-size: 11px; background: var(--bordure); border-radius: 10px; padding: 2px 8px; }
+.pt-h2 { font-size: 16px; margin: 16px 0 8px; }
+.pt-partage { border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 6px 10px; }
+.pt-partage legend { font-size: 13px; padding: 0 4px; }
+.pt-partage label { display: block; font-size: 14px; }
+/* Bloc bilan-podo v1.1.0 */
+.bp-schema { width: 100%; max-width: 420px; display: block; margin: 0 auto; cursor: crosshair; touch-action: manipulation; }
+.bp-pied path, .bp-pied circle { fill: #f6efe9; stroke: var(--texte); stroke-width: 1.5; }
+.bp-legende { font-size: 12px; fill: var(--discret); }
+.bp-point circle { fill: var(--accent); stroke: #fff; stroke-width: 2; }
+.bp-point text { fill: #fff; font-size: 11px; font-weight: 700; }
+.bp-reperes { padding-left: 22px; margin: 8px 0 0; }
+.bp-reperes li { margin-bottom: 6px; }
+.bp-reperes li div { display: flex; gap: 6px; }
+.bp-reperes input { flex: 1; font: inherit; padding: 6px 10px; border: 1px solid var(--bordure); border-radius: var(--rayon); }
+.bp-reperes button { border: none; background: none; color: #c62828; font: inherit; cursor: pointer; }
+/* Bloc facturation v1.1.0 */
+.fa-resume { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.fa-tuile { background: var(--carte); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 10px; }
+.fa-tuile b { display: block; font-size: 18px; }
+.fa-tuile span { font-size: 12px; color: var(--discret); }
+.fa-ligne { display: grid; grid-template-columns: 1fr 64px 90px 32px; gap: 6px; margin-bottom: 6px; }
+.fa-ligne select, .fa-ligne input { font: inherit; padding: 8px; border: 1px solid var(--bordure); border-radius: var(--rayon); min-width: 0; }
+.fa-ligne button { border: none; background: none; color: #c62828; font-size: 18px; cursor: pointer; }
+.fa-total { font-size: 16px; text-align: right; }
+.fa-facture { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.fa-facture .ag-corps { flex: 1; min-width: 140px; }
+/* Bloc journal-acces v1.1.0 */
+.jo-liste li { display: flex; gap: 10px; font-size: 13px; padding: 8px 12px; }
+.jo-liste time { color: var(--discret); white-space: nowrap; }
+/* Bloc equipe-cabinet v1.0.0 */
+.eq-h2 { font-size: 16px; margin: 0 0 10px; }
+.eq-alerte { background: #fff4e5; color: #8a4b00; border-radius: var(--rayon); padding: 8px 12px; font-size: 14px; }
+.eq-compte { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.eq-compte .eq-qui { flex: 1; min-width: 180px; }
+.eq-compte select { font: inherit; font-size: 13px; padding: 4px; border: 1px solid var(--bordure); border-radius: 6px; }
+.eq-tag { font-size: 11px; background: var(--bordure); border-radius: 10px; padding: 2px 8px; }
+.eq-inactif { opacity: .55; }
+.eq-mdp-prov { font-size: 18px; letter-spacing: 1px; user-select: all; }

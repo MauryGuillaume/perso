@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+  <title>Mon app</title>
+  <meta name="description" content="Description courte de l'app.">
+  <meta name="theme-color" content="#001047">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icone-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="barre"><span class="barre-titre" id="titre">Mon app</span></header>
+  <main id="vue" class="vue" tabindex="-1"></main>
+  <nav class="onglets" id="onglets" aria-label="Navigation principale"></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

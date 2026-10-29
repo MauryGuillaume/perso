@@ -1,0 +1,121 @@
+{
+  "origine": "plateforme",
+  "nom": "PodoLogiciel Cabinet",
+  "icone": "mdi-foot-print",
+  "description": "Logiciel de cabinet de podologie de groupe : patients, bilans, agenda, factures, sur le serveur du cabinet (hébergeur HDS), avec double authentification.",
+  "statut": "idee",
+  "kits": [
+    {
+      "kit": "affichage-fr",
+      "version": "1.1.0"
+    },
+    {
+      "kit": "charte-base",
+      "version": "1.1.0"
+    },
+    {
+      "kit": "base-projet",
+      "version": "1.0.0"
+    },
+    {
+      "kit": "bases-donnees",
+      "version": "1.0.0"
+    },
+    {
+      "kit": "securite-renforcee",
+      "version": "1.0.0"
+    }
+  ],
+  "surcharges": {
+    "primaire": "#0f3d4c",
+    "accent": "#0e7c86"
+  },
+  "config": {},
+  "conformite": {},
+  "blocs": [
+    {
+      "uid": "serveur",
+      "bloc": "serveur-cabinet",
+      "version": "1.0.0",
+      "protege": false,
+      "reglages": {
+        "titre": "Connexion au cabinet",
+        "minutes": 15,
+        "aide": "Mot de passe oublié ou téléphone perdu : demande à l’administrateur du cabinet de réinitialiser ton compte."
+      }
+    },
+    {
+      "uid": "agenda",
+      "bloc": "agenda",
+      "version": "1.1.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Agenda",
+        "debut": 8,
+        "fin": 19,
+        "duree": 30
+      }
+    },
+    {
+      "uid": "patients",
+      "bloc": "patients",
+      "version": "1.1.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Patients"
+      }
+    },
+    {
+      "uid": "bilans",
+      "bloc": "bilan-podo",
+      "version": "1.1.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Bilans",
+        "cabinet": "Cabinet de pédicurie-podologie"
+      }
+    },
+    {
+      "uid": "factures",
+      "bloc": "facturation",
+      "version": "1.1.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Factures",
+        "actes": "Soin de pédicurie-podologie — 35\nBilan podologique — 45\nSemelles orthopédiques — 150\nSoin à domicile — 45",
+        "cabinet": "Cabinet de pédicurie-podologie",
+        "praticien": "",
+        "adresse": "",
+        "identifiants": "",
+        "mention": "TVA non applicable, article 261-4-1° du CGI"
+      }
+    },
+    {
+      "uid": "journal",
+      "bloc": "journal-acces",
+      "version": "1.1.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Journal",
+        "garder": 5000
+      }
+    },
+    {
+      "uid": "equipe",
+      "bloc": "equipe-cabinet",
+      "version": "1.0.0",
+      "protege": true,
+      "reglages": {
+        "onglet": "Mon compte",
+        "ongletEquipe": "Équipe"
+      }
+    }
+  ],
+  "notes": "",
+  "liens": {
+    "repo": "",
+    "prod": ""
+  },
+  "versionCourante": 1,
+  "cree": "2026-10-21T13:16:11.510Z"
+}

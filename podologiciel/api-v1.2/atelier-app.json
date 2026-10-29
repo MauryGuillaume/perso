@@ -1,0 +1,107 @@
+{
+  "nom": "PodoLogiciel",
+  "description": "API de PodoLogiciel : comptes des podologues (jetons, double authentification), patients, bilans podologiques, documents des patients, semelles, factures, agenda et dépenses.",
+  "version": "1.2.0",
+  "kit": "app-complete",
+  "icone": "mdi-foot-print",
+  "stack": "Node.js + PostgreSQL (API) ; écran Vue 3 + Vite (podology-web)",
+  "web": "public",
+  "schema": [
+    "noyau/migrations",
+    "db/migrations"
+  ],
+  "admin": {
+    "api": "/api/admin",
+    "cle": "ADMIN_API_KEY"
+  },
+  "env": [
+    {
+      "cle": "DATABASE_URL",
+      "role": "Connexion à la base PostgreSQL",
+      "secret": true
+    },
+    {
+      "cle": "ADMIN_API_KEY",
+      "role": "Clé de gestion depuis l'Atelier (générée par l'Atelier)",
+      "secret": true
+    },
+    {
+      "cle": "JETON_SECRET",
+      "role": "Signature des jetons de connexion de l'écran et de l'app mobile",
+      "secret": true
+    },
+    {
+      "cle": "DEUX_FACTEURS_CLE",
+      "role": "Chiffrement des secrets de double authentification",
+      "secret": true
+    },
+    {
+      "cle": "APP_URL",
+      "role": "Adresse publique de l'API",
+      "secret": false
+    },
+    {
+      "cle": "ORIGINES",
+      "role": "Adresses de l'écran autorisées (site, capacitor://localhost, null pour l'aperçu de l'Atelier)",
+      "secret": false
+    },
+    {
+      "cle": "INSCRIPTION_OUVERTE",
+      "role": "1 : les podologues créent leur compte eux-mêmes",
+      "secret": false
+    },
+    {
+      "cle": "APP_ENV",
+      "role": "production en ligne",
+      "secret": false
+    },
+    {
+      "cle": "PENNYLANE_API_URL",
+      "role": "Adresse de l'API Pennylane (vide = officielle ; bac à sable ou tests seulement)",
+      "secret": false
+    }
+  ],
+  "fonctionnalites": [
+    [
+      "Comptes, jetons et rôles",
+      "app-complete"
+    ],
+    [
+      "Double authentification",
+      ""
+    ],
+    [
+      "Patients",
+      ""
+    ],
+    [
+      "Bilans podologiques",
+      ""
+    ],
+    [
+      "Agenda",
+      ""
+    ],
+    [
+      "Dépenses",
+      ""
+    ],
+    [
+      "Factures et avoirs numérotés",
+      ""
+    ],
+    [
+      "Documents des patients (images, PDF, texte)",
+      ""
+    ],
+    [
+      "Semelles orthopédiques",
+      ""
+    ],
+    [
+      "Envoi facultatif des factures à Pennylane",
+      ""
+    ]
+  ],
+  "notes": "L'écran (podology-web) se construit avec VITE_API_BASE_URL=<adresse de l'API>/api. Variables : .env.example. Gestion des données, comptes, journal, RGPD et sauvegarde depuis l'Atelier (Gestion de l'app)."
+}

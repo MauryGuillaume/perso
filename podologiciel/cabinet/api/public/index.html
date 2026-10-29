@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+  <meta name="theme-color" content="#0f3d4c">
+  <title>PodoLogiciel Cabinet</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="stylesheet" href="vendor/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="vendor/inter/inter.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="ap-entete"><span class="mdi mdi-foot-print"></span>PodoLogiciel Cabinet</header>
+<main class="ap-pages">
+<section class="ap-page" data-page="serveur-connexion" data-bloc="serveur-cabinet" data-role="connexion" data-cache>
+<div class="carte sc-boite">
+  <span class="mdi mdi-shield-account-outline sc-icone"></span>
+  <h1 class="titre">Connexion au cabinet</h1>
+  <form data-mdp>
+    <div class="champ"><label for="sc-email">E-mail</label><input id="sc-email" name="email" type="email" autocomplete="username" required></div>
+    <div class="champ"><label for="sc-mdp">Mot de passe</label><input id="sc-mdp" name="mdp" type="password" autocomplete="current-password" required></div>
+    <button class="btn large" type="submit">Continuer</button>
+  </form>
+  <form data-code hidden>
+    <div data-enrolement hidden>
+      <p><b>Première connexion : active la double authentification.</b></p>
+      <ol class="sc-etapes">
+        <li>Installe une application d’authentification sur ton téléphone (Google Authenticator, Microsoft Authenticator, FreeOTP…).</li>
+        <li>Ajoute un compte avec la clé ci-dessous (saisie manuelle, type « basé sur l’heure ») : <code class="sc-secret" data-secret></code> <a class="sc-lien" data-lien>ou touche ici depuis le téléphone</a></li>
+        <li>Saisis le code à 6 chiffres qu’elle affiche.</li>
+      </ol>
+    </div>
+    <p data-texte-code>Saisis le code à 6 chiffres de ton application d’authentification.</p>
+    <div class="champ"><label for="sc-code">Code de vérification</label><input id="sc-code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" required></div>
+    <button class="btn large" type="submit">Se connecter</button>
+    <button class="btn lien" type="button" data-retour>‹ Changer d’e-mail</button>
+  </form>
+  <p class="discret">Mot de passe oublié ou téléphone perdu : demande à l’administrateur du cabinet de réinitialiser ton compte.</p>
+</div>
+</section>
+<section class="ap-page" data-page="agenda-agenda" data-bloc="agenda" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<div class="ag-nav">
+  <button class="btn secondaire" type="button" data-prec aria-label="Jour précédent">‹</button>
+  <input class="ag-jour" type="date" data-jour aria-label="Jour affiché">
+  <button class="btn secondaire" type="button" data-suiv aria-label="Jour suivant">›</button>
+  <button class="btn lien" type="button" data-auj>Aujourd’hui</button>
+  <select class="ag-pra" data-filtre-pra aria-label="Praticien" hidden></select>
+</div>
+<p class="discret" data-resume></p>
+<ul class="liste" data-liste></ul>
+<form class="carte ag-form" data-form>
+  <h2 class="pt-h2">Nouveau rendez-vous</h2>
+  <div class="pt-grille">
+    <div class="champ"><label for="ag-patient">Patient</label><select id="ag-patient" name="patient" required></select></div>
+    <div class="champ"><label for="ag-date">Date</label><input id="ag-date" name="date" type="date" required></div>
+    <div class="champ"><label for="ag-heure">Heure</label><input id="ag-heure" name="heure" type="time" step="300" required></div>
+    <div class="champ"><label for="ag-duree">Durée (min)</label><input id="ag-duree" name="duree" type="number" min="5" step="5" required></div>
+    <div class="champ" data-champ-pra hidden><label for="ag-pra">Praticien</label><select id="ag-pra" name="praticien"></select></div>
+  </div>
+  <div class="champ"><label for="ag-motif">Motif</label><input id="ag-motif" name="motif"></div>
+  <button class="btn large" type="submit">Ajouter le rendez-vous</button>
+</form>
+</div></section>
+<section class="ap-page" data-page="patients-patients" data-bloc="patients" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<div data-vue-liste>
+  <div class="pt-barre"><input class="pt-cherche" type="search" placeholder="Rechercher (nom, téléphone, e-mail)" aria-label="Rechercher un patient" data-cherche><button class="btn" type="button" data-nouveau>+ Patient</button></div>
+  <ul class="liste" data-liste></ul>
+  <label class="discret pt-archives"><input type="checkbox" data-archives> Afficher les dossiers archivés</label>
+</div>
+<div data-vue-fiche hidden>
+  <button class="btn lien" type="button" data-retour>‹ Tous les patients</button>
+  <h1 class="titre" data-nom></h1>
+  <div class="pt-actions" data-actions>
+    <button class="btn" type="button" data-aller="bilan-podo">Nouveau bilan</button>
+    <button class="btn secondaire" type="button" data-aller="agenda">Rendez-vous</button>
+    <button class="btn secondaire" type="button" data-aller="facturation">Facturer</button>
+    <button class="btn secondaire" type="button" data-exporter>Exporter le dossier</button>
+    <button class="btn secondaire" type="button" data-archiver>Archiver</button>
+    <button class="btn lien pt-danger" type="button" data-supprimer>Supprimer</button>
+  </div>
+  <form class="carte" data-form>
+    <div class="pt-grille">
+      <div class="champ"><label for="pt-nom">Nom</label><input id="pt-nom" name="nom" required autocomplete="off"></div>
+      <div class="champ"><label for="pt-prenom">Prénom</label><input id="pt-prenom" name="prenom" required autocomplete="off"></div>
+      <div class="champ"><label for="pt-naissance">Date de naissance</label><input id="pt-naissance" name="naissance" type="date"></div>
+      <div class="champ"><label for="pt-sexe">Sexe</label><select id="pt-sexe" name="sexe"><option value=""></option><option>Femme</option><option>Homme</option><option>Autre</option></select></div>
+      <div class="champ"><label for="pt-tel">Téléphone</label><input id="pt-tel" name="telephone" type="tel" autocomplete="off"></div>
+      <div class="champ"><label for="pt-email">E-mail</label><input id="pt-email" name="email" type="email" autocomplete="off"></div>
+      <div class="champ"><label for="pt-medecin">Médecin traitant</label><input id="pt-medecin" name="medecin"></div>
+      <div class="champ"><label for="pt-activite">Profession, sport</label><input id="pt-activite" name="activite"></div>
+    </div>
+    <div class="champ"><label for="pt-adresse">Adresse</label><textarea id="pt-adresse" name="adresse" rows="2"></textarea></div>
+    <div class="pt-grille" data-equipe hidden>
+      <div class="champ"><label for="pt-ref">Praticien référent</label><select id="pt-ref" name="referent"></select></div>
+      <fieldset class="champ pt-partage"><legend>Dossier médical partagé avec</legend><div data-partage></div></fieldset>
+    </div>
+    <div data-medical>
+    <div class="champ"><label for="pt-ant">Antécédents, pathologies (diabète, AOMI…)</label><textarea id="pt-ant" name="antecedents" rows="3"></textarea></div>
+    <div class="pt-grille">
+      <div class="champ"><label for="pt-trait">Traitements en cours</label><textarea id="pt-trait" name="traitements" rows="2"></textarea></div>
+      <div class="champ"><label for="pt-all">Allergies</label><textarea id="pt-all" name="allergies" rows="2"></textarea></div>
+    </div>
+    <div class="champ"><label for="pt-notes">Notes</label><textarea id="pt-notes" name="notes" rows="3"></textarea></div>
+    </div>
+    <p class="discret" data-sans-medical hidden>Le dossier médical de ce patient est réservé à son praticien référent et aux praticiens avec qui il est partagé.</p>
+    <label class="pt-consent"><input type="checkbox" name="consentement"> Le patient est informé du traitement de ses données de santé et y consent</label>
+    <button class="btn large" type="submit">Enregistrer le dossier</button>
+  </form>
+  <div data-historique></div>
+</div>
+</div></section>
+<section class="ap-page" data-page="bilans-bilans" data-bloc="bilan-podo" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<div data-vue-liste>
+  <div class="pt-barre"><select data-filtre aria-label="Patient"></select><button class="btn" type="button" data-nouveau>+ Bilan</button></div>
+  <ul class="liste" data-liste></ul>
+</div>
+<form data-form hidden>
+  <button class="btn lien" type="button" data-retour>‹ Tous les bilans</button>
+  <h1 class="titre">Bilan podologique</h1>
+  <div class="carte">
+    <div class="pt-grille">
+      <div class="champ"><label for="bp-patient">Patient</label><select id="bp-patient" name="patient" required></select></div>
+      <div class="champ"><label for="bp-date">Date</label><input id="bp-date" name="date" type="date" required></div>
+      <div class="champ"><label for="bp-pointure">Pointure</label><input id="bp-pointure" name="pointure" inputmode="decimal"></div>
+      <div class="champ"><label for="bp-morpho">Morphologie de l’avant-pied</label><select id="bp-morpho" name="morphologie"><option></option><option>Égyptien</option><option>Grec</option><option>Carré</option></select></div>
+      <div class="champ"><label for="bp-statique">Statique</label><select id="bp-statique" name="statique"><option></option><option>Normale</option><option>Pied plat</option><option>Pied creux</option><option>Valgus</option><option>Varus</option></select></div>
+    </div>
+    <div class="champ"><label for="bp-motif">Motif de consultation</label><textarea id="bp-motif" name="motif" rows="2"></textarea></div>
+    <div class="champ"><label for="bp-douleurs">Douleurs (siège, intensité sur 10, circonstances)</label><textarea id="bp-douleurs" name="douleurs" rows="2"></textarea></div>
+    <div class="champ"><label for="bp-cutane">Examen cutané et unguéal</label><textarea id="bp-cutane" name="cutane" rows="2"></textarea></div>
+    <div class="champ"><label for="bp-marche">Examen à la marche, chaussage</label><textarea id="bp-marche" name="marche" rows="2"></textarea></div>
+  </div>
+  <div class="carte">
+    <h2 class="pt-h2">Schéma des pieds</h2>
+    <p class="discret">Touche un pied pour placer un repère, puis décris-le.</p>
+    <svg class="bp-schema" data-schema viewBox="0 0 320 290" role="img" aria-label="Schéma des pieds gauche et droit">
+      <text x="80" y="284" text-anchor="middle" class="bp-legende">Gauche</text><text x="240" y="284" text-anchor="middle" class="bp-legende">Droit</text>
+      <g class="bp-pied" transform="translate(80,140)"><path d="M8,-96 C34,-100 46,-70 44,-36 C42,-2 36,30 38,66 C40,102 22,124 -2,124 C-26,124 -42,104 -40,70 C-38,36 -48,0 -46,-38 C-44,-76 -22,-94 8,-96 Z"/>
+<circle cx="26" cy="-106" r="15"/><circle cx="2" cy="-114" r="9"/><circle cx="-15" cy="-110" r="8"/><circle cx="-29" cy="-102" r="7"/><circle cx="-40" cy="-90" r="6"/></g>
+      <g class="bp-pied" transform="translate(240,140) scale(-1,1)"><path d="M8,-96 C34,-100 46,-70 44,-36 C42,-2 36,30 38,66 C40,102 22,124 -2,124 C-26,124 -42,104 -40,70 C-38,36 -48,0 -46,-38 C-44,-76 -22,-94 8,-96 Z"/>
+<circle cx="26" cy="-106" r="15"/><circle cx="2" cy="-114" r="9"/><circle cx="-15" cy="-110" r="8"/><circle cx="-29" cy="-102" r="7"/><circle cx="-40" cy="-90" r="6"/></g>
+      <g data-points></g>
+    </svg>
+    <ol class="bp-reperes" data-reperes></ol>
+  </div>
+  <div class="carte">
+    <div class="champ"><label for="bp-conclusion">Conclusion</label><textarea id="bp-conclusion" name="conclusion" rows="3"></textarea></div>
+    <div class="champ"><label for="bp-traitement">Traitement proposé (soins, orthèses, semelles, conseils)</label><textarea id="bp-traitement" name="traitement" rows="3"></textarea></div>
+  </div>
+  <div class="pt-actions">
+    <button class="btn" type="submit">Enregistrer le bilan</button>
+    <button class="btn secondaire" type="button" data-imprimer>PDF / imprimer</button>
+    <button class="btn lien pt-danger" type="button" data-supprimer>Supprimer</button>
+  </div>
+</form>
+</div></section>
+<section class="ap-page" data-page="factures-factures" data-bloc="facturation" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<div class="fa-resume" data-resume></div>
+<div class="pt-barre"><input class="pt-cherche" type="month" data-mois aria-label="Mois"><select data-filtre-pra aria-label="Praticien" hidden></select><button class="btn" type="button" data-nouvelle>+ Facture</button><button class="btn secondaire" type="button" data-csv>Export CSV</button></div>
+<ul class="liste" data-liste></ul>
+<form class="carte" data-form hidden>
+  <h2 class="pt-h2">Nouvelle facture</h2>
+  <div class="pt-grille">
+    <div class="champ"><label for="fa-patient">Patient</label><select id="fa-patient" name="patient" required></select></div>
+    <div class="champ" data-champ-date><label for="fa-date">Date</label><input id="fa-date" name="date" type="date" required></div>
+    <div class="champ" data-champ-pra hidden><label for="fa-pra">Praticien</label><select id="fa-pra" name="praticien"></select></div>
+  </div>
+  <div data-lignes></div>
+  <button class="btn lien" type="button" data-ajout>+ Ajouter un acte</button>
+  <p class="fa-total">Total : <b data-total></b></p>
+  <div class="pt-grille">
+    <div class="champ"><label for="fa-mode">Mode de paiement</label><select id="fa-mode" name="mode"><option>Carte bancaire</option><option>Espèces</option><option>Chèque</option><option>Virement</option></select></div>
+    <div class="champ"><label for="fa-statut">Statut</label><select id="fa-statut" name="statut"><option value="payée">Payée</option><option value="en attente">En attente</option></select></div>
+  </div>
+  <div class="pt-actions"><button class="btn" type="submit">Créer la facture</button><button class="btn secondaire" type="button" data-annuler>Annuler</button></div>
+  <p class="discret">Une facture créée ne se modifie plus (numérotation continue) ; seul son paiement peut changer.</p>
+</form>
+</div></section>
+<section class="ap-page" data-page="journal-journal" data-bloc="journal-acces" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<h1 class="titre">Journal d’accès</h1>
+<p class="sous-titre" data-sous-titre>Qui a ouvert ou modifié quoi, et quand, sur cet appareil.</p>
+<div class="pt-barre"><input class="pt-cherche" type="search" placeholder="Filtrer (patient, action…)" aria-label="Filtrer le journal" data-filtre><button class="btn secondaire" type="button" data-csv>Export CSV</button></div>
+<ul class="liste jo-liste" data-liste></ul>
+</div></section>
+<section class="ap-page" data-page="equipe-compte" data-bloc="equipe-cabinet" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<h1 class="titre">Mon compte</h1>
+<p class="sous-titre" data-qui></p>
+<form class="carte" data-mdp>
+  <h2 class="eq-h2">Mot de passe</h2>
+  <p class="eq-alerte" data-provisoire hidden>Ton mot de passe est provisoire : choisis le tien pour accéder aux dossiers.</p>
+  <div class="champ"><label for="eq-ancien">Mot de passe actuel</label><input id="eq-ancien" name="ancien" type="password" autocomplete="current-password" required></div>
+  <div class="champ"><label for="eq-nouveau">Nouveau mot de passe (12 caractères au moins)</label><input id="eq-nouveau" name="nouveau" type="password" autocomplete="new-password" minlength="12" required></div>
+  <div class="champ"><label for="eq-conf">Confirmer</label><input id="eq-conf" name="confirmation" type="password" autocomplete="new-password" required></div>
+  <button class="btn large" type="submit">Changer le mot de passe</button>
+  <p class="discret">Astuce : une phrase de 4 ou 5 mots est longue et facile à retenir.</p>
+</form>
+<form class="carte" data-profil hidden>
+  <h2 class="eq-h2">En-tête de mes factures</h2>
+  <div class="champ"><label for="eq-cabinet">Nom du cabinet</label><input id="eq-cabinet" name="cabinet"></div>
+  <div class="champ"><label for="eq-adresse">Adresse</label><textarea id="eq-adresse" name="adresse" rows="2"></textarea></div>
+  <div class="champ"><label for="eq-tel">Téléphone</label><input id="eq-tel" name="telephone" type="tel"></div>
+  <div class="champ"><label for="eq-id">Identifiants (RPPS, SIRET, ADELI)</label><input id="eq-id" name="identifiants"></div>
+  <div class="champ"><label for="eq-mention">Mention TVA</label><input id="eq-mention" name="mention" placeholder="TVA non applicable, article 261-4-1° du CGI"></div>
+  <button class="btn" type="submit">Enregistrer</button>
+</form>
+</div></section>
+<section class="ap-page" data-page="equipe-equipe" data-bloc="equipe-cabinet" data-protege>
+<div class="ap-verrou"><span class="mdi mdi-lock-outline"></span><p>Cet écran est réservé aux utilisateurs connectés.</p><button class="btn" type="button">Se connecter</button></div>
+<div class="ap-contenu" hidden>
+<h1 class="titre">Équipe du cabinet</h1>
+<p class="sous-titre">Comptes, rôles et accès. Le praticien voit le dossier médical de ses patients et de ceux qu’on lui partage ; le secrétariat voit l’identité des patients, l’agenda et les factures.</p>
+<div class="carte discret" data-refus hidden>Cet écran est réservé à l’administrateur du cabinet.</div>
+<div data-admin hidden>
+  <ul class="liste" data-liste></ul>
+  <div class="carte" data-prov hidden></div>
+  <form class="carte" data-form>
+    <h2 class="eq-h2">Ajouter un compte</h2>
+    <div class="champ"><label for="eq-nom">Nom et prénom</label><input id="eq-nom" name="nom" required></div>
+    <div class="champ"><label for="eq-email">E-mail</label><input id="eq-email" name="email" type="email" required></div>
+    <div class="champ"><label for="eq-role">Rôle</label><select id="eq-role" name="role"><option value="praticien">Praticien</option><option value="secretariat">Secrétariat</option><option value="admin">Administrateur (praticien qui gère les comptes)</option></select></div>
+    <div class="champ" data-champ-code><label for="eq-code">Initiales (numéro des factures, ex. CD)</label><input id="eq-code" name="code" maxlength="6"></div>
+    <button class="btn" type="submit">Créer le compte</button>
+    <p class="discret">Un mot de passe provisoire s’affiche une seule fois : remets-le en main propre. À la première connexion, la personne choisit son mot de passe et active la double authentification.</p>
+  </form>
+</div>
+</div></section>
+</main>
+<nav class="ap-onglets"><button class="ap-onglet" data-page="agenda-agenda"><span class="mdi mdi-calendar-clock-outline"></span>Agenda</button><button class="ap-onglet" data-page="patients-patients"><span class="mdi mdi-account-heart-outline"></span>Patients</button><button class="ap-onglet" data-page="bilans-bilans"><span class="mdi mdi-foot-print"></span>Bilans</button><button class="ap-onglet" data-page="factures-factures"><span class="mdi mdi-receipt-text-outline"></span>Factures</button><button class="ap-onglet" data-page="journal-journal"><span class="mdi mdi-clipboard-text-clock-outline"></span>Journal</button><button class="ap-onglet" data-page="equipe-compte"><span class="mdi mdi-account-cog-outline"></span>Mon compte</button><button class="ap-onglet" data-page="equipe-equipe"><span class="mdi mdi-account-group-outline"></span>Équipe</button></nav>
+<script src="app.js"></script>
+</body>
+</html>

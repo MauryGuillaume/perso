@@ -1,0 +1,69 @@
+{
+  "id": "charte-base",
+  "nom": "Charte de base",
+  "version": "2.0.0",
+  "type": "charte",
+  "parDefaut": true,
+  "etiquettes": [
+    "design"
+  ],
+  "description": "Base visuelle commune : couleurs, police, tailles, arrondis, ombre et composants prêts (charte.css). Chaque app peut changer certaines valeurs, jamais en ajouter. Vérifiée par verifier-charte.js.",
+  "valeurs": {
+    "primaire": "#001047",
+    "accent": "#2962ff",
+    "fond": "#f4f5f7",
+    "texte": "#101012",
+    "police": "Inter",
+    "rayon": 12
+  },
+  "criteres": {
+    "design": "Charge `charte/charte.css` du kit « Charte de base » en premier, copiée telle quelle (seules les valeurs de `:root` changent). Tout le reste du CSS utilise uniquement les variables (`--primaire`, `--accent`, `--fond`, `--carte`, `--texte`, `--doux`, `--bordure`, `--danger`, `--succes`, `--alerte`, `--police`, `--t-…`, `--rayon`, `--ombre`, `--e1`…`--e6`) et les classes prêtes (`btn`, `carte`, `champ`, `pastille`, `doux`, `erreur`). Aucune couleur, police, ombre ou arrondi en dur : si un besoin n’est pas couvert, propose-moi une évolution de la charte.",
+    "recette": "- `node outils/verifier-charte.js .` doit afficher « Conforme » (11 contrôles, KIT.md § 8).\n- Chaque écran à 390 px comparé à `charte/apercu.html`."
+  },
+  "css": "/* Ajouts communs à toutes les apps de cette charte */\n.titre { letter-spacing: -0.01em; }",
+  "regles": [
+    {
+      "id": "contraste",
+      "texte": "Le texte reste lisible sur son fond (contraste d’au moins 4,5:1)",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "pas-de-couleur",
+      "texte": "Aucune couleur, police ou ombre en dehors de la charte",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "charte-css",
+      "texte": "charte.css chargée telle quelle ; le reste du CSS n’utilise que ses variables",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "verifier-charte",
+      "texte": "outils/verifier-charte.js affiche « Conforme »",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "logo",
+      "texte": "Le logo ou l’icône de l’app est défini",
+      "niveau": "recommande"
+    }
+  ],
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-10-20",
+      "texte": "Texte pour le prompt (critère design) et règle « aucune couleur hors charte »"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : tokens.json, charte.css (variables + composants), apercu.html, outil de recette verifier-charte.js (11 contrôles, contrastes calculés)"
+    }
+  ]
+}

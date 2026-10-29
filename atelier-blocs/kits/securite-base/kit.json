@@ -1,0 +1,76 @@
+{
+  "id": "securite-base",
+  "nom": "Cybersécurité de base",
+  "version": "2.0.0",
+  "type": "securite",
+  "parDefaut": false,
+  "etiquettes": [
+    "sécurité",
+    "RGPD"
+  ],
+  "description": "Le minimum de sécurité (10 règles) pour un prototype, un outil interne ou une petite app. Même outil de recette que le kit renforcé, en niveau base.",
+  "valeurs": {
+    "mdpMin": 10,
+    "httpsObligatoire": true,
+    "csp": true,
+    "protegerDonneesPerso": true
+  },
+  "criteres": {
+    "regles": "Aucun secret dans un fichier livré au navigateur (`index.html`, `app.js`, `.env` public) : les clés secrètes sont des variables du serveur (Supabase secrets).",
+    "securite": "Les clés secrètes (Stripe, clé service Supabase, IA) ne vivent que côté serveur, dans les fonctions Supabase. Le navigateur n’a que l’URL et la clé publique (anon). Chaque table a des règles RLS ; un montant ou un droit est toujours recalculé côté serveur.",
+    "donnees": "Toute donnée personnelle (nom, email, téléphone, adresse) est réservée aux utilisateurs connectés et déclarée dans le README (finalité, durée de conservation).",
+    "recette": "- `node outils/verifier-securite.js . --niveau base` doit afficher « Conforme » (KIT.md § 8).\n- À la main : accès aux données d’un autre utilisateur refusé, aucune donnée sans connexion, HTML saisi sans effet, ZIP sans `.env`."
+  },
+  "regles": [
+    {
+      "id": "secrets-serveur",
+      "texte": "Les clés secrètes (Stripe, Supabase service, IA) sont renseignées uniquement sur le serveur",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "env-livre",
+      "texte": "Aucun fichier .env dans le dépôt ni dans un ZIP livré ; .env.example sans valeur",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "rls",
+      "texte": "Les règles d’accès (RLS) générées ont été relues dans Supabase",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "webhook",
+      "texte": "Les webhooks vérifient la signature de l’expéditeur",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "sauvegarde",
+      "texte": "La base de données est sauvegardée automatiquement",
+      "niveau": "recommande",
+      "critere": "donnees"
+    },
+    {
+      "id": "verifier-securite-base",
+      "texte": "outils/verifier-securite.js --niveau base affiche « Conforme »",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    }
+  ],
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-10-20",
+      "texte": "Textes pour le prompt (règles, sécurité, données)"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : README, PROMPT, KIT (10 règles), outil de recette partagé avec le kit renforcé (--niveau base), exemples"
+    }
+  ]
+}

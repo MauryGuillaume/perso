@@ -1,0 +1,80 @@
+{
+  "id": "affichage-fr",
+  "nom": "Affichage France",
+  "version": "2.0.0",
+  "type": "affichage",
+  "parDefaut": true,
+  "etiquettes": [
+    "France",
+    "légal"
+  ],
+  "description": "Formats français (prix TTC, dates, nombres, téléphones, pluriels) avec affichage.js, pages légales (mentions, confidentialité, CGV) et bandeau cookies conforme à la CNIL. Vérifié par verifier-affichage.js.",
+  "valeurs": {
+    "langue": "fr-FR",
+    "devise": "EUR",
+    "formatDate": "court",
+    "mentions": "",
+    "bandeauCookies": true,
+    "texteCookies": "Cette app utilise uniquement les cookies nécessaires à son fonctionnement."
+  },
+  "criteres": {
+    "affichage": "Tous les textes sont en français, sans faute, avec tutoiement ou vouvoiement constant dans toute l’app. Copie `modele/affichage.js` du kit « Affichage France » tel quel : tout prix, date, heure, nombre, téléphone et pluriel passe par `fr.prix()`, `fr.date()`, `fr.heure()`, `fr.nombre()`, `fr.telephone()`, `fr.pluriel()` (ou `appli.prix()` / `appli.date()`) : jamais de `toFixed(2)`, jamais de `+ ' €'`. Prix TTC pour les particuliers.",
+    "regles": "Mentions légales et politique de confidentialité accessibles depuis chaque écran (modèles du kit à remplir) ; CGV lisibles et acceptées avant tout paiement ; aucun traceur soumis au consentement avant le choix de l’utilisateur (`bandeau-cookies.js`, refuser aussi simple qu’accepter).",
+    "recette": "- `node outils/verifier-affichage.js .` doit afficher « Conforme » (12 contrôles, KIT.md § 8).\n- Liste des ⟦…⟧ restant à remplir dans les pages légales."
+  },
+  "regles": [
+    {
+      "id": "prix-ttc",
+      "texte": "Les prix affichés aux particuliers sont TTC",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "formats",
+      "texte": "Prix, dates et nombres formatés par affichage.js, jamais à la main",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "mentions",
+      "texte": "Les mentions légales (éditeur, hébergeur) sont accessibles",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "confidentialite",
+      "texte": "Politique de confidentialité accessible dès qu’une donnée personnelle est collectée",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "cgv",
+      "texte": "Les CGV sont accessibles avant tout paiement",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "cookies",
+      "texte": "Aucun traceur avant consentement ; refuser aussi simple qu’accepter",
+      "niveau": "obligatoire"
+    },
+    {
+      "id": "verifier-affichage",
+      "texte": "outils/verifier-affichage.js affiche « Conforme »",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    }
+  ],
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-10-20",
+      "texte": "Texte pour le prompt (critère affichage)"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : affichage.js, bandeau-cookies.js (CNIL), modèles de pages légales, outil de recette verifier-affichage.js (12 contrôles)"
+    }
+  ]
+}

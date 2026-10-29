@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Legumly</title>
+  <rect width="512" height="512" fill="#4D7C0F"/>
+  <!-- Pousse : deux feuilles claires et une tige, au-dessus d'un bac orange (zone sûre maskable : cercle de 80 %) -->
+  <path d="M256 300 V214" stroke="#ECFCCB" stroke-width="22" stroke-linecap="round" fill="none"/>
+  <path d="M256 226 C256 160 300 120 372 116 C372 188 330 226 256 226 Z" fill="#84CC16"/>
+  <path d="M256 238 C256 186 220 152 156 150 C156 206 192 238 256 238 Z" fill="#84CC16"/>
+  <path d="M154 300 H358 L340 382 Q336 396 322 396 H190 Q176 396 172 382 Z" fill="#F97316"/>
+  <rect x="140" y="288" width="232" height="28" rx="10" fill="#F97316"/>
+</svg>

@@ -1,0 +1,180 @@
+{
+  "id": "base-projet",
+  "nom": "Base projet",
+  "version": "2.0.0",
+  "type": "libre",
+  "parDefaut": true,
+  "etiquettes": [
+    "socle",
+    "sécurité",
+    "méthode"
+  ],
+  "description": "Mes règles communes à tous mes projets : règles non négociables, démarche, sécurité de base, recette et livraison. Modèles (plan, README, recette, compte rendu, atelier-app.json) et outil verifier-livraison.js (dossier ou ZIP).",
+  "criteres": {
+    "contexte": "Tu développes [[nom]]. [[description]]\nLes kits ci-dessous sont ma base commune : ils s’appliquent à tous mes projets, sans exception.",
+    "regles": "Ces règles ne se discutent pas. Si l’une d’elles t’empêche d’avancer, arrête-toi et propose-moi une solution au lieu de la contourner.",
+    "securite": "La sécurité est vérifiée à chaque étape, pas seulement à la fin.\n- Le navigateur ne reçoit que des valeurs publiques (adresse de l’API, clé publique). Toute clé secrète vit sur le serveur.\n- Toute donnée qui arrive (formulaire, URL, API, fichier) est validée côté serveur et échappée à l’affichage.\n- Un montant, un droit ou un statut est toujours recalculé côté serveur, jamais repris du navigateur.\n- Chaque table a des règles d’accès : un utilisateur ne lit et ne modifie que ce qui le concerne.",
+    "demarche": "1. Lis tout ce prompt et les fichiers fournis.\n2. Si ta compréhension du besoin est inférieure à 90 %, pose-moi tes questions avant d’écrire du code (sous forme de QCM quand c’est possible).\n3. Présente-moi le plan d’une page (`modeles/PLAN.md`) : écrans, modèle de données, fonctions serveur, blocs réutilisés ou à créer. Attends ma validation.\n4. Développe par petites étapes, chacune testable ; dis-moi à chaque étape ce qui est fait et ce qui reste.\n5. Demande-moi avant de pousser, merger, ouvrir une PR, déployer ou supprimer des données.",
+    "recette": "Avant de me livrer, teste toi-même chaque parcours et donne-moi le résultat de chaque point de la checklist (fait, échoué, non testé, avec la raison).",
+    "livraison": "Livre un ZIP conforme au KIT.md § 6 du kit « Base projet » :\n- le code complet, lisible et commenté là où ce n’est pas évident ;\n- `README.md` (modèle `README-app.md`) : à quoi sert l’app, lancement, variables, déploiement, mise à jour, données personnelles ;\n- `.env.example` avec toutes les variables lues par le code, sans valeur secrète ;\n- `atelier-app.json` (modèle fourni) ;\n- `LIVRAISON.md` : livré, changé, résultat de la recette, **ce qui n’est pas fait ou pas testé**, sans rien cacher ;\n- jamais de `.env`, `node_modules`, `.git`, `.next`, dump ou clé.\n`node outils/verifier-livraison.js mon-app.zip` doit afficher « Conforme »."
+  },
+  "regles": [
+    {
+      "id": "pas-de-secret",
+      "texte": "Aucune clé secrète dans le code envoyé au navigateur ni dans le dépôt",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "questions",
+      "texte": "Questions posées avant de coder si le besoin est compris à moins de 90 %",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "validation",
+      "texte": "Accord demandé avant de pousser, merger, ouvrir une PR, déployer ou supprimer des données",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "lisible",
+      "texte": "Code simple et lisible : noms clairs, pas de dépendance inutile",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "francais",
+      "texte": "Textes de l’app en français, sans faute",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "https",
+      "texte": "HTTPS partout, aucune ressource chargée en HTTP",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "validation-serveur",
+      "texte": "Toutes les entrées sont validées côté serveur et échappées à l’affichage",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "acces",
+      "texte": "Chaque table a des règles d’accès ; un utilisateur ne voit que ses données",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "mdp",
+      "texte": "Mots de passe d’au moins 10 caractères, jamais stockés en clair",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "webhooks",
+      "texte": "Les webhooks vérifient la signature de l’expéditeur",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "rgpd",
+      "texte": "Données personnelles limitées au nécessaire, avec une durée de conservation",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "dependances",
+      "texte": "Bibliothèques externes en version fixe, sans faille connue",
+      "niveau": "recommande",
+      "critere": "securite"
+    },
+    {
+      "id": "plan-valide",
+      "texte": "Plan (écrans, données, fonctions) validé avant de coder",
+      "niveau": "obligatoire",
+      "critere": "demarche"
+    },
+    {
+      "id": "petites-etapes",
+      "texte": "Avancement par petites étapes testables, avec un point à chaque étape",
+      "niveau": "recommande",
+      "critere": "demarche"
+    },
+    {
+      "id": "parcours",
+      "texte": "Chaque parcours principal testé de bout en bout",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "mobile",
+      "texte": "Testé sur téléphone (390 px) et sur ordinateur",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "console",
+      "texte": "Aucune erreur dans la console du navigateur",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "erreurs",
+      "texte": "Cas d’erreur testés : champ vide, mauvais mot de passe, réseau coupé, accès refusé",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "secu-recette",
+      "texte": "Vérifié qu’un utilisateur ne peut pas lire les données d’un autre",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "readme",
+      "texte": "README livré : lancement, déploiement, mise à jour",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "env",
+      "texte": "Tableau des variables d’environnement livré",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "non-fait",
+      "texte": "Liste de ce qui n’est pas fait ou pas testé",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "atelier-app",
+      "texte": "atelier-app.json livré et valide",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "verifier-livraison",
+      "texte": "outils/verifier-livraison.js affiche « Conforme » sur le ZIP livré",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    }
+  ],
+  "css": "",
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : modèles (PLAN, README-app, RECETTE, LIVRAISON, atelier-app.json), outil verifier-livraison.js (14 contrôles, dossier ou ZIP), exemple d’app livrée"
+    }
+  ]
+}

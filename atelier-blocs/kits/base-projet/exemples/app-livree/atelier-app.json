@@ -1,0 +1,12 @@
+{
+  "nom": "Mini Notes",
+  "description": "Petite app de notes, exemple de livraison conforme.",
+  "version": "1.0.0",
+  "icone": "mdi-note-text",
+  "stack": "HTML, CSS, JavaScript + Node.js + PostgreSQL",
+  "web": "public",
+  "schema": ["db/migrations"],
+  "env": [{ "cle": "DATABASE_URL", "role": "Connexion à la base", "secret": true }, { "cle": "PORT", "role": "Port HTTP", "secret": false }],
+  "fonctionnalites": [["Notes", ""]],
+  "notes": ""
+}

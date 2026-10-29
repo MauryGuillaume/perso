@@ -1,0 +1,92 @@
+{
+  "id": "bases-donnees",
+  "nom": "Bases de données",
+  "version": "2.0.0",
+  "type": "libre",
+  "parDefaut": true,
+  "etiquettes": [
+    "données",
+    "PostgreSQL",
+    "Supabase",
+    "schéma"
+  ],
+  "description": "Conception des bases : méthode en 6 étapes, conventions, relations, index, accès, données personnelles. Modèle à remplir et outil schema-doc.js (contrôle et documentation sans base).",
+  "criteres": {
+    "regles": "Le schéma de chaque base est conçu dans l’Atelier de Blocs (écran « Bases de données ») : c’est la référence. Aucune table ni colonne n’est créée « à la main » sans être ajoutée au schéma.",
+    "donnees": "- Chaque app a au moins une base ; une base de plus seulement si les données sont vraiment séparées (ex. statistiques, archives).\n- Toutes les tables, colonnes, types, clés, relations et index sont décrits dans la section « Modèle de données » : crée-les exactement, avec le SQL fourni par l’Atelier.\n- Conventions : noms en minuscules avec _, clé `id uuid` (gen_random_uuid()), `cree_le` et `modifie_le` en timestamptz, montants en numeric(12,2), jamais de float pour de l’argent.\n- Chaque relation a sa clé étrangère et son index, avec un comportement à la suppression choisi (interdire, supprimer aussi, vider le lien).\n- Supabase : RLS activée sur toutes les tables ; une table liée à l’utilisateur porte une colonne `utilisateur` (auth.uid()).\n- Évolutions : migrations additives et rejouables (if not exists) ; une suppression ou un changement de type se fait dans une migration à part, après sauvegarde et avec mon accord.",
+    "demarche": "Avant le moindre SQL, remplis `modeles/MODELE-DONNEES.md` du kit « Bases de données » (entités, relations, tables, écrans → colonnes, accès, données personnelles) et attends ma validation. Si une donnée d’un écran n’a pas de colonne, propose la modification du schéma au lieu de l’inventer dans le code.",
+    "recette": "- `node outils/schema-doc.js db/migrations --sortie SCHEMA.md` doit afficher « Conforme » (14 contrôles, KIT.md § 9).\n- Sur une base de test : ajout, modification, suppression d’une ligne sur chaque table, refus d’un lien vers une ligne inexistante et (Supabase) des lignes d’un autre utilisateur.",
+    "livraison": "Livre le SQL de chaque base (fichiers .sql de l’export) et la liste des migrations appliquées en production, avec leur date.",
+    "pieges": "- Une colonne obligatoire ajoutée à une table déjà remplie doit avoir une valeur par défaut, sinon la migration échoue.\n- Un mot de passe de base ne se met jamais dans le code ni dans le dépôt : connexion par le serveur local ou par les variables d’environnement du serveur.\n- `on delete cascade` supprime en chaîne : à réserver aux lignes qui n’ont aucun sens seules."
+  },
+  "regles": [
+    {
+      "id": "une-base-par-app",
+      "texte": "Au moins une base par app, décrite dans l’Atelier (tables, colonnes, relations)",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "schema-reference",
+      "texte": "Le schéma de l’Atelier fait foi : pas de table ni de colonne hors schéma",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "cles-relations",
+      "texte": "Clé primaire sur chaque table, clé étrangère et index sur chaque relation",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "migrations-sans-perte",
+      "texte": "Migrations additives et rejouables ; aucune suppression sans sauvegarde et accord écrit",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "rls-tables",
+      "texte": "Supabase : RLS activée sur chaque table",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "mdp-base",
+      "texte": "Aucun mot de passe de base dans le code, le dépôt ou le navigateur",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "recette-donnees",
+      "texte": "Recette des données sur une base de test avant la production",
+      "niveau": "recommande",
+      "critere": "recette"
+    },
+    {
+      "id": "modele-valide",
+      "texte": "MODELE-DONNEES.md rempli et validé avant le SQL",
+      "niveau": "obligatoire",
+      "critere": "demarche"
+    },
+    {
+      "id": "schema-doc",
+      "texte": "outils/schema-doc.js affiche « Conforme » et SCHEMA.md est livré",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    }
+  ],
+  "css": "",
+  "valeurs": {},
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : méthode en 6 étapes, MODELE-DONNEES.md, outil schema-doc.js (14 contrôles, documentation Mermaid), exemple salon"
+    }
+  ]
+}

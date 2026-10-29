@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>HandFit</title>
+  <rect width="512" height="512" fill="#0B2545"/>
+  <!-- Haltère orange et éclair (explosivité), dans la zone sûre maskable (cercle de 80 %) -->
+  <rect x="136" y="236" width="240" height="40" rx="12" fill="#F97316"/>
+  <rect x="112" y="180" width="44" height="152" rx="14" fill="#F97316"/>
+  <rect x="356" y="180" width="44" height="152" rx="14" fill="#F97316"/>
+  <path d="M272 130 L214 262 H252 L236 382 L304 236 H264 Z" fill="#FFFFFF" stroke="#0B2545" stroke-width="10" stroke-linejoin="round"/>
+</svg>

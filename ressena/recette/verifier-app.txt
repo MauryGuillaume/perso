@@ -1,0 +1,29 @@
+Contrôle de l’app — /tmp/claude-0/-home-user/4087d399-84d6-565f-854a-197815b38fb0/scratchpad/ressena
+
+  ✓ 01 Fichiers du kit présents
+  ✓ 02 Noyau intact (noyau/, serveur.js, public/noyau.js, public/socle.css non modifiés)
+  ✓ 03 package.json : script start, kitAppComplete, pg déclaré
+  ✓ 04 Pas de dépendance en plus de pg (chaque ajout se justifie)
+  ✓ 05 process.env lu uniquement par noyau/env.js (sinon : déclarer dans app/app.js → variables, puis env.get)
+  ✓ 06 app/app.js se charge
+  ✓ 07 Variables de l’app déclarées : CLE_EN_MAJUSCULES, type connu, rôle écrit, pas de doublon avec le noyau
+  ✓ 08 .env.example à jour (node noyau/env.js --exemple) et sans valeur secrète
+  ✓ 09 .gitignore exclut .env et node_modules
+  ✓ 10 Aucun secret écrit dans le code (mot de passe de base, clé privée, clé d’API)
+  ✓ 11 app/app.js : nom, version, tables et rgpd qui existent dans les migrations
+  ✓ 12 Routes de l’app sous /api/, sans prendre les adresses du noyau (admin, session, moi…)
+  ✓ 13 Aucune route de l’app ouverte sans compte (role public) sans raison écrite dans KIT/README
+  ✓ 14 Migrations de l’app numérotées sans doublon, distinctes du socle
+  ✓ 15 Base optimisée : clés, index des liens, timestamptz, numeric, descriptions (schema-doc.js)
+  ✓ 16 Pas de suppression ni de changement de type sans « -- accord » écrit dans la migration
+  ✓ 17 Front compatible CSP : aucun script, style ou onclick en ligne, ni eval
+  ✓ 18 Données de la base échappées dans les écrans : ${esc(…)} et non ${x.champ}
+  ✓ 19 Service worker : l’API n’est jamais mise en cache
+  ✓ 20 atelier-app.json : kit app-complete, même version que app/app.js, admin /api/admin
+  ✓ 21 Rôles : admin, vip et utilisateur viennent du socle ; chaque rôle métier a un id, un libellé et une description de ses droits
+  ✓ 22 Offre au format commun : gratuit d’abord, 3 paliers au plus, prix TTC mois/an et avantages des paliers payants, le plus haut sans pub
+  ✓ 23 Pub, paiement et droits passent par le socle (aucun SDK de pub ou de paiement, aucun test du rôle vip dans le code de l’app)
+  ✓ 24 Charte commune : composants identiques, seules les couleurs primaire et accent changent (contraste 4,5:1), rien en dur dans les écrans
+  ✓ 25 theme-color de index.html = --primaire de la charte
+
+Conforme (lance ensuite la recette de bout en bout : node outils/recette-app.js).

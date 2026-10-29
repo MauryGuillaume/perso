@@ -1,0 +1,193 @@
+{
+  "id": "securite-renforcee",
+  "nom": "Cybersécurité renforcée",
+  "version": "2.0.0",
+  "type": "securite",
+  "parDefaut": true,
+  "obligatoire": true,
+  "etiquettes": [
+    "sécurité",
+    "OWASP",
+    "RGPD",
+    "obligatoire"
+  ],
+  "description": "Socle de sécurité obligatoire pour toutes les apps, aligné sur l’OWASP Top 10 (2021) et l’ASVS niveau 2. Vérifié par l’audit de sécurité.",
+  "valeurs": {
+    "mdpMin": 12,
+    "httpsObligatoire": true,
+    "csp": true,
+    "protegerDonneesPerso": true,
+    "mdpComplexe": true,
+    "entetes": true,
+    "auditExport": "bloquer"
+  },
+  "criteres": {
+    "regles": "La sécurité n’est pas une option : aucune de ces règles ne peut être assouplie sans mon accord écrit. Si une règle bloque, arrête-toi et propose une solution conforme au lieu de la contourner. En cas de doute, choisis toujours l’option la plus sûre.",
+    "securite": "Applique le principe du moindre privilège et la défense en profondeur :\n- **Secrets** : aucune clé secrète dans le code envoyé au navigateur, dans le dépôt ou dans les journaux. Les secrets vivent dans les variables du serveur (Supabase secrets) et sont renouvelés au moindre doute.\n- **Authentification** : Supabase Auth uniquement, mots de passe d’au moins 12 caractères avec minuscule, majuscule, chiffre et symbole, email confirmé, limitation des tentatives côté serveur. Jamais de mot de passe stocké ou journalisé par l’app.\n- **Contrôle d’accès** : RLS activée sur chaque table, une politique par opération, jamais `using (true)` en écriture. Un montant, un droit ou un statut est toujours recalculé côté serveur.\n- **Entrées** : toute donnée reçue (formulaire, URL, API, webhook, fichier) est validée côté serveur (type, longueur, format) et échappée à l’affichage. Pas d’`eval`, pas de `new Function`, pas de SQL construit par concaténation.\n- **Transport et navigateur** : HTTPS partout avec HSTS, CSP stricte, `X-Content-Type-Options: nosniff`, `frame-ancestors 'none'`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` restrictive. Scripts externes en version fixe, avec `integrity` quand c’est possible.\n- **Webhooks et API** : signature vérifiée (Stripe : `constructEventAsync`), CORS limité aux origines de l’app, erreurs génériques côté client (pas de trace technique).",
+    "donnees": "- Données personnelles limitées au strict nécessaire, réservées aux utilisateurs connectés, avec une durée de conservation écrite dans le README.\n- Pas de donnée personnelle ni de jeton dans `localStorage` ou dans les URL.\n- Sauvegardes automatiques de la base, restauration testée.\n- Journal des actions sensibles (connexion, paiement, suppression) côté serveur, sans mot de passe ni donnée bancaire.",
+    "demarche": "Pour chaque écran ou fonction serveur, pose-toi trois questions et écris la réponse dans ton plan : qui a le droit de le faire ? que se passe-t-il si la donnée reçue est fausse ou malveillante ? quelle information fuit en cas d’erreur ?",
+    "recette": "- `node outils/verifier-securite.js .` doit afficher « Conforme » (KIT.md § 9.1), puis avec `--url` sur le site publié.\n- Audit de sécurité de l’Atelier (écran Audit) sur le code ET sur le site en ligne : aucun point critique ni élevé.\n- À la main : accès aux données d’un autre utilisateur, accès sans être connecté, champ trop long ou avec du HTML, rejeu d’un webhook sans signature, dix mauvais mots de passe.",
+    "livraison": "Joins le résultat de `verifier-securite.js` (code et site), le rapport d’audit de l’Atelier (note A ou B) et la liste des points restants avec leur justification.",
+    "pieges": "- Une clé « service_role » de Supabase dans le front donne tous les droits sur la base : c’est le piège le plus grave.\n- Une variable `NEXT_PUBLIC_…` ou `VITE_…` est publique : elle part dans le navigateur.\n- Un fichier `.env` oublié dans le déploiement ou le dépôt expose tous les secrets.\n- `verify_jwt = false` sur une fonction Supabase la rend appelable par n’importe qui : réservé aux webhooks signés.",
+    "avant": "Lis le `KIT.md` du kit « Cybersécurité renforcée » en entier. Dans ton plan, réponds pour chaque écran et chaque route aux trois questions (KIT.md § 2)."
+  },
+  "regles": [
+    {
+      "id": "zero-secret",
+      "texte": "Aucune clé secrète dans le front, le dépôt, les journaux ou un .env déployé",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "moindre-privilege",
+      "texte": "Moindre privilège : chaque utilisateur, clé et fonction n’a que les droits nécessaires",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "serveur-decide",
+      "texte": "Les montants, droits et statuts sont toujours décidés côté serveur",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "audit-ok",
+      "texte": "Audit de sécurité sans point critique ni élevé avant toute mise en ligne",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "mdp-forts",
+      "texte": "Mots de passe de 12 caractères minimum, avec minuscule, majuscule, chiffre et symbole",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "email-confirme",
+      "texte": "Email confirmé avant le premier accès aux données",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "rls-partout",
+      "texte": "RLS activée sur chaque table, jamais using (true) en écriture",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "validation-entrees",
+      "texte": "Entrées validées côté serveur et échappées à l’affichage ; ni eval ni SQL concaténé",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "https-hsts",
+      "texte": "HTTPS partout avec HSTS ; aucune ressource chargée en HTTP",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "entetes",
+      "texte": "En-têtes de sécurité en place : CSP, nosniff, frame-ancestors, Referrer-Policy, Permissions-Policy",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "webhook-signe",
+      "texte": "Chaque webhook vérifie la signature de l’expéditeur",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "cors",
+      "texte": "CORS limité aux origines de l’app (pas de * avec des identifiants)",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "erreurs-generiques",
+      "texte": "Messages d’erreur génériques côté client, détails seulement dans les journaux serveur",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "dependances-fixes",
+      "texte": "Dépendances en version fixe, sans vulnérabilité connue (npm audit)",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    },
+    {
+      "id": "sri",
+      "texte": "Scripts externes avec attribut integrity (SRI) quand c’est possible",
+      "niveau": "recommande",
+      "critere": "securite"
+    },
+    {
+      "id": "dp-minimum",
+      "texte": "Données personnelles minimales, réservées aux connectés, avec durée de conservation",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "pas-localstorage",
+      "texte": "Ni jeton ni donnée personnelle dans localStorage ou dans les URL",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "sauvegardes",
+      "texte": "Sauvegardes automatiques de la base, restauration testée",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "journal",
+      "texte": "Actions sensibles journalisées côté serveur, sans secret ni donnée bancaire",
+      "niveau": "recommande",
+      "critere": "donnees"
+    },
+    {
+      "id": "test-acces",
+      "texte": "Testé : un utilisateur ne peut ni lire ni modifier les données d’un autre",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "test-anonyme",
+      "texte": "Testé : aucune donnée protégée accessible sans être connecté",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "test-injection",
+      "texte": "Testé : saisie de HTML, de script et de texte très long sans effet",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "rapport-audit",
+      "texte": "Rapport d’audit de sécurité (note A ou B) joint à la livraison",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "verifier-securite",
+      "texte": "outils/verifier-securite.js affiche « Conforme » sur le code et sur le site en ligne",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    }
+  ],
+  "reference": "# Politique de sécurité des apps\n\nRéférentiels : OWASP Top 10 (2021), OWASP ASVS 4.0 niveau 2, recommandations ANSSI pour les applications web, RGPD.\n\n## Correspondance OWASP Top 10\n\n| Risque | Exigence |\n| --- | --- |\n| A01 Contrôle d’accès défaillant | RLS sur chaque table, écrans protégés, droits vérifiés côté serveur |\n| A02 Défaillances cryptographiques | HTTPS + HSTS, aucun secret côté client, hachage confié à Supabase Auth |\n| A03 Injection | Requêtes paramétrées, échappement systématique, pas d’eval |\n| A04 Conception non sécurisée | Plan validé avec les trois questions (qui, entrée malveillante, fuite) |\n| A05 Mauvaise configuration | En-têtes de sécurité, pas de .env déployé, mode debug coupé |\n| A06 Composants vulnérables | Versions fixes, npm audit, SRI |\n| A07 Identification et authentification | Mots de passe forts, email confirmé, limitation des tentatives |\n| A08 Intégrité des logiciels et données | Webhooks signés, SRI, dépendances verrouillées (package-lock) |\n| A09 Journalisation et surveillance | Journal des actions sensibles côté serveur |\n| A10 SSRF | Les fonctions serveur n’appellent que des adresses connues |\n\n## En-têtes HTTP attendus\n\n```\nStrict-Transport-Security: max-age=31536000; includeSubDomains\nContent-Security-Policy: default-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'\nX-Content-Type-Options: nosniff\nReferrer-Policy: strict-origin-when-cross-origin\nPermissions-Policy: camera=(), microphone=(), geolocation=()\nCross-Origin-Opener-Policy: same-origin\n```\n\nL’export de l’Atelier les fournit dans `_headers` (Netlify, Cloudflare Pages) et `vercel.json` (Vercel).\n\n## Supabase\n\n- Clé « anon » seule côté navigateur ; « service_role » uniquement dans les fonctions serveur.\n- RLS activée sur toutes les tables du schéma public ; une politique par opération.\n- Auth : longueur minimale 12, exigences « minuscule, majuscule, chiffre, symbole », confirmation d’email, protection contre les mots de passe divulgués (offre Pro).\n- Fonctions : `verify_jwt = true` sauf webhooks signés.\n\n## Stripe\n\n- Montant et produit décidés par la fonction serveur, jamais par le navigateur.\n- Webhook vérifié par `constructEventAsync` avec STRIPE_WEBHOOK_SECRET ; traitement idempotent.\n- Clés de test en développement, clés live uniquement dans les secrets de production.\n\n## Gestion d’un incident\n\n1. Révoquer immédiatement la clé exposée et en créer une nouvelle.\n2. Chercher dans les journaux toute utilisation anormale.\n3. Corriger, relancer l’audit, documenter l’incident (date, cause, données touchées).\n4. Si des données personnelles sont touchées : notification à la CNIL sous 72 h si le risque l’exige.\n",
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-20",
+      "texte": "Première version : obligatoire pour toutes les apps"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-22",
+      "texte": "Format complet : README, PROMPT, KIT, outil de recette verifier-securite.js, exemples (serveur protégé, en-têtes, RLS, webhook Stripe)"
+    }
+  ]
+}

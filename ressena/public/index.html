@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ressena</title>
+  <meta name="theme-color" content="#4338CA">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icone-180.png">
+  <link rel="stylesheet" href="/charte.css">
+  <link rel="stylesheet" href="/socle.css">
+  <!-- Kit « App complète » : aucun style ni script en ligne (CSP stricte). Les écrans de l'app sont dans app-ecrans.js. -->
+  <script src="/affichage.js" defer></script>
+  <script src="/noyau.js" defer></script>
+  <script src="/app-ecrans.js" defer></script>
+</head>
+<body>
+  <header class="barre"><span class="barre-titre" id="titre-app">…</span><button class="barre-compte" id="bouton-compte" hidden>Compte</button></header>
+  <main id="vue" class="vue" tabindex="-1"><p class="vide">Chargement…</p></main>
+  <nav class="onglets" id="onglets" aria-label="Navigation" hidden></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="vide">Cette app a besoin de JavaScript.</p></noscript>
+</body>
+</html>

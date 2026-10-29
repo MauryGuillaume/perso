@@ -1,0 +1,32 @@
+/* socle.css — mise en page du kit « App complète » (après charte.css). PRÊT ET TESTÉ : ne pas modifier.
+   Uniquement les variables de la charte. */
+html, body { height: 100%; }
+.barre { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: var(--e3); min-height: calc(56px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) var(--e4) 0; }
+.barre-titre { font-weight: 600; font-size: 18px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.barre-compte { background: transparent; border: 1px solid var(--sur-primaire); color: var(--sur-primaire); border-radius: 999px; min-height: 36px; padding: 0 var(--e3); font: inherit; cursor: pointer; }
+.vue { padding: var(--e4) var(--e4) calc(64px + var(--e5) + env(safe-area-inset-bottom)); max-width: 960px; margin: 0 auto; outline: none; }
+.vue.sans-onglets { padding-bottom: var(--e5); }
+.onglets { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; background: var(--carte); border-top: 1px solid var(--bordure); padding-bottom: env(safe-area-inset-bottom); }
+.onglets a { flex: 1; min-height: 64px; display: flex; align-items: center; justify-content: center; color: var(--doux); text-decoration: none; font-size: var(--t-petit); padding: 0 var(--e1); text-align: center; }
+.onglets a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+.toast { position: fixed; left: var(--e4); right: var(--e4); bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 20; max-width: 480px; margin: 0 auto;
+  background: var(--texte); color: var(--sur-primaire); padding: var(--e3) var(--e4); border-radius: var(--rayon); }
+.toast.erreur { background: var(--danger); }
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste > li { padding: var(--e3) 0; border-bottom: 1px solid var(--bordure); }
+.liste > li:last-child { border-bottom: 0; }
+.liste a { color: inherit; text-decoration: none; display: block; }
+.ligne { display: flex; align-items: center; gap: var(--e3); flex-wrap: wrap; }
+.ligne > .pousse { flex: 1; min-width: 0; }
+.actions { display: flex; gap: var(--e2); flex-wrap: wrap; margin-top: var(--e3); }
+.centre { max-width: 440px; margin: var(--e6) auto; }
+.etapes { display: flex; gap: var(--e2); margin-bottom: var(--e4); }
+.etapes span { flex: 1; height: 4px; border-radius: 2px; background: var(--bordure); }
+.etapes span.faite { background: var(--accent); }
+.tableau { width: 100%; border-collapse: collapse; font-size: var(--t-petit); }
+.tableau th, .tableau td { text-align: left; padding: var(--e2); border-bottom: 1px solid var(--bordure); vertical-align: top; }
+.defile { overflow-x: auto; }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--fond); padding: 2px var(--e1); border-radius: 4px; word-break: break-all; }
+.vide { color: var(--doux); text-align: center; padding: var(--e5) var(--e3); }
+[hidden] { display: none !important; }

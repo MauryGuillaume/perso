@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier de Blocs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="ab-style.css">
+</head>
+<body>
+  <!-- Barre latérale : remplie par ab-app.js -->
+  <aside id="sidebar">
+    <div class="sb-brand">
+      <span class="sb-tile"><span class="mdi mdi-puzzle-outline"></span></span>
+      <div>
+        <div class="sb-name">Atelier de Blocs</div>
+        <div class="sb-desc">Créer des apps avec des blocs</div>
+      </div>
+    </div>
+    <nav id="sbNav"></nav>
+    <div class="sb-foot" id="sbFoot"></div>
+  </aside>
+  <div id="navOverlay"></div>
+
+  <div id="shell">
+    <header id="topbar">
+      <button class="btn btn-ghost btn-icon" id="navToggle" title="Menu"><span class="mdi mdi-menu"></span></button>
+      <div id="crumbs"></div>
+    </header>
+    <main id="view"></main>
+  </div>
+
+  <div id="toasts"></div>
+
+  <!-- Ordre de chargement : utilitaires, données, registres (blocs, kits), génération, blocs et kits fournis, vues, puis démarrage (toujours en dernier) -->
+  <script src="ab-utils.js"></script>
+  <script src="ab-db.js"></script>
+  <script src="ab-blocs.js"></script>
+  <script src="ab-kits.js"></script>
+  <script src="ab-zip.js"></script>
+  <script src="ab-fichiers.js"></script>
+  <script src="ab-design.js"></script>
+  <script src="ab-design-ia.js"></script>
+  <script src="ab-rendu.js"></script>
+  <script src="ab-bases.js"></script>
+  <script src="ab-prompt.js"></script>
+  <script src="ab-audit.js"></script>
+  <script src="ab-rapport.js"></script>
+  <script src="ab-ia.js"></script>
+  <script src="ab-catalogue-bases.js"></script>
+  <script src="ab-catalogue.js"></script>
+  <script src="ab-revenus.js"></script>
+  <script src="ab-mobile.js"></script>
+  <script src="ab-construire.js"></script>
+  <script src="ab-avatars-app.js"></script>
+  <script src="ab-code.js"></script>
+  <script src="ab-gestion.js"></script>
+  <script src="ab-apercu.js"></script>
+  <script src="ab-veille.js"></script>
+  <script src="ab-identite.js"></script>
+  <script src="ab-discussion.js"></script>
+  <script src="bloc-base.js"></script>
+  <script src="bloc-connexion.js"></script>
+  <script src="bloc-paiement.js"></script>
+  <script src="bloc-avatar.js"></script>
+  <script src="bloc-admin.js"></script>
+  <script src="bloc-stats.js"></script>
+  <script src="bloc-sante-v1.js"></script>
+  <script src="bloc-sante.js"></script>
+  <script src="bloc-cabinet.js"></script>
+  <script src="kit-base.js"></script>
+  <script src="ab-vue-accueil.js"></script>
+  <script src="ab-vue-creer.js"></script>
+  <script src="ab-vue-nouvelle.js"></script>
+  <script src="ab-vue-apps.js"></script>
+  <script src="ab-vue-code.js"></script>
+  <script src="ab-vue-composeur.js"></script>
+  <script src="ab-vue-atelier.js"></script>
+  <script src="ab-vue-kits.js"></script>
+  <script src="ab-vue-prompt.js"></script>
+  <script src="ab-vue-audit.js"></script>
+  <script src="ab-vue-bases.js"></script>
+  <script src="ab-vue-design.js"></script>
+  <script src="ab-vue-mobile.js"></script>
+  <script src="ab-vue-reglages.js"></script>
+  <script src="ab-vue-veille.js"></script>
+  <script src="ab-app.js"></script>
+</body>
+</html>

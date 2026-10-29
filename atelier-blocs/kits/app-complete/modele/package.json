@@ -1,0 +1,21 @@
+{
+  "name": "suivi-clients",
+  "version": "1.0.0",
+  "private": true,
+  "description": "App sur le kit « App complète » de l'Atelier de Blocs",
+  "kitAppComplete": "1.2.1",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node serveur.js",
+    "db:migrer": "node noyau/base.js",
+    "env:exemple": "node noyau/env.js --exemple > .env.example",
+    "env:verifier": "node noyau/env.js --verifier",
+    "verifier": "node outils/verifier-app.js",
+    "recette": "node outils/recette-app.js"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  }
+}

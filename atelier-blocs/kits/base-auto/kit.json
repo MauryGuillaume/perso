@@ -1,0 +1,90 @@
+{
+  "id": "base-auto",
+  "nom": "Base de données automatique",
+  "version": "1.0.0",
+  "type": "libre",
+  "parDefaut": true,
+  "etiquettes": [
+    "données",
+    "PostgreSQL",
+    "migrations",
+    "automatique"
+  ],
+  "description": "Pour toute app qui enregistre des données : la base et toutes ses tables (colonnes, clés, relations, index) sont créées automatiquement par l’app au démarrage, et l’Atelier les affiche dès l’import du ZIP.",
+  "criteres": {
+    "contexte": "Si l’app enregistre des données, elle a une base PostgreSQL (ou Supabase) **créée automatiquement** : au démarrage, le serveur lance `db/migrer.js` (fourni dans le kit, à copier tel quel), qui crée la base si besoin puis toutes les tables manquantes à partir des fichiers `db/migrations/NNNN_….sql`. Personne ne lance de SQL à la main. Si l’app n’a aucune donnée à garder, ignore ce kit.",
+    "avant": "Lis le `KIT.md` du kit « Base de données automatique » en entier. Présente-moi ensuite le modèle complet avant de coder : un tableau par table (colonne, type, obligatoire, défaut, unique, lien et on delete, description), et attends ma validation. Si le prompt contient un « Modèle de données » ou un dossier `bases/`, il vient de mon Atelier : reprends-le exactement.",
+    "regles": "`db/migrer.js` est copié tel quel, sans modification, et appelé au démarrage avant d’écouter. Tout le schéma est dans `db/migrations/` : aucune table créée ailleurs (ni à la main, ni par un ORM).",
+    "donnees": "- Conventions (KIT.md § 3) : noms en minuscules avec _, en français ; `id uuid primary key default gen_random_uuid()` ; `cree_le` et `modifie_le` en timestamptz (déclencheur `maj_modifie_le`) ; `numeric(12,2)` pour l’argent ; `timestamptz` pour les dates-heures ; `check (… in (…))` pour les valeurs fermées.\n- Chaque relation : colonne `<table>_id`, `references`, `on delete` choisi, et un index.\n- Un `comment on table` et un `comment on column` (en français) pour chaque table et chaque colonne non évidente : l’Atelier les affiche.\n- Migrations (KIT.md § 4) : `0001_init.sql`, puis un nouveau fichier par évolution ; rejouables (`if not exists`) ; pas de `begin`/`commit` ; jamais de modification d’une migration appliquée.\n- Données de départ dans une migration avec `on conflict do nothing`, jamais de mot de passe en dur.",
+    "demarche": "1. Écris `0001_init.sql` avec tout le modèle validé (format : `exemples/db/migrations/0001_init.sql`).\n2. Copie `db/migrer.js` et `outils/verifier-base.js` ; ajoute la dépendance `pg` et les scripts `db:migrer` et `db:verifier`.\n3. Au démarrage du serveur : `await require('./db/migrer')()` avant `listen` (exemple : `exemples/serveur.js`).\n4. Chaque changement du modèle pendant le développement = un nouveau fichier de migration.\n5. Dans `atelier-app.json` : `\"schema\": [\"db/migrations\"]`.",
+    "recette": "- `node outils/verifier-base.js .` doit afficher **« Conforme »** (14 règles, KIT.md § 9).\n- Base absente avec `DB_CREER_BASE=1` → démarrage → base et tables créées ; redémarrage → « base à jour ».\n- Sur chaque table : ajout, modification, suppression ; refus d’un lien vers une ligne inexistante et d’une valeur hors `check`.\n- Import du ZIP dans l’Atelier → l’onglet Base de données montre les mêmes tables et colonnes.",
+    "livraison": "Dans le ZIP : `db/migrations/*.sql`, `db/migrer.js` branché au démarrage, `outils/verifier-base.js`, scripts `db:migrer` et `db:verifier`, `DATABASE_URL`, `DB_CREER_BASE` et `DB_SSL` dans `.env.example`, `atelier-app.json` avec `\"schema\": [\"db/migrations\"]`, et dans le README le tableau des tables, comment repartir d’une base vide et la sortie de la recette.",
+    "pieges": "- `DB_CREER_BASE=1` demande le droit CREATEDB : chez un hébergeur (Supabase, Neon, Scaleway…), la base existe déjà, mets 0.\n- Une colonne `not null` ajoutée à une table remplie sans `default` fait échouer la migration.\n- Jamais `synchronize: true` ni `prisma db push` en production.\n- Les fichiers de `exemples/` montrent le format : ils ne vont pas tels quels dans l’app."
+  },
+  "regles": [
+    {
+      "id": "creation-auto",
+      "texte": "La base et toutes les tables sont créées automatiquement au démarrage (db/migrer.js copié tel quel), sans SQL à lancer à la main",
+      "niveau": "obligatoire",
+      "critere": "regles"
+    },
+    {
+      "id": "modele-valide",
+      "texte": "Modèle complet (tables, colonnes, types, clés, relations, index) présenté et validé avant de coder",
+      "niveau": "obligatoire",
+      "critere": "avant"
+    },
+    {
+      "id": "migrations-numerotees",
+      "texte": "Migrations numérotées dans db/migrations, rejouables, jamais modifiées une fois appliquées",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "relations-index",
+      "texte": "Chaque relation a sa clé étrangère, son on delete et son index",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "commentaires",
+      "texte": "Chaque table et chaque colonne non évidente a un comment on en français",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "conventions",
+      "texte": "Conventions respectées : id uuid, cree_le et modifie_le, numeric(12,2) pour l’argent, timestamptz",
+      "niveau": "obligatoire",
+      "critere": "donnees"
+    },
+    {
+      "id": "verifier-conforme",
+      "texte": "outils/verifier-base.js affiche « Conforme »",
+      "niveau": "obligatoire",
+      "critere": "recette"
+    },
+    {
+      "id": "manifeste-schema",
+      "texte": "atelier-app.json indique \"schema\": [\"db/migrations\"] pour que l’Atelier affiche la base à l’import",
+      "niveau": "obligatoire",
+      "critere": "livraison"
+    },
+    {
+      "id": "rls-supabase",
+      "texte": "Supabase : RLS et règles d’accès dans la même migration que chaque table",
+      "niveau": "obligatoire",
+      "critere": "securite"
+    }
+  ],
+  "reference": "# Kit « Base de données automatique » — référence complète\n\n> **Version du kit : 1.0** (2026-10-22). Pour toute app qui enregistre des données. Lis ce fichier en entier avant d'écrire le modèle.\n\n## 1. Principe\n\nPersonne ne crée la base ni les tables à la main. **L'app les crée elle-même** :\n\n1. Au démarrage, le serveur appelle `db/migrer.js` (fourni, à copier tel quel) **avant** d'accepter des requêtes.\n2. `migrer.js` crée la base si elle n'existe pas (`DB_CREER_BASE=1`), puis applique dans l'ordre de leur numéro les\n   fichiers `db/migrations/0001_….sql`, `0002_….sql`… pas encore appliqués, **chacun dans une transaction**.\n3. Chaque migration appliquée est notée dans la table `schema_migrations` (numéro, fichier, empreinte SHA-256, date) :\n   un redémarrage ne rejoue rien, une nouvelle migration est appliquée une seule fois.\n4. Un verrou (`pg_advisory_lock`) empêche deux serveurs de migrer en même temps.\n5. Une migration en erreur est annulée en entier et **le serveur ne démarre pas** : jamais de base à moitié migrée.\n6. L'Atelier de Blocs lit ces mêmes fichiers à l'import du ZIP de l'app : l'onglet **Base de données** affiche\n   exactement les tables, colonnes, clés, relations, index et commentaires. Il suit les migrations dans l'ordre\n   (`create table`, `alter table add/drop/rename column`, `alter column type/default/not null`, clés étrangères ajoutées,\n   `create index`, `drop table`, `comment on`).\n\n## 2. Avant de coder : le modèle\n\nPrésente d'abord le modèle complet, table par table, et attends la validation :\n\n| Table | Colonne | Type | Obligatoire | Défaut | Unique | Lien (on delete) | Description |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n\n- Chaque donnée affichée, saisie, filtrée, triée ou comptée dans un écran a sa colonne. Pas de fourre-tout JSON\n  pour ce qui sert à chercher ou relier (`jsonb` seulement pour des réglages libres).\n- Si le prompt contient une section « Modèle de données » ou si le pack contient `bases/*.sql`, le modèle vient de\n  l'Atelier : reprends-le **exactement** (mêmes noms de tables et de colonnes) dans `0001_init.sql`. S'il manque\n  quelque chose, propose-le au lieu de l'inventer.\n\n## 3. Conventions (PostgreSQL 13+)\n\n| Sujet | Règle |\n| --- | --- |\n| Noms | Minuscules avec `_`, en français ; tables au pluriel (`clients`, `rendez_vous`) |\n| Clé | `id uuid primary key default gen_random_uuid()` (`create extension if not exists pgcrypto`) |\n| Dates de ligne | `cree_le timestamptz not null default now()` partout ; `modifie_le` sur toute table modifiable, tenu par le déclencheur `maj_modifie_le` |\n| Types | `text` (pas de varchar sans raison), `integer`/`bigint`, `numeric(12,2)` pour l'argent (**jamais** real/float), `boolean`, `date`, `timestamptz` (**jamais** timestamp sans fuseau) |\n| Relations | Colonne `<table_au_singulier>_id` + `references <table>(id)` + `on delete` choisi (`cascade` si la ligne n'a pas de sens seule, `set null` si elle survit, `restrict` sinon) + **un index** |\n| Valeurs fermées | `text not null default '…' check (statut in ('…', '…'))` |\n| Unicité | `unique` sur la colonne ; `unique (a, b)` pour un couple |\n| Descriptions | `comment on table` pour chaque table, `comment on column` pour chaque colonne non évidente, en français : l'Atelier les affiche |\n| Suppression | On ne supprime pas une donnée métier : colonne `actif boolean not null default true` ou `archive_le timestamptz` |\n\nExemple complet : `exemples/db/migrations/0001_init.sql`.\n\n## 4. Les migrations\n\n- Dossier `db/migrations/`, fichiers `NNNN_description.sql` (4 chiffres, minuscules, `_`) : `0001_init.sql`, `0002_factures.sql`.\n- **Une migration appliquée ne se modifie plus jamais** (`migrer.js` le signale) : toute évolution est un nouveau fichier.\n- Rejouables : `create table if not exists`, `add column if not exists`, `create index if not exists`,\n  `drop trigger if exists` puis `create trigger`, `create or replace function`.\n- Additives : une colonne `not null` ajoutée à une table remplie a un `default`. Une suppression ou un changement de type\n  va dans une migration à part, après sauvegarde et avec accord écrit.\n- **Pas de `begin` / `commit`** dans les fichiers : `migrer.js` met chaque fichier dans une transaction.\n  (Une instruction qui refuse les transactions, comme `create index concurrently`, n'a pas sa place ici.)\n- Données de départ (rôles, catégories, réglages) : dans une migration, `insert … on conflict do nothing`.\n  Jamais de compte avec un mot de passe écrit en dur.\n\n## 5. Brancher `migrer.js`\n\n```js\n// server.js\nconst migrer = require('./db/migrer');\n\n(async () => {\n  await migrer();                                   // crée la base et les tables manquantes\n  app.listen(process.env.PORT || 3000);\n})().catch(e => { console.error(e.message); process.exit(1); });\n```\n\n```json\n\"dependencies\": { \"pg\": \"^8.13.1\" },\n\"scripts\": { \"start\": \"node server.js\", \"db:migrer\": \"node db/migrer.js\", \"db:verifier\": \"node outils/verifier-base.js .\" }\n```\n\nExemple qui tourne : `exemples/serveur.js`. Appel avec options : `migrer({ url, creerBase, silencieux })`, renvoie la liste des fichiers appliqués.\n\n| Variable | Rôle |\n| --- | --- |\n| `DATABASE_URL` | Connexion PostgreSQL `postgres://utilisateur:motdepasse@hote:5432/nom_de_la_base` — **secrète** |\n| `DB_CREER_BASE` | `1` : créer la base si elle n'existe pas (serveur à toi, droit CREATEDB) ; `0` chez un hébergeur qui la fournit |\n| `DB_SSL` | `1` pour une base distante (Supabase, Neon, Scaleway…) ; `DB_SSL_STRICT=0` seulement pour un certificat auto-signé |\n\n## 6. Supabase\n\nMême fonctionnement : `DATABASE_URL` = chaîne de connexion Postgres du projet, `DB_SSL=1`, `DB_CREER_BASE=0`.\nEn plus, dans la même migration que chaque table : `alter table … enable row level security` et ses `create policy` ;\nune table liée à l'utilisateur a `utilisateur uuid not null default auth.uid() references auth.users(id)`.\nSi le projet utilise la CLI Supabase, les mêmes fichiers peuvent vivre dans `supabase/migrations/` (`supabase db push`) :\nle README le dit, et `atelier-app.json` indique `\"schema\": [\"supabase/migrations\"]`.\n\n## 7. Prisma ou un autre ORM\n\nPréfère le SQL ci-dessus. Si un ORM est imposé : migrations versionnées appliquées au démarrage\n(`prisma migrate deploy`), jamais `prisma db push` ni `synchronize: true` en production, et `schema.prisma` livré.\n\n## 8. Ce que contient le ZIP de l'app\n\n- `db/migrations/*.sql`, `db/migrer.js` branché au démarrage, `npm run db:migrer` ;\n- `atelier-app.json` avec `\"schema\": [\"db/migrations\"]` (voir `exemples/atelier-app.json`) ;\n- `.env.example` avec `DATABASE_URL` (vide), `DB_CREER_BASE`, `DB_SSL` ;\n- dans le README : le tableau des tables (rôle de chacune), comment repartir d'une base vide, la sortie de la recette.\n\n`outils/verifier-base.js` ne part pas en production (outil de développement), mais peut rester dans le dépôt.\n\n## 9. Recette (`outils/verifier-base.js`)\n\n```bash\nDATABASE_URL=postgres://postgres@localhost:5432/postgres node outils/verifier-base.js .\n```\n\nIl crée une base jetable sur ce serveur (la base de `DATABASE_URL` n'est pas touchée), applique toutes les migrations,\nles rejoue, contrôle les règles, affiche les tables puis supprime la base jetable. Il faut **« Conforme »** :\n\n| N° | Règle | Niveau |\n| --- | --- | --- |\n| 01 | Toutes les migrations s'appliquent sur une base vide | obligatoire |\n| 02 | Un redémarrage ne rejoue rien | obligatoire |\n| 03 | Migrations numérotées `NNNN_nom.sql` | obligatoire |\n| 04 | Au moins une table | obligatoire |\n| 05 | Clé primaire sur chaque table | obligatoire |\n| 06 | Chaque clé étrangère a un index | obligatoire |\n| 07 | Chaque table a un commentaire | obligatoire |\n| 08 | `cree_le` sur chaque table | obligatoire |\n| 09 | Dates-heures en `timestamptz` | obligatoire |\n| 10 | Pas de nombre à virgule flottante | obligatoire |\n| 11 | Noms en minuscules avec `_` | obligatoire |\n| 12 | Colonnes non évidentes commentées | recommandé |\n| 13 | Clés en `uuid` | recommandé |\n| 14 | `modifie_le` sur chaque table modifiable | recommandé |\n\nÀ la main ensuite : ajout, modification, suppression d'une ligne sur chaque table ; refus d'un lien vers une ligne\ninexistante et d'une valeur hors `check` ; import du ZIP dans l'Atelier → mêmes tables dans l'onglet Base de données.\n\n## 10. Pièges connus\n\n- `DB_CREER_BASE=1` demande le droit CREATEDB : chez un hébergeur, la base existe déjà, mets `0`.\n- Une colonne `not null` ajoutée sans `default` à une table remplie fait échouer la migration (et le démarrage).\n- Renommer une colonne casse le code qui l'utilise : migration + code dans la même livraison.\n- `on delete cascade` supprime en chaîne : à réserver aux lignes qui n'ont aucun sens seules.\n- Les fichiers de `exemples/` montrent le format : ils ne vont pas tels quels dans l'app.\n- Une migration éditée après coup n'est pas rejouée en production : la base réelle et le code divergent. Toujours un nouveau fichier.\n\n## 11. Historique des versions du kit\n\n### 1.0 — 2026-10-22\n\nPremière version : `db/migrer.js` (création de la base, migrations dans l'ordre, transactions, verrou, empreintes),\n`outils/verifier-base.js` (14 règles), exemples, lecture des migrations par l'Atelier (v1.15). Testé sur PostgreSQL 16.\n",
+  "css": "",
+  "valeurs": {},
+  "journal": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-22",
+      "texte": "Première version : db/migrer.js (création de la base, migrations dans l’ordre, transactions, verrou) et outils/verifier-base.js (14 règles), testés sur PostgreSQL 16"
+    }
+  ]
+}

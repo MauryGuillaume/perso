@@ -1,0 +1,139 @@
+/* style.css — Legumly, sur le socle PWA (kit « Socle PWA »). Variables de la charte : ne pas ajouter de couleur en dur. */
+:root {
+  /* Charte Legumly */
+  --primaire: #4D7C0F; --primaire-fonce: #3F6212; --claire: #84CC16; --accent: #F97316; --accent-fonce: #C2410C;
+  --fond: #f7f8f2; --texte: #1a2e05; --carte: #ffffff; --bordure: #e2e6d8; --doux: #5f626c;
+  --sur-primaire: #ffffff; --danger: #b91c1c; --succes: #3F6212;
+  --alerte-fond: #fff7ed; --alerte-texte: #9A3412; --info-fond: #f1f8e4;
+  /* Calendrier */
+  --c-abri: #bef264; --c-terre: #4D7C0F; --c-plant: #F97316; --c-recolte: #a16207; --c-vide: #eef0e8;
+  --rayon: 12px; --police: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --barre: 56px; --onglets: 64px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; }
+body { font: 16px/1.5 var(--police); color: var(--texte); background: var(--fond); -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+a { color: var(--primaire-fonce); }
+.barre { position: sticky; top: 0; z-index: 2; height: calc(var(--barre) + env(safe-area-inset-top)); padding: env(safe-area-inset-top) 4px 0;
+  display: flex; align-items: center; gap: 4px; background: var(--primaire); color: var(--sur-primaire); }
+.barre-titre { font-weight: 600; font-size: 18px; flex: 1; padding-left: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barre-bouton { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent;
+  color: var(--sur-primaire); border-radius: var(--rayon); font: inherit; cursor: pointer; text-decoration: none; padding: 0 8px; }
+.barre-bouton svg { width: 24px; height: 24px; }
+.barre :focus-visible { outline-color: var(--sur-primaire); }
+.vue { padding: 16px 16px calc(var(--onglets) + 24px + env(safe-area-inset-bottom)); max-width: 720px; margin: 0 auto; outline: none; }
+.onglets { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; background: var(--carte); border-top: 1px solid var(--bordure);
+  padding-bottom: env(safe-area-inset-bottom); }
+.onglets a { flex: 1; min-height: var(--onglets); display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--doux); text-decoration: none; font-size: 12px; gap: 2px; position: relative; }
+.onglets a svg { width: 24px; height: 24px; }
+.onglets a[aria-current="page"] { color: var(--primaire); font-weight: 600; }
+.badge { position: absolute; top: 6px; left: calc(50% + 6px); min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--accent-fonce); color: var(--sur-primaire); font-size: 11px; line-height: 18px; text-align: center; font-weight: 700; }
+.titre { font-size: 22px; font-weight: 700; margin: 4px 0 12px; letter-spacing: -0.01em; }
+.sous-titre { font-size: 17px; font-weight: 700; margin: 20px 0 8px; display: flex; align-items: center; gap: 8px; }
+.carte { background: var(--carte); border: 1px solid var(--bordure); border-radius: var(--rayon); padding: 16px; margin-bottom: 12px; }
+.liste { list-style: none; margin: 0; padding: 0; }
+.liste li { padding: 12px 0; border-bottom: 1px solid var(--bordure); }
+.liste li:last-child { border-bottom: 0; }
+.liste-liens { list-style: none; margin: 0 0 12px; padding: 0; background: var(--carte); border: 1px solid var(--bordure); border-radius: var(--rayon); overflow: hidden; }
+.liste-liens li + li { border-top: 1px solid var(--bordure); }
+.liste-liens a, .liste-liens .ligne { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 16px; color: var(--texte); text-decoration: none; }
+.liste-liens a:active { background: var(--info-fond); }
+.ligne-texte { flex: 1; min-width: 0; }
+.ligne-texte small { display: block; color: var(--doux); font-size: 14px; }
+.emoji { font-size: 26px; width: 32px; text-align: center; flex: none; }
+.chevron { color: var(--doux); flex: none; }
+.champ { display: block; margin-bottom: 12px; }
+.champ span { display: block; font-size: 14px; color: var(--doux); margin-bottom: 4px; }
+.champ input, .champ textarea, .champ select { width: 100%; min-height: 44px; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--bordure);
+  border-radius: calc(var(--rayon) - 4px); background: var(--carte); color: var(--texte); }
+.champs-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.champs-2 .champ { margin-bottom: 12px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--rayon);
+  font: inherit; font-weight: 600; background: var(--primaire); color: var(--sur-primaire); cursor: pointer; text-decoration: none; }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn-secondaire { background: transparent; color: var(--primaire-fonce); border: 1px solid var(--primaire); }
+.btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+.btn-plein { width: 100%; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.doux { color: var(--doux); font-size: 14px; }
+.erreur { color: var(--danger); }
+.erreur:empty { display: none; }
+.vide { text-align: center; color: var(--doux); padding: 24px 16px; }
+.vide .emoji { font-size: 40px; width: auto; display: block; margin-bottom: 8px; }
+.toast { position: fixed; z-index: 3; left: 16px; right: 16px; bottom: calc(var(--onglets) + 16px + env(safe-area-inset-bottom)); max-width: 480px; margin: 0 auto;
+  background: var(--texte); color: var(--sur-primaire); padding: 12px 16px; border-radius: var(--rayon); }
+:focus-visible { outline: 3px solid var(--primaire); outline-offset: 2px; }
+
+/* Puces de filtre et navigation de mois */
+.puces { display: flex; gap: 8px; margin: 0 0 12px; flex-wrap: wrap; }
+.puce { display: inline-flex; align-items: center; text-decoration: none; min-height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid var(--bordure); background: var(--carte); color: var(--texte); font: inherit; font-size: 15px; cursor: pointer; }
+.puce[aria-pressed="true"], .puce[aria-current="true"] { background: var(--primaire); border-color: var(--primaire); color: var(--sur-primaire); font-weight: 600; }
+.nav-mois { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.nav-mois .titre { flex: 1; text-align: center; margin: 0; text-transform: capitalize; }
+.btn-rond { width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--bordure); background: var(--carte); color: var(--texte); font: inherit; font-size: 20px;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; flex: none; }
+.zone-ligne { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: -4px 0 12px; }
+
+/* Alertes */
+.alerte { border-radius: var(--rayon); padding: 12px 16px; margin-bottom: 12px; border: 1px solid var(--accent); background: var(--alerte-fond); color: var(--alerte-texte); }
+.alerte strong { display: block; }
+.info { border-radius: var(--rayon); padding: 12px 16px; margin-bottom: 12px; background: var(--info-fond); border: 1px solid var(--bordure); }
+
+/* Fiche légume */
+.entete-fiche { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.entete-fiche .emoji { font-size: 48px; width: 56px; }
+.entete-fiche .titre { margin: 0; }
+.etiquettes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.etiquette { font-size: 13px; padding: 2px 10px; border-radius: 12px; background: var(--info-fond); border: 1px solid var(--bordure); color: var(--texte); }
+.etiquette-gel { background: var(--alerte-fond); color: var(--alerte-texte); border-color: var(--accent); }
+.calendrier { display: grid; grid-template-columns: 76px repeat(12, 1fr); gap: 2px; font-size: 12px; align-items: center; }
+.calendrier .mois-tete { text-align: center; color: var(--doux); font-weight: 600; }
+.calendrier .mois-tete.courant { color: var(--texte); text-decoration: underline; text-decoration-thickness: 2px; }
+.calendrier .nom-ligne { font-size: 12px; line-height: 1.2; padding-right: 4px; }
+.case { height: 18px; border-radius: 3px; background: var(--c-vide); }
+.case.abri { background: var(--c-abri); } .case.terre { background: var(--c-terre); } .case.plant { background: var(--c-plant); } .case.recolte { background: var(--c-recolte); }
+.pastille { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; }
+.pastille.abri { background: var(--c-abri); } .pastille.terre { background: var(--c-terre); } .pastille.plant { background: var(--c-plant); } .pastille.recolte { background: var(--c-recolte); }
+.caracs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; }
+.caracs div { margin: 0; }
+.caracs dt { font-size: 13px; color: var(--doux); }
+.caracs dd { margin: 0; font-weight: 600; }
+.voisins { display: flex; flex-wrap: wrap; gap: 6px; }
+.voisins a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px; border-radius: 22px; border: 1px solid var(--bordure);
+  background: var(--carte); color: var(--texte); text-decoration: none; font-size: 15px; }
+
+/* Potager : plan des bacs */
+.plan { width: 100%; border: 2px solid var(--primaire-fonce); border-radius: 8px; background: var(--c-vide); display: flex; overflow: hidden; margin: 8px 0; min-height: 72px; }
+.plan-part { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 12px; line-height: 1.2;
+  border-right: 1px dashed var(--primaire-fonce); background: var(--info-fond); padding: 4px 2px; overflow: hidden; min-width: 0; }
+.plan-part .emoji { font-size: 22px; width: auto; }
+.plan-part.p1 { background: var(--c-abri); } .plan-part.p2 { background: var(--info-fond); }
+.plan-libre { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--doux); font-size: 12px; min-width: 0; }
+.jauge { height: 8px; border-radius: 4px; background: var(--c-vide); overflow: hidden; }
+.jauge span { display: block; height: 100%; background: var(--primaire); }
+.jauge.pleine span { background: var(--accent-fonce); }
+
+/* Rappels et journal */
+.rappel { display: flex; align-items: center; gap: 12px; padding: 8px 16px; min-height: 60px; }
+.rappel .ligne-texte a { color: var(--texte); }
+.rappel.retard .ligne-texte small { color: var(--danger); }
+.case-a-cocher { width: 44px; height: 44px; flex: none; border-radius: 22px; border: 2px solid var(--primaire); background: var(--carte); color: var(--primaire);
+  font: inherit; font-size: 20px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.total { display: flex; justify-content: space-between; gap: 8px; }
+.meteo-jours { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; text-align: center; font-size: 13px; }
+.meteo-jours .froid { color: var(--alerte-texte); font-weight: 700; }
+.recherche { margin-bottom: 12px; }
+.recherche input { width: 100%; min-height: 44px; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--bordure); border-radius: 22px; background: var(--carte); color: var(--texte); }
+.visuellement-cache { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+.aide-section { margin: -6px 0 8px; }
+.choix-zone { border: 0; padding: 0; margin: 0; }
+.choix { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 0; cursor: pointer; border-top: 1px solid var(--bordure); }
+.choix input { width: 22px; height: 22px; accent-color: var(--primaire); flex: none; margin: 0 11px; }
+.bouton-ligne { width: 100%; border: 0; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+details[open] summary { margin-bottom: 8px; }
+.champ input[type="checkbox"] { width: 22px; height: 22px; min-height: 0; vertical-align: middle; margin-right: 6px; accent-color: var(--primaire); }

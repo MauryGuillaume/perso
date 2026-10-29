@@ -1,0 +1,37 @@
+Recette de bout en bout — /tmp/claude-0/-home-user/4087d399-84d6-565f-854a-197815b38fb0/scratchpad/ressena (base jetable recette_8391db, supprimée)
+
+  ✓ 01 Refuse de démarrer si une variable obligatoire manque, en le disant
+  ✓ 02 Démarre sur une base neuve : base créée, migrations du socle et de l’app appliquées
+  ✓ 03 Santé et en-têtes de sécurité (CSP sans unsafe-inline, nosniff, DENY)
+  ✓ 04 Première installation : code exigé, compte admin créé, cookie HttpOnly
+  ✓ 05 Installation impossible une seconde fois
+  ✓ 06 Écriture refusée sans en-tête X-Appli, jeton ni corps JSON (CSRF)
+  ✓ 07 Connexion : même message pour compte inconnu et mauvais mot de passe, bonne connexion acceptée
+  ✓ 08 Mot de passe trop court refusé
+  ✓ 09 Clé de l’Atelier : acceptée sur l’admin, refusée si fausse et hors admin
+  ✓ 10 Aucun secret renvoyé par l’état (clé, code, mot de passe de base)
+  ✓ 11 Toutes les variables obligatoires définies
+  ✓ 12 Base optimisée sur la vraie base (clés, index des liens, fuseaux, montants)
+  ✓ 13 Tables décrites et datées (cree_le)
+  ✓ 14 Chaque table se lit dans le tableur de l’Atelier
+  ✓ 15 Colonnes sensibles masquées (mots de passe, jetons)
+  ✓ 16 Ajout incomplet refusé avec un message clair (colonnes obligatoires)
+  ✓ 17 Le tableur exige une session admin ou la clé
+  ✓ 18 Compte créé par l’admin : mot de passe provisoire, changement imposé, pas d’accès admin
+  ✓ 19 Routes de l’app fermées sans connexion
+  ✓ 20 Journal : installation, connexions refusées, comptes ; jamais de mot de passe
+  ✓ 21 RGPD : export des données d’une personne, suppression avec confirmation
+  ✓ 22 Sauvegarde lisible sans mot de passe ni session
+  ✓ 23 Réglages partagés modifiables depuis l’Atelier
+  ✓ 24 Le dernier admin ne peut pas être retiré
+  ✓ 25 Redémarrage sur la même base sans rien réappliquer
+  ✓ 26 Compte admin par défaut (admin / adminadmin) : créé, changement imposé, alerte dans l’Atelier jusqu’au changement
+  ✓ 27 Connexion par jetons : accès par jeton, renouvellement à usage unique, jeton falsifié refusé, déconnexion
+  ✓ 28 Offre commune éteinte par défaut : pas de pub, paiement fermé, webhooks non configurés refusés
+  ✓ 29 Rôles : admin, vip et utilisateur toujours présents, plus les rôles métier de l’app
+  ✓ 30 VIP : tous les avantages du palier le plus haut sans payer, sans pub, sans droit d’administration ; utilisateur au palier gratuit
+  ✓ 31 Publicité : un seul bandeau, seulement pour les paliers avec pub (PUB_ACTIVE=1)
+  ✓ 32 Abonnement offert depuis l’Atelier : palier donné tout de suite, retiré à l’expiration
+  ✓ 33 Webhooks de paiement : signature Stripe et clé RevenueCat vérifiées, abonnement ouvert puis fermé
+
+Conforme.

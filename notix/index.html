@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+  <title>Notix</title>
+  <meta name="description" content="Notix : dictez vos notes, elles sont transcrites en direct, classées par mots-clés et faciles à retrouver. Simple, rapide, toujours avec vous.">
+  <meta name="theme-color" content="#1F2937">
+  <meta name="apple-mobile-web-app-title" content="Notix">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icone-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="barre"><span class="barre-titre" id="titre">Notix</span></header>
+  <main id="vue" class="vue" tabindex="-1"></main>
+  <nav class="onglets" id="onglets" aria-label="Navigation principale"></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="texte.js"></script>
+  <script src="base.js"></script>
+  <script src="dictee.js"></script>
+  <script src="commun.js"></script>
+  <script src="ecran-enregistrer.js"></script>
+  <script src="ecran-notes.js"></script>
+  <script src="ecran-note.js"></script>
+  <script src="ecran-dossiers.js"></script>
+  <script src="ecran-reglages.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

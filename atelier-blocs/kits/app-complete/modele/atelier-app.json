@@ -1,0 +1,77 @@
+{
+  "nom": "Suivi clients",
+  "description": "Suivi des clients et des interventions, avec relances automatiques.",
+  "version": "1.0.0",
+  "kit": "app-complete",
+  "icone": "mdi-account-group",
+  "stack": "HTML, CSS, JavaScript + Node.js + PostgreSQL",
+  "web": "public",
+  "schema": [
+    "noyau/migrations",
+    "db/migrations"
+  ],
+  "admin": {
+    "api": "/api/admin",
+    "cle": "ADMIN_API_KEY"
+  },
+  "env": [
+    {
+      "cle": "DATABASE_URL",
+      "role": "Connexion à la base PostgreSQL",
+      "secret": true
+    },
+    {
+      "cle": "ADMIN_API_KEY",
+      "role": "Clé de gestion depuis l'Atelier (générée par l'Atelier)",
+      "secret": true
+    },
+    {
+      "cle": "APP_URL",
+      "role": "Adresse publique de l'app",
+      "secret": false
+    },
+    {
+      "cle": "APP_ENV",
+      "role": "production en ligne",
+      "secret": false
+    },
+    {
+      "cle": "RELANCE_JOURS",
+      "role": "Jours sans contact avant relance",
+      "secret": false
+    },
+    {
+      "cle": "PUB_ACTIVE",
+      "role": "1 : bandeau de pub pour le palier Gratuit (0 par défaut)",
+      "secret": false
+    },
+    {
+      "cle": "PAIEMENT_ACTIF",
+      "role": "1 : abonnement Premium achetable (0 par défaut)",
+      "secret": false
+    }
+  ],
+  "fonctionnalites": [
+    [
+      "Comptes et rôles",
+      "app-complete"
+    ],
+    [
+      "Offre Gratuit / Premium (charte commune)",
+      "app-complete"
+    ],
+    [
+      "Clients",
+      ""
+    ],
+    [
+      "Interventions",
+      ""
+    ],
+    [
+      "Relances",
+      ""
+    ]
+  ],
+  "notes": "Liste complète des variables : .env.example. Gestion des données, comptes, journal, RGPD et sauvegarde depuis l'Atelier (Gestion de l'app). Rôles admin, vip et utilisateur du socle, plus « commercial ». Offre commune : Gratuit (pub, 20 clients) / Premium."
+}

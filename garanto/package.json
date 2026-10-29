@@ -1,0 +1,21 @@
+{
+  "name": "garanto",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Garanto : coffre des tickets de caisse et des bons de garantie (kit « App complète »)",
+  "kitAppComplete": "1.1.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node serveur.js",
+    "db:migrer": "node noyau/base.js",
+    "env:exemple": "node noyau/env.js --exemple > .env.example",
+    "env:verifier": "node noyau/env.js --verifier",
+    "verifier": "node outils/verifier-app.js",
+    "recette": "node outils/recette-app.js"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  }
+}
