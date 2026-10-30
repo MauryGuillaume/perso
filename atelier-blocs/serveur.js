@@ -54,7 +54,7 @@ function chargerEnv() {
 chargerEnv();
 
 const PORT = Number(process.env.PORT) || 8787;
-const VERSION = '1.29.1';   // même numéro que A.VERSION (ab-app.js) : l'Atelier signale un serveur d'une autre version
+const VERSION = '1.30';   // même numéro que A.VERSION (ab-app.js) : l'Atelier signale un serveur d'une autre version
 const CLE_IA = process.env.ANTHROPIC_API_KEY || '';
 const MODELE = process.env.AB_IA_MODELE || 'claude-sonnet-5-5';
 

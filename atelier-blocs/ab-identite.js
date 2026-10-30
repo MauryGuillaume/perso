@@ -7,10 +7,12 @@
    - avec Claude (serveur local et sa clé, sinon prompt à copier) : noms plus inventifs,
      logos choisis ou dessinés en SVG ;
    - en discutant avec Claude : ses réponses contiennent des propositions à adopter d'un clic.
-   Le choix ajoute une section « Identité » au prompt et les icônes (icone.svg, icone-512.png,
-   icone-192.png, icone-180.png) au ZIP à joindre.
+   Il propose aussi l'univers graphique de l'app (ab-univers.js), déduit de sa description : palette douce
+   (vive si le concept s'y prête), polices, formes, motif, illustration, avec un aperçu réel et ses contrôles.
+   Le choix ajoute une section « Identité » au prompt, et au ZIP à joindre les icônes (icone.svg, icone-512.png,
+   icone-192.png, icone-180.png), univers.css et UNIVERS.md.
    État d'une identité (gardé dans le brouillon de la vue) :
-   { propositions: { noms: [], logos: [], source: 'auto' | 'claude', graine }, nom, accroche, logo }
+   { propositions: { noms: [], logos: [], univers: [], source: 'auto' | 'claude', graine }, nom, accroche, logo, univers }
    ========================================================================== */
 (function () {
   const U = AB.u, esc = U.esc;
@@ -230,6 +232,30 @@
     return out;
   };
 
+  /* ======================= Univers graphique ======================= */
+
+  /** Jetons de l'univers choisi : couleurs du logo si l'univers les suit (par défaut), sinon celles de l'univers. */
+  I.jetonsUnivers = id => {
+    const u = id && id.univers;
+    if (!u) return null;
+    return AB.univers.jetons(u, u.suivreLogo !== false && id.logo ? couleurs(id.logo.couleurs) : null);
+  };
+  /** Choix d'univers automatique : le premier univers qui colle à la description. */
+  I.universAuto = function (id, description) {
+    if (id.univers && id.univers.source === 'claude' || id.univers && id.univers.retouche) return;
+    const d = AB.univers.deduire(description || '');
+    const garder = id.univers && id.univers.base === d[0].id ? id.univers : null;
+    id.univers = garder || Object.assign(AB.univers.choix(d[0].id), { suivreLogo: true });
+  };
+  /** Tout ce qui part avec le prompt : logo (s'il est choisi), univers.css et UNIVERS.md. */
+  I.fichiersIdentite = async function (id, prefixe, nom) {
+    const out = id && id.logo ? await I.fichiers(id.logo, prefixe) : {};
+    const j = I.jetonsUnivers(id);
+    if (j) { out[(prefixe || '') + 'univers.css'] = AB.univers.css(id.univers, j, nom); out[(prefixe || '') + 'UNIVERS.md'] = AB.univers.md(id.univers, j, nom); }
+    return out;
+  };
+  I.aDesFichiers = id => !!(id && (id.logo || id.univers));
+
   /* ======================= Propositions sans IA ======================= */
 
   const VIDES = new Set(('pour avec sans dans des les une aux par sur est son ses leur leurs qui que quoi quand chaque tout tous toute toutes plus moins elle ils elles nous vous mon ton notre votre '
@@ -338,16 +364,18 @@
   /** Format de réponse attendu (utilisé aussi par la discussion). */
   I.FORMAT = `{"noms": [{"nom": "…", "accroche": "une phrase courte", "pourquoi": "d'où vient le nom, en une phrase"}],
  "logos": [{"titre": "…", "style": "plein | badge | monogramme | pastille | accent", "symbole": "<id>", "symbole2": "<id, pour le style badge>", "lettre": "<initiale, pour monogramme>",
-   "couleurs": {"principale": "#RRGGBB", "claire": "#RRGGBB", "accent": "#RRGGBB"}, "svg": "<facultatif : SVG complet>"}]}`;
+   "couleurs": {"principale": "#RRGGBB", "claire": "#RRGGBB", "accent": "#RRGGBB"}, "svg": "<facultatif : SVG complet>"}],
+ ${(typeof AB !== 'undefined' && AB.univers ? AB.univers.FORMAT : '"univers": []')}}`;
   I.REGLES_LOGO = () => `Logos : un emblème simple, lisible à 48 px, deux ou trois couleurs, sans texte (sauf le style monogramme). Styles : plein (symbole blanc sur dégradé), badge (symbole blanc et pastille ronde de la couleur d'accent avec un second symbole), monogramme (initiale), pastille (symbole coloré dans un rond blanc), accent (symbole couleur d'accent sur fond sombre).
 Symboles disponibles (id) : ${LISTE_SYMBOLES()}.
 Si aucun symbole ne convient, fournis "svg" : un SVG complet viewBox="0 0 512 512", fond plein en carré arrondi (rx="112"), formes simples (path, rect, circle, dégradés), sans texte, sans image, sans script, moins de 3 000 caractères ; "couleurs" reste obligatoire. Au plus deux logos en svg.`;
 
   I.systeme = function (ctx, n) {
     return `Tu es un expert du nommage et de l'identité visuelle des apps grand public françaises.
-À partir de la description de l'app, propose ${n || 6} noms et 4 logos.
+À partir de la description de l'app, propose ${n || 6} noms, 4 logos et 2 univers graphiques.
 Noms : courts (4 à 10 lettres, un seul mot de préférence), faciles à prononcer en français, mémorables, sans reprendre une marque connue ; varie les approches (mot dérivé comme « Garanto » pour une app de garanties, mot-valise, mot inventé, mot français détourné). Une accroche courte par nom.
 ${I.REGLES_LOGO()}
+${AB.univers.REGLES()}
 Réponds UNIQUEMENT avec un objet JSON, sans texte autour, de la forme :
 ${I.FORMAT}`;
   };
@@ -369,7 +397,9 @@ ${I.FORMAT}`;
       if (!l.titre) l.titre = l.style === 'monogramme' ? `Initiale « ${l.lettre} »` : SYMBOLES[l.symbole].label;
       return l;
     }).filter(Boolean);
-    return { noms, logos };
+    const univers = (Array.isArray(prop && prop.univers) ? prop.univers : []).filter(u => u && AB.univers.BASES[u.base])
+      .map(u => Object.assign(AB.univers.choix(u.base, Object.assign({}, u, { source: 'claude' })), { suivreLogo: false }));
+    return { noms, logos, univers };
   };
 
   /** Demande des propositions à Claude par le serveur local. */
@@ -385,16 +415,18 @@ ${I.FORMAT}`;
 
   /** Section « Identité » du prompt (vide si rien n'est choisi). dossier : où sont les icônes dans ce qu'on joint. */
   I.section = function (id, nom, dossier) {
-    if (!id || (!id.logo && !String(id.accroche || '').trim() && !id.nomChoisi)) return '';
+    if (!id || (!id.logo && !String(id.accroche || '').trim() && !id.nomChoisi && !id.univers)) return '';
     const out = ['## Identité', ''];
     const acc = String(id.accroche || '').trim();
     out.push(`- Nom affiché : ${nom || id.nomChoisi || '⟦Nom⟧'}.${acc ? ` Accroche : « ${acc.replace(/[«»]/g, '').replace(/[.\s]+$/, '').trim()} ».` : ''}`);
     if (id.logo) {
       const p = couleurs(id.logo.couleurs);
-      out.push(`- Couleurs : principale \`${p.principale}\`, claire \`${p.claire}\`, accent \`${p.accent}\`. \`theme-color\` = \`${p.principale}\`.`);
+      if (!id.univers) out.push(`- Couleurs : principale \`${p.principale}\`, claire \`${p.claire}\`, accent \`${p.accent}\`. \`theme-color\` = \`${p.principale}\`.`);
       const d = dossier || 'identite/';
-      out.push(`- Logo : je joins \`${d}icone.svg\`, \`${d}icone-512.png\`, \`${d}icone-192.png\`, \`${d}icone-180.png\` ; remplace les icônes du modèle par celles-ci (mêmes noms de fichiers) et reprends ces couleurs dans la charte et le manifeste.`);
+      out.push(`- Logo : je joins \`${d}icone.svg\`, \`${d}icone-512.png\`, \`${d}icone-192.png\`, \`${d}icone-180.png\` ; remplace les icônes du modèle par celles-ci (mêmes noms de fichiers) et reprends les couleurs de l’univers dans le manifeste.`);
     }
+    const j = I.jetonsUnivers(id);
+    if (j) out.push('', AB.univers.section(id.univers, j, dossier || 'identite/'));
     return out.join('\n');
   };
 
@@ -412,20 +444,32 @@ ${I.FORMAT}`;
 
   const carteNom = (n, i, choisi, attr) => `<button type="button" class="id-nom ${choisi ? 'actif' : ''}" ${attr}="${i}" title="${esc(n.pourquoi || '')}"><b>${esc(n.nom)}</b>${n.accroche ? `<span class="small muted">${esc(n.accroche)}</span>` : ''}</button>`;
   const carteLogo = (l, i, choisi, attr) => `<button type="button" class="id-logo ${choisi ? 'actif' : ''}" ${attr}="${i}" title="${esc(l.titre || '')}"><img src="${I.url(I.svg(l))}" alt="${esc(l.titre || 'Logo')}"><span class="small muted">${esc(l.titre || '')}</span></button>`;
-  I.carteNom = carteNom; I.carteLogo = carteLogo;
+  /** Carte d'un univers : bandeau à sa couleur et à son motif, nuancier, échantillon de titre et de bouton. */
+  const carteUnivers = (u, i, choisi, attr, logo) => {
+    const j = AB.univers.jetons(u, u.suivreLogo !== false && logo ? couleurs(logo.couleurs) : null), b = AB.univers.BASES[u.base];
+    return `<button type="button" class="id-univers ${choisi ? 'actif' : ''}" ${attr}="${i}" title="${esc(u.pourquoi || b.ambiance)}">
+      <span class="id-u-barre" style="background:${esc(j.motif)} center / ${esc(j['motif-taille'])} repeat, ${esc(j['barre-fond'])};color:${esc(j['sur-primaire'])};font-family:${esc(j['police-titres'])}">${esc(u.titre || b.nom)}</span>
+      <span class="id-u-corps" style="background:${esc(j.fond)};color:${esc(j.texte)}">
+        <span class="id-u-titre" style="font-family:${esc(j['police-titres'])};font-weight:${esc(j['graisse-titres'])};text-transform:${esc(j['casse-titres'])}">Aa Bonjour</span>
+        <span class="id-u-nuancier">${['primaire', 'accent', 'teinte', 'couleur-2', 'couleur-3'].map(k => `<i style="background:${esc(j[k])}"></i>`).join('')}</span>
+        <span class="id-u-btn" style="background:${esc(j['btn-fond'])};color:${esc(j['sur-accent'])};border-radius:${esc(j['rayon-btn'])}">Valider</span></span>
+      <span class="small muted">${esc(u.intensite === 'vive' ? 'Couleurs vives' : 'Couleurs douces')}${u.source === 'claude' ? ' · Claude' : ''}</span></button>`;
+  };
+  I.carteNom = carteNom; I.carteLogo = carteLogo; I.carteUnivers = carteUnivers;
 
   /** Propositions rendues dans un message de la discussion (boutons data-idn / data-idl pour adopter). */
   I.htmlPropositions = function (prop, base) {
     return `<div class="id-dans-msg">${prop.noms.length ? `<div class="id-noms">${prop.noms.map((n, i) => carteNom(n, base + ':' + i, false, 'data-idn')).join('')}</div>` : ''}
       ${prop.logos.length ? `<div class="id-logos">${prop.logos.map((l, i) => carteLogo(l, base + ':' + i, false, 'data-idl')).join('')}</div>` : ''}
-      <div class="small muted">Clique sur un nom ou un logo pour l’adopter.</div></div>`;
+      ${(prop.univers || []).length ? `<div class="id-univers-liste">${prop.univers.map((u, i) => carteUnivers(u, base + ':' + i, false, 'data-idu')).join('')}</div>` : ''}
+      <div class="small muted">Clique sur un nom, un logo ou un univers pour l’adopter.</div></div>`;
   };
 
   /** Blocs ```identite {…}``` d'une réponse de Claude : { texte sans les blocs, propositions } ; un bloc pas encore fermé est masqué. */
   I.extraire = function (texte) {
     const propositions = [];
     let t = String(texte || '').replace(/```identite\s*\n?([\s\S]*?)```/g, (m, json) => {
-      try { const p = I.normaliser(JSON.parse(json.trim())); if (p.noms.length || p.logos.length) { propositions.push(p); return `\n\u0001${propositions.length - 1}\u0001\n`; } } catch (e) { /* bloc illisible : on le laisse tel quel */ }
+      try { const p = I.normaliser(JSON.parse(json.trim())); if (p.noms.length || p.logos.length || p.univers.length) { propositions.push(p); return `\n\u0001${propositions.length - 1}\u0001\n`; } } catch (e) { /* bloc illisible : on le laisse tel quel */ }
       return m;
     });
     const enCours = /```identite[\s\S]*$/.test(t);
@@ -434,11 +478,12 @@ ${I.FORMAT}`;
   };
 
   /** Contexte et consigne de la discussion « Nom et logo ». */
-  I.systemeDiscussion = (ctx, id) => `Tu es Claude, l'assistant de l'Atelier de Blocs. Tu aides son utilisateur, en français, à choisir le nom et le logo de sa future app : tu donnes ton avis franc sur les propositions, tu en proposes d'autres selon ses remarques (plus court, plus sérieux, une autre couleur, un autre symbole…), et tu signales un nom trop proche d'une marque connue.
+  I.systemeDiscussion = (ctx, id) => `Tu es Claude, l'assistant de l'Atelier de Blocs. Tu aides son utilisateur, en français, à choisir le nom, le logo et l'univers graphique de sa future app : tu donnes ton avis franc sur les propositions, tu en proposes d'autres selon ses remarques (plus court, plus sérieux, une autre couleur, un autre symbole, une ambiance plus chaleureuse…), et tu signales un nom trop proche d'une marque connue.
 Noms : courts, faciles à prononcer, mémorables. ${I.REGLES_LOGO()}
+${AB.univers.REGLES()}
 Chaque fois que tu proposes des noms ou des logos, termine ta réponse par un bloc de code \`\`\`identite contenant un JSON de la forme
 ${I.FORMAT}
-(seulement les nouvelles propositions, les deux listes peuvent être vides). L'Atelier l'affiche en cartes que l'utilisateur adopte d'un clic. Réponds en Markdown simple et bref.
+(seulement les nouvelles propositions, les listes peuvent être vides). L'Atelier l'affiche en cartes que l'utilisateur adopte d'un clic. Réponds en Markdown simple et bref.
 
 === L'app ===
 ${I.message(ctx)}
@@ -446,6 +491,7 @@ ${I.message(ctx)}
 === Propositions actuelles ===
 Noms : ${(id.propositions && id.propositions.noms || []).map(n => n.nom).join(', ') || '(aucun)'}
 Logos : ${(id.propositions && id.propositions.logos || []).map(l => l.titre).join(' ; ') || '(aucun)'}
+Univers : ${id.univers ? `${id.univers.base} (${AB.univers.BASES[id.univers.base].nom}, couleurs ${id.univers.intensite})` : '(aucun)'}
 Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.accroche} »` : ''}${id.logo ? `, logo ${JSON.stringify(Object.assign({}, id.logo, { svg: id.logo.svg ? '(svg)' : undefined }))}` : ', pas de logo'}.`;
 
   /**
@@ -457,7 +503,7 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
     const id = opts.identite;
     id.propositions = id.propositions || null;
     let iaEtat = null;
-    el.innerHTML = `<div class="panel"><div class="panel-head"><span class="panel-label"><span class="mdi mdi-palette-swatch-outline"></span>Nom et logo</span><div class="spacer"></div>
+    el.innerHTML = `<div class="panel"><div class="panel-head"><span class="panel-label"><span class="mdi mdi-palette-swatch-outline"></span>Nom, logo et univers</span><div class="spacer"></div>
         <span id="idEtat"></span></div>
       <div class="panel-body stack">
         <div class="row" style="gap:6px;flex-wrap:wrap">
@@ -468,10 +514,85 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
         <div><div class="input-label">Noms proposés</div><div class="id-noms" id="idNoms"></div></div>
         <div><div class="input-label">Logos proposés</div><div class="id-logos" id="idLogos"></div></div>
         <div class="id-choix" id="idChoix"></div>
+        <div class="id-choix"><div class="input-label">Univers graphique <span class="small muted">: déduit de la description, couleurs douces sauf si le concept appelle du vif</span></div>
+          <div class="id-univers-liste" id="idUnivers"></div><div id="idUniversChoix"></div></div>
       </div></div>`;
     const q = s => el.querySelector(s);
 
-    const auto = () => { id.propositions = I.proposerLocal(opts.contexte(), (id.propositions && id.propositions.source === 'auto' ? id.propositions.graine : 0)); };
+    const auto = () => { id.propositions = I.proposerLocal(opts.contexte(), (id.propositions && id.propositions.source === 'auto' ? id.propositions.graine : 0)); I.universAuto(id, opts.contexte().description); };
+
+    /* ---- Univers : cartes proposées, aperçu réel (charte.css et socle.css du kit) et réglages ---- */
+    let cssKit = null;
+    async function chargerCss() {
+      if (cssKit) return cssKit;
+      cssKit = { charte: '', socle: '' };
+      try {
+        const k = AB.kits.dernier('app-complete');
+        for (const f of k ? await AB.kits.fichiers(k) : []) {
+          if (f.chemin === 'modele/public/charte.css') cssKit.charte = await AB.fichiers.texte(f);
+          if (f.chemin === 'modele/public/socle.css') cssKit.socle = await AB.fichiers.texte(f);
+        }
+      } catch (e) { /* aperçu sans les styles du kit */ }
+      return cssKit;
+    }
+    const universProposes = () => {
+      const deduits = AB.univers.deduire(opts.contexte().description).slice(0, 3).map(d => Object.assign(AB.univers.choix(d.id), { suivreLogo: true }));
+      const claude = (id.propositions && id.propositions.univers) || [];
+      return claude.concat(deduits.filter(u => !claude.some(c => c.base === u.base && c.source !== 'claude'))).slice(0, 6);
+    };
+    const memeUnivers = (a, b) => a && b && a.base === b.base && a.source === b.source && (a.titre || '') === (b.titre || '');
+    function dessinerUnivers() {
+      const liste = universProposes();
+      q('#idUnivers').innerHTML = liste.map((u, i) => carteUnivers(u, i, memeUnivers(u, id.univers) && !id.univers.retouche, 'data-univers', id.logo)).join('');
+      el.querySelectorAll('[data-univers]').forEach(b => b.onclick = () => adopterUnivers(liste[+b.dataset.univers]));
+      const u = id.univers;
+      if (!u) { q('#idUniversChoix').innerHTML = ''; return; }
+      const j = I.jetonsUnivers(id), base = AB.univers.BASES[u.base], UV = AB.univers;
+      const choix = (cle, liste, val, lib) => `<label class="id-reglage"><span class="small muted">${lib}</span><select class="tv-select" data-ureg="${cle}">${Object.entries(liste).map(([k, v]) => `<option value="${esc(k)}" ${k === val ? 'selected' : ''}>${esc(typeof v === 'string' ? v : v.label || v.nom)}</option>`).join('')}</select></label>`;
+      const polTexte = Object.fromEntries(Object.entries(UV.POLICES).filter(([, v]) => !v.titresSeulement));
+      q('#idUniversChoix').innerHTML = `<div class="id-u-detail">
+        <iframe class="id-u-apercu" title="Aperçu de l’univers" sandbox="allow-same-origin"></iframe>
+        <div class="stack" style="gap:8px;min-width:0">
+          <div><b>${esc(u.titre || base.nom)}</b> <span class="small muted">${esc(u.pourquoi || base.ambiance)}</span></div>
+          <div class="id-reglages">
+            ${choix('base', Object.fromEntries(Object.entries(UV.BASES).map(([k, v]) => [k, v.nom])), u.base, 'Univers')}
+            ${choix('intensite', { douce: 'Douces (par défaut)', vive: 'Vives' }, u.intensite, 'Couleurs')}
+            ${id.logo ? choix('suivreLogo', { oui: 'Celles du logo', non: 'Celles de l’univers' }, u.suivreLogo === false ? 'non' : 'oui', 'Teintes') : ''}
+            ${choix('titres', Object.fromEntries(Object.entries(UV.POLICES).map(([k, v]) => [k, v.label])), u.polices[0], 'Police des titres')}
+            ${choix('texte', Object.fromEntries(Object.entries(polTexte).map(([k, v]) => [k, v.label])), u.polices[1], 'Police du texte')}
+            ${choix('formes', UV.FORMES, u.formes, 'Formes')}
+            ${choix('ombre', UV.OMBRES, u.ombre, 'Ombres')}
+            ${choix('barre', UV.BARRES, u.barre, 'Barre du haut')}
+            ${choix('motif', UV.MOTIFS, u.motif, 'Motif')}
+            ${choix('illustration', UV.ILLUSTRATIONS, u.illustration, 'Illustration')}
+            ${choix('densite', UV.DENSITES, u.densite, 'Densité')}
+            ${choix('mouvement', UV.MOUVEMENTS, u.mouvement, 'Animations')}
+          </div>
+          <label class="row small" style="gap:6px"><input type="checkbox" data-ureg="motifFond" ${u.motifFond ? 'checked' : ''}> Motif en filigrane sur le fond</label>
+          <div class="id-u-controles">${UV.verifier(j).map(v => `<div class="small"><span class="mdi ${v.ok ? 'mdi-check-circle' : v.recommande ? 'mdi-alert-outline' : 'mdi-close-circle'}" style="color:${v.ok ? 'var(--color-success, #2e7d32)' : v.recommande ? 'var(--color-warning, #a15c00)' : 'var(--color-danger, #c62828)'}"></span> ${esc(v.texte)}</div>`).join('')}</div>
+          <div class="row" style="gap:6px"><button class="btn btn-outline btn-xs" id="idUZip"><span class="mdi mdi-download"></span>univers.css et UNIVERS.md</button></div>
+        </div></div>`;
+      chargerCss().then(css => { const f = q('.id-u-apercu'); if (f) f.srcdoc = UV.page({ jetons: j, charte: css.charte, socle: css.socle, nom: opts.contexte().nom || 'Mon app' }); });
+      el.querySelectorAll('[data-ureg]').forEach(x => x.onchange = () => {
+        const k = x.dataset.ureg, v = x.type === 'checkbox' ? x.checked : x.value;
+        if (k === 'base') id.univers = Object.assign(UV.choix(v), { suivreLogo: u.suivreLogo });
+        else if (k === 'titres' || k === 'texte') u.polices = k === 'titres' ? [v, u.polices[1]] : [u.polices[0], v];
+        else if (k === 'suivreLogo') u.suivreLogo = v === 'oui';
+        else u[k] = v;
+        id.univers.retouche = true;
+        dessinerUnivers(); opts.changer();
+      });
+      q('#idUZip').onclick = async () => {
+        const nom = opts.contexte().nom || 'app';
+        U.download(`univers-${U.slug(nom) || 'app'}.zip`, AB.zip({ 'univers.css': UV.css(id.univers, I.jetonsUnivers(id), nom), 'UNIVERS.md': UV.md(id.univers, I.jetonsUnivers(id), nom) }));
+      };
+    }
+    function adopterUnivers(u) {
+      if (!u) return;
+      id.univers = U.clone(u);
+      if (u.source === 'claude') id.univers.retouche = false;
+      dessinerUnivers(); opts.changer();
+    }
 
     function dessiner() {
       const p = id.propositions || { noms: [], logos: [] };
@@ -501,6 +622,7 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
         try { U.download(`logo-${U.slug(nom) || 'app'}.zip`, AB.zip(await I.fichiers(id.logo, ''))); }
         catch (e) { U.toast('error', 'Logo impossible', e.message); }
       };
+      dessinerUnivers();
     }
 
     function adopterNom(n) {
@@ -522,7 +644,10 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
     /** Ajoute des propositions (de Claude ou de la discussion) en tête de liste. */
     function ajouter(p, source) {
       const avant = id.propositions || { noms: [], logos: [] };
-      id.propositions = { noms: p.noms.concat(avant.noms.filter(n => !p.noms.some(x => x.nom === n.nom))).slice(0, 12), logos: p.logos.concat(avant.logos).slice(0, 10), source: source || 'claude', graine: avant.graine || 0 };
+      id.propositions = { noms: p.noms.concat(avant.noms.filter(n => !p.noms.some(x => x.nom === n.nom))).slice(0, 12), logos: p.logos.concat(avant.logos).slice(0, 10),
+        univers: (p.univers || []).concat(avant.univers || []).slice(0, 4), source: source || 'claude', graine: avant.graine || 0 };
+      // Le premier univers de Claude remplace l'univers automatique (pas celui retouché à la main)
+      if ((p.univers || []).length && (!id.univers || (id.univers.source !== 'claude' && !id.univers.retouche))) id.univers = U.clone(p.univers[0]);
       dessiner(); opts.changer();
     }
 
@@ -562,10 +687,11 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
         cle: 'discussions:identite',
         contexte: async () => ({ morceaux: ['Description de l’app', 'Propositions actuelles', 'Ton choix'], texte: I.systemeDiscussion(opts.contexte(), id) }),
         systeme: () => I.systemeDiscussion(opts.contexte(), id),
-        suggestions: ['Que penses-tu de ces noms ? Lequel retenir et pourquoi ?', 'Propose-moi des noms plus courts et plus percutants.', 'Le logo doit faire plus sérieux : propose d’autres couleurs et symboles.', 'Dessine-moi 2 logos sur mesure (SVG).'],
+        suggestions: ['Que penses-tu de ces noms ? Lequel retenir et pourquoi ?', 'Propose-moi des noms plus courts et plus percutants.', 'Le logo doit faire plus sérieux : propose d’autres couleurs et symboles.', 'Propose-moi 3 univers graphiques qui collent à l’app.', 'Dessine-moi 2 logos sur mesure (SVG).'],
         vide: ['Discuter du nom et du logo', 'Claude connaît la description de l’app, les propositions et ton choix. Ses nouvelles propositions s’affichent en cartes : clique pour les adopter.'],
         placeholder: 'Ex. « plus court », « une couleur plus chaude », « un symbole de bouclier »…',
-        identite: { nom: n => { adopterNom(n); U.toast('success', 'Nom adopté', n.nom); }, logo: l => { adopterLogo(l); U.toast('success', 'Logo adopté', l.titre || ''); }, ajouter: p => ajouter(p, 'claude') }
+        identite: { nom: n => { adopterNom(n); U.toast('success', 'Nom adopté', n.nom); }, logo: l => { adopterLogo(l); U.toast('success', 'Logo adopté', l.titre || ''); },
+          univers: u => { adopterUnivers(u); U.toast('success', 'Univers adopté', u.titre || AB.univers.BASES[u.base].nom); }, ajouter: p => ajouter(p, 'claude') }
       });
     }
 
@@ -574,10 +700,16 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
     q('#idDiscuter').onclick = discuter;
 
     if (!id.propositions || !id.propositions.noms.length) auto();
+    else I.universAuto(id, opts.contexte().description);
     dessiner();
     return {
       /** À appeler quand la description ou le nom changent : les propositions automatiques suivent. */
-      rafraichir() { if (!id.propositions || id.propositions.source === 'auto') { auto(); } dessiner(); },
+      rafraichir() {
+        const avant = id.univers && id.univers.base;
+        if (!id.propositions || id.propositions.source === 'auto') { auto(); } else I.universAuto(id, opts.contexte().description);
+        dessiner();
+        if ((id.univers && id.univers.base) !== avant) opts.changer();   // l'univers déduit a changé : le prompt suit
+      },
       demanderClaude
     };
   };
@@ -586,10 +718,21 @@ Choix actuel : nom « ${ctx.nom || '—'} »${id.accroche ? `, accroche « ${id.
 
   /** Copie l'identité choisie dans l'app (fiche + fichiers identite/ de l'app). */
   I.enregistrerDansApp = async function (app, id) {
+    if (id && id.univers) await I.enregistrerUnivers(app, id.univers, id.logo || (app.identite && app.identite.logo), true);
     if (!id || !id.logo) { if (id && id.accroche) app.identite = Object.assign({}, app.identite, { accroche: id.accroche }); return; }
-    app.identite = { accroche: id.accroche || '', couleurs: couleurs(id.logo.couleurs), logo: U.clone(id.logo), svg: I.svg(id.logo) };
+    app.identite = Object.assign({}, app.identite, { accroche: id.accroche || '', couleurs: couleurs(id.logo.couleurs), logo: U.clone(id.logo), svg: I.svg(id.logo) });
     const f = await I.fichiers(id.logo, 'identite/');
     for (const [chemin, contenu] of Object.entries(f)) await AB.fichiers.ajouter('app:' + app.id, chemin, typeof contenu === 'string' ? new TextEncoder().encode(contenu) : contenu, []);
+  };
+
+  /** Copie l'univers choisi dans l'app (fiche + identite/univers.css et identite/UNIVERS.md). */
+  I.enregistrerUnivers = async function (app, univers, logo, sansEnregistrer) {
+    const u = AB.univers.normaliser(univers); u.suivreLogo = univers.suivreLogo;
+    const j = I.jetonsUnivers({ univers: u, logo });
+    app.identite = Object.assign({}, app.identite, { univers: u });
+    const f = { 'identite/univers.css': AB.univers.css(u, j, app.nom), 'identite/UNIVERS.md': AB.univers.md(u, j, app.nom) };
+    for (const [chemin, contenu] of Object.entries(f)) await AB.fichiers.ajouter('app:' + app.id, chemin, new TextEncoder().encode(contenu), []);
+    if (!sansEnregistrer) await AB.apps.enregistrer(app);
   };
 
   /** Pastille d'une app : son logo s'il existe, sinon son icône MDI. */

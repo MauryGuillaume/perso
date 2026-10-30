@@ -1,4 +1,4 @@
-# Atelier de Blocs — v1.29.1
+# Atelier de Blocs — v1.30
 
 Plateforme HTML en **trois espaces** :
 
@@ -67,6 +67,28 @@ Les fichiers sont dans la sauvegarde (Réglages › Exporter).
 Onglet « Base de données » dans l'espace de chaque app (composeur et fiche) : tables, SQL, connexion, données,
 réglages, plusieurs bases par app. « Importer un schéma » lit un fichier SQL (CREATE TABLE, migrations) ou un
 `schema.prisma`. Les fiches PostLocal, RelancePro, Livora, Podology et Training arrivent avec leurs tables.
+
+### Un univers graphique propre à chaque app (v1.30)
+
+Les apps ne se ressemblent plus toutes : chacune reçoit **son univers**, adapté à son besoin, sur un socle commun qui la
+garde **fluide, lisible, colorée et accessible**. Kit **App complète 1.3**.
+
+- **Nouvelle app** et **Prompt et pack** : le panneau devient « Nom, logo et univers ». L'Atelier déduit l'univers de la
+  description parmi 13 ambiances (soin et sérénité, calme et bien-être, nature, gourmand, pro, finance, ludique, sport,
+  culture, voyage, tech, élégance, communauté) et en montre trois en cartes. L'univers choisi s'affiche en **aperçu réel**
+  (les vrais `charte.css` et `socle.css` du kit) et se règle : couleurs douces ou vives, teintes du logo ou de l'univers,
+  polices des titres et du texte, formes, ombres, barre, motif, illustration, densité, animations. Les contrôles
+  (contrastes 4,5:1, app colorée, couleurs douces, texte à 16 px, animations courtes) s'affichent en direct.
+- **Couleurs douces par défaut**, pas agressives ; vives seulement quand le concept s'y prête (enfants, jeu, sport, fête).
+  Les contrastes sont corrigés automatiquement, y compris avec les couleurs du logo.
+- « Proposer avec Claude » et la discussion proposent aussi des univers (cartes à adopter d'un clic). Dans l'onglet
+  Discussion d'une app existante : « Propose-moi 3 univers », l'univers adopté va dans ses fichiers (`identite/`).
+- Le prompt reçoit une section « Univers graphique » ; le ZIP du kit et le pack reçoivent `identite/univers.css` (à copier
+  dans `public/`) et `identite/UNIVERS.md` (palette, icônes, illustrations, ton des textes).
+- Kit : `public/univers.css` (palette complète, polices, formes, ombres, dégradés, motif, illustration des écrans vides,
+  rythme) ; `charte.css` devient les composants communs, plus fluides (entrée des écrans, retour au toucher, feuilles qui
+  glissent, onglet actif en pastille). `verifier-app.js` : règle 24 réécrite, 25 sur `univers.css`, 26 couleurs douces.
+  Mise à jour d'une app 1.2.x : `kits/app-complete/KIT.md` § 18.
 
 ### Kit « App complète » 1.2.1 : mot de passe et écrans d'accueil (v1.29.1)
 

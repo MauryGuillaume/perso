@@ -1,8 +1,8 @@
 /* sw.js — service worker du kit « App complète ». Changer VERSION à chaque livraison.
    Réseau d'abord (l'app est toujours à jour), cache en secours hors ligne. L'API n'est JAMAIS mise en cache
    (données personnelles). */
-const VERSION = 'app-v1.0.0';
-const FICHIERS = ['/', '/index.html', '/charte.css', '/socle.css', '/affichage.js', '/noyau.js', '/app-ecrans.js', '/manifest.webmanifest', '/icone.svg'];
+const VERSION = 'app-v1.0.1';
+const FICHIERS = ['/', '/index.html', '/univers.css', '/charte.css', '/socle.css', '/affichage.js', '/noyau.js', '/app-ecrans.js', '/manifest.webmanifest', '/icone.svg'];
 
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FICHIERS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => {
