@@ -1,0 +1,95 @@
+{
+  "nom": "Abonnely",
+  "description": "Votre quotidien, en plus simple : abonnements (catalogue de services connus ou import de relevé CSV), coût mensuel et annuel, rappels avant chaque échéance et fin d’essai, lettre de résiliation.",
+  "version": "1.0.0",
+  "kit": "app-complete",
+  "icone": "mdi-autorenew",
+  "stack": "HTML, CSS, JavaScript + Node.js + PostgreSQL",
+  "web": "public",
+  "schema": [
+    "noyau/migrations",
+    "db/migrations"
+  ],
+  "admin": {
+    "api": "/api/admin",
+    "cle": "ADMIN_API_KEY"
+  },
+  "env": [
+    {
+      "cle": "DATABASE_URL",
+      "role": "Connexion à la base PostgreSQL",
+      "secret": true
+    },
+    {
+      "cle": "ADMIN_API_KEY",
+      "role": "Clé de gestion depuis l'Atelier (générée par l'Atelier)",
+      "secret": true
+    },
+    {
+      "cle": "APP_URL",
+      "role": "Adresse publique de l'app",
+      "secret": false
+    },
+    {
+      "cle": "APP_ENV",
+      "role": "production en ligne",
+      "secret": false
+    },
+    {
+      "cle": "PUB_ACTIVE",
+      "role": "1 : bandeau de pub pour le palier Gratuit (0 par défaut)",
+      "secret": false
+    },
+    {
+      "cle": "PAIEMENT_ACTIF",
+      "role": "1 : abonnement Premium achetable (0 par défaut)",
+      "secret": false
+    },
+    {
+      "cle": "BREVO_API_KEY",
+      "role": "Clé API Brevo (rappels par e-mail)",
+      "secret": true
+    },
+    {
+      "cle": "EMAIL_EXPEDITEUR",
+      "role": "Adresse d’expédition des rappels (validée chez Brevo)",
+      "secret": false
+    },
+    {
+      "cle": "INSCRIPTION_OUVERTE",
+      "role": "1 en production : chacun crée son compte",
+      "secret": false
+    }
+  ],
+  "fonctionnalites": [
+    [
+      "Comptes et rôles",
+      "app-complete"
+    ],
+    [
+      "Offre Gratuit / Premium (charte commune)",
+      "app-complete"
+    ],
+    [
+      "Tableau de bord : total mensuel et annuel, graphique par catégorie",
+      ""
+    ],
+    [
+      "Abonnements et catalogue des services connus",
+      ""
+    ],
+    [
+      "Rappels par e-mail avant échéance et fin d’essai (Brevo)",
+      ""
+    ],
+    [
+      "Import de relevé CSV : détection des prélèvements récurrents (Premium)",
+      ""
+    ],
+    [
+      "Lettre de résiliation PDF (Premium) et lien direct",
+      ""
+    ]
+  ],
+  "notes": "Liste complète des variables : .env.example. Gestion des données (catalogue services, abonnements suivis), comptes, journal, RGPD et sauvegarde depuis l’Atelier. Rôles admin, vip et utilisateur du socle, aucun rôle métier. Offre : Gratuit (pub, 8 abonnements) / Premium 1,99 €/mois ou 14,99 €/an. Les abonnements suivis sont dans la table souscriptions (abonnements = offre du socle)."
+}

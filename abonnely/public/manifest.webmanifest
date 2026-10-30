@@ -1,0 +1,17 @@
+{
+  "name": "Abonnely",
+  "short_name": "Abonnely",
+  "description": "Votre quotidien, en plus simple : tous vos abonnements, leur coût et leurs échéances au même endroit.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5FBFA",
+  "theme_color": "#0F766E",
+  "icons": [
+    { "src": "/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

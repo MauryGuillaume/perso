@@ -1,0 +1,57 @@
+/* univers.css — univers graphique de Abonnely : « Finance et confiance », couleurs douces.
+   Généré par l'Atelier de Blocs. PROPRE À L'APP : les valeurs se changent, les noms restent (verifier-app.js, règle 24).
+   Polices : titres géométrique, moderne, texte système, nette ; formes équilibrées ;
+   motif losanges ; illustration boîte ; mouvement doux. Voir UNIVERS.md. */
+:root {
+  --univers: confiance; --intensite: douce;
+  /* Couleurs (contraste 4,5:1 contrôlé, règle 24) */
+  --primaire: #0F766E;
+  --sur-primaire: #FFFFFF;
+  --accent: #94600A;
+  --sur-accent: #FFFFFF;
+  --fond: #F5FBFA;
+  --carte: #FDFEFE;
+  --texte: #1A2E2C;
+  --doux: #58706E;
+  --bordure: #DBE8E7;
+  --teinte: #FDF3E1;
+  --couleur-2: #D5F2EE;
+  --couleur-3: #FBE9C6;
+  --danger: #BA352C;
+  --succes: #297B47;
+  --alerte: #A15C0D;
+  --barre-fond: linear-gradient(135deg, #0F766E, #0E6B63);
+  --btn-fond: #94600A;
+  /* Typographie (polices du système ou fichiers dans public/polices/, jamais de CDN : la CSP les bloque) */
+  --police: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --police-titres: "Avenir Next", Avenir, Montserrat, "Century Gothic", Futura, system-ui, sans-serif;
+  --graisse-titres: 700;
+  --casse-titres: none;
+  --lettrage-titres: -0.01em;
+  --t-petit: 14px;
+  --t-normal: 16px;
+  --t-titre: 22px;
+  --t-grand-titre: 28px;
+  /* Formes et relief */
+  --rayon: 12px;
+  --rayon-btn: 12px;
+  --rayon-champ: 10px;
+  --trait: 1px;
+  --ombre: 0 1px 2px rgba(26, 46, 44, 0.05), 0 6px 18px rgba(26, 46, 44, 0.06);
+  --ombre-forte: 0 2px 4px rgba(26, 46, 44, 0.06), 0 14px 32px rgba(26, 46, 44, 0.12);
+  --btn-ombre: none;
+  /* Motif (barre et accueil), illustration des écrans vides : SVG en data: ou fichier de public/ */
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Cpath%20d%3D%27M16%204%20L28%2016%20L16%2028%20L4%2016%20Z%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-opacity%3D%270.16%27%20stroke-width%3D%271.5%27%2F%3E%3C%2Fsvg%3E");
+  --motif-taille: 32px;
+  --fond-motif: none;
+  --illustration: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20240%20180%27%3E%3Cellipse%20cx%3D%27120%27%20cy%3D%27156%27%20rx%3D%2772%27%20ry%3D%278%27%20fill%3D%27%23D5F2EE%27%2F%3E%3Cpath%20d%3D%27M70%2072%20L120%2052%20L170%2072%20V136%20L120%20156%20L70%20136%20Z%27%20fill%3D%27%23FBE9C6%27%2F%3E%3Cpath%20d%3D%27M70%2072%20L120%2092%20L170%2072%27%20fill%3D%27none%27%20stroke%3D%27%230F766E%27%20stroke-width%3D%274%27%20stroke-linejoin%3D%27round%27%2F%3E%3Cpath%20d%3D%27M120%2092%20V156%27%20stroke%3D%27%230F766E%27%20stroke-width%3D%274%27%2F%3E%3Cpath%20d%3D%27M95%2062%20L145%2082%27%20stroke%3D%27%23E0A13A%27%20stroke-width%3D%278%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+  /* Mouvement et rythme */
+  --duree: 240ms;
+  --courbe: cubic-bezier(.2, .7, .2, 1);
+  --e1: 4px;
+  --e2: 8px;
+  --e3: 12px;
+  --e4: 16px;
+  --e5: 24px;
+  --e6: 32px;
+}
