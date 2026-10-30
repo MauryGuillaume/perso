@@ -1,0 +1,21 @@
+/* app.css — mise en page des écrans d'Abonnely. Uniquement les jetons d'univers.css (règle 24) : aucune couleur, police ni ombre en dur. */
+.ab-totaux { text-align: center; }
+.ab-totaux p { margin: 0 0 var(--e1); }
+.ab-total { font-size: calc(var(--t-grand-titre) * 1.5); line-height: 1.1; color: var(--primaire); }
+.ab-total .doux { font-size: var(--t-normal); }
+.liste a.ligne { display: flex; align-items: flex-start; color: inherit; text-decoration: none; padding: var(--e1) var(--e2); }
+.ab-montant { text-align: right; white-space: nowrap; }
+.ab-barres { list-style: none; margin: var(--e3) 0 0; padding: 0; display: grid; gap: var(--e3); }
+.ab-barre { display: block; height: 10px; margin-top: var(--e1); border-radius: 999px; background: var(--teinte); overflow: hidden; }
+.ab-barre-plein { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--primaire); transition: width var(--duree) var(--courbe); }
+.ab-barre-plein.ab-c1 { background: var(--accent); }
+.ab-barre-plein.ab-c2 { background: var(--succes); }
+.ab-deux { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e3); }
+.ab-filtres { display: flex; gap: var(--e2); overflow-x: auto; padding-bottom: var(--e2); margin-bottom: var(--e3); scrollbar-width: none; }
+.ab-filtres .pastille { border: 0; cursor: pointer; white-space: nowrap; min-height: 36px; font: inherit; font-size: var(--t-petit); color: var(--texte); }
+.ab-filtres .pastille[aria-pressed="true"] { background: var(--accent); color: var(--sur-accent); }
+.ab-tuiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--e3); margin-bottom: var(--e3); }
+.ab-tuile { display: flex; flex-direction: column; gap: var(--e1); text-align: left; font: inherit; color: var(--texte); min-height: 72px; width: 100%; }
+.ab-choix { cursor: pointer; align-items: flex-start; }
+.ab-choix input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); }
+@media (max-width: 360px) { .ab-deux { grid-template-columns: 1fr; } }
