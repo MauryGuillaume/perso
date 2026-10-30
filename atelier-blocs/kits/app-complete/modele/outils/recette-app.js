@@ -247,6 +247,24 @@ function lancer(variables, attendreFin) {
     regle('33', 'Webhooks de paiement : signature Stripe et clé RevenueCat vérifiées, abonnement ouvert puis fermé', haut === paliers[0] || (sFaux === 400 && sBon < 300 && su4.offre.palier === haut && su4.offre.gere
       && su5.offre.palier === paliers[0] && rFaux === 401 && rBon < 300 && su6.offre.palier === haut && su6.offre.source === 'google' && su7.offre.palier === paliers[0]),
       `stripe faux ${sFaux} bon ${sBon} → ${su4.offre && su4.offre.palier}, résilié → ${su5.offre && su5.offre.palier} ; revenuecat faux ${rFaux} bon ${rBon} → ${su6.offre && su6.offre.palier}, expiré → ${su7.offre && su7.offre.palier}`);
+
+    // 34 Suppression de son propre compte (App Store 5.1.1(v), Google Play) : mot de passe, données effacées, abonnement Stripe d'abord résilié
+    const partant = await compte('partant@recette.test', 'utilisateur'), abonne = await compte('abonne@recette.test', 'utilisateur');
+    const evAbonne = JSON.stringify({ type: 'customer.subscription.updated', data: { object: { id: 'sub_abonne', customer: 'cus_abonne', status: 'active', cancel_at_period_end: false,
+      current_period_end: t + 30 * 86400, metadata: { utilisateur_id: abonne.id, palier: haut, periode: 'mois' } } } });
+    if (haut !== paliers[0]) await brut('/api/offre/stripe', evAbonne, { 'Stripe-Signature': signe(evAbonne, STRIPE_WH) });
+    const delMauvais = await avecCookie(partant.cookie, 'POST', '/api/moi/supprimer', { mdp: 'pas-le-bon-mdp' });
+    const delSans = await appel('POST', '/api/moi/supprimer', { mdp: MDP }, { sansCookie: true, garder: false });
+    const delBon = await avecCookie(partant.cookie, 'POST', '/api/moi/supprimer', { mdp: MDP });
+    const apres = await appel('POST', '/api/connexion', { email: 'partant@recette.test', mdp: MDP }, { garder: false });
+    const sApres = await sess(partant.cookie);
+    const delAbonne = haut === paliers[0] ? { statut: 409 } : await avecCookie(abonne.cookie, 'POST', '/api/moi/supprimer', { mdp: MDP });
+    const jx34 = await appel('GET', '/api/admin/journal?action=compte_supprime_par_soi', undefined, { cle: CLE });
+    const traces = JSON.stringify(jx34.json);
+    regle('34', 'Suppression de son compte depuis l’app : mot de passe exigé, compte et données effacés, session fermée, abonnement Stripe à résilier d’abord, journalisé sans mot de passe',
+      delMauvais.statut === 400 && delSans.statut === 401 && delBon.statut < 300 && /Max-Age=0/.test(delBon.setCookie || '') && apres.statut === 401 && !sApres.utilisateur
+        && delAbonne.statut === 409 && traces.includes('partant@recette.test') && !traces.includes(MDP),
+      `mauvais mdp ${delMauvais.statut}, sans session ${delSans.statut}, bon ${delBon.statut}, reconnexion ${apres.statut}, abonné Stripe ${delAbonne.statut}, journal ${jx34.statut}`);
   } catch (e) {
     regle('00', 'Recette menée jusqu’au bout', false, e.message);
   } finally {

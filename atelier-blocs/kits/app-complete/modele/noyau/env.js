@@ -34,6 +34,7 @@ const NOYAU = [
   { cle: 'JETON_SECRET', type: 'texte', secret: true, min: 32, role: 'Signature des jetons de connexion (front séparé, app mobile) ; vide = tirée au hasard à chaque démarrage (reconnexion après un redémarrage). Obligatoire en production si l’app utilise les jetons' },
   { cle: 'JETON_MINUTES', type: 'entier', defaut: '15', role: 'Durée du jeton d’accès, en minutes (renouvelé avec le jeton de renouvellement)' },
   { cle: 'JETON_JOURS', type: 'entier', defaut: '30', role: 'Durée du jeton de renouvellement, en jours (rester connecté)' },
+  { cle: 'JOURNAL_MOIS', type: 'entier', defaut: '12', role: 'Durée de conservation du journal des actions sensibles (adresses IP comprises), en mois : les lignes plus anciennes sont effacées chaque jour ; elle figure dans la politique de confidentialité' },
   { cle: 'REQUETES_PAR_MINUTE', type: 'entier', defaut: '300', role: 'Limite de requêtes par adresse IP et par minute' },
   // Offre commune (KIT.md § 17) : publicité et paiement restent éteints tant qu'ils ne sont pas allumés ici
   { cle: 'PUB_ACTIVE', type: 'booleen', defaut: '0', role: '1 : bandeau de publicité en bas de l’écran pour les paliers « avec pub » (Gratuit) ; 0 : aucune publicité' },

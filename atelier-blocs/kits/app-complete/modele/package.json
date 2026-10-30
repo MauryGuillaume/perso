@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "App sur le kit « App complète » de l'Atelier de Blocs",
-  "kitAppComplete": "1.3.0",
+  "kitAppComplete": "1.4.0",
   "engines": {
     "node": ">=18"
   },

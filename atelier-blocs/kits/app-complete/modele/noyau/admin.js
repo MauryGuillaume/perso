@@ -339,10 +339,8 @@ function routes(r, app) {
     await journal(ctx, 'rgpd_export', email, { tables: Object.keys(r_.donnees) });
     return { email, exporte_le: new Date(), regles: app.rgpd || [], donnees: r_.donnees };
   });
-  r.post('/api/admin/rgpd/supprimer', ADMIN, async (req, ctx) => {
-    const email = comptes.controlerEmail(ctx.corps.email);
-    if (ctx.corps.confirmer !== email) throw erreur(400, 'Recopie l’email pour confirmer.');
-    const { utilisateur: u } = await donneesDe(email);
+  /** Efface les données d'une personne (app/app.js → rgpd), puis son compte ; renvoie le bilan par table. */
+  async function effacer(email, u) {
     const sch = await schema(app);
     const bilan = {};
     await base.transaction(async c => {
@@ -367,8 +365,30 @@ function routes(r, app) {
         await c.query('delete from utilisateurs where id = $1', [u.id]); bilan.utilisateurs = '1 supprimé';
       }
     });
+    return bilan;
+  }
+  r.post('/api/admin/rgpd/supprimer', ADMIN, async (req, ctx) => {
+    const email = comptes.controlerEmail(ctx.corps.email);
+    if (ctx.corps.confirmer !== email) throw erreur(400, 'Recopie l’email pour confirmer.');
+    const { utilisateur: u } = await donneesDe(email);
+    const bilan = await effacer(email, u);
     await journal(ctx, 'rgpd_suppression', email, bilan);
     return { email, bilan };
+  });
+
+  /* ---------- Suppression de son propre compte (exigée par l'App Store et Google Play) ----------
+     Mot de passe demandé ; mêmes règles que la suppression RGPD (app/app.js → rgpd), puis le compte et ses sessions.
+     Un abonnement Stripe en cours se résilie d'abord (il continuerait d'être prélevé) ; un abonnement pris sur
+     l'App Store ou Google Play se résilie dans les réglages du téléphone (l'écran le rappelle). */
+  r.post('/api/moi/supprimer', { mdpProvisoire: true, limite: 4096 }, async (req, ctx) => {
+    // même contrôle que la connexion : mot de passe vérifié, essais limités, refus journalisés
+    const moi = await comptes.verifierConnexion(ctx, ctx.utilisateur.email, ctx.corps.mdp).catch(e => { throw e.statut === 401 ? erreur(400, 'Mot de passe incorrect.') : e; });
+    const ab = await offre.etat(ctx.utilisateur);
+    if (ab.gere && ab.statut !== 'annule') throw erreur(409, 'Résilie d’abord ton abonnement (Abonnement › Gérer ou résilier mon abonnement), puis supprime ton compte.');
+    const bilan = await effacer(moi.email, moi);
+    await journal(Object.assign({}, ctx, { utilisateur: { id: null, email: moi.email } }), 'compte_supprime_par_soi', moi.email, bilan);
+    ctx.res.setHeader('Set-Cookie', comptes.cookieSession('', 0));
+    return { ok: true, bilan };
   });
 
   /* ---------- Sauvegarde lisible ---------- */
