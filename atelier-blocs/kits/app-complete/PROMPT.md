@@ -1,6 +1,6 @@
 # Prompt d'entrée — app complète (comptes, base, administration depuis l'Atelier)
 
-> À coller au début de la conversation avec Claude, en joignant **tous les fichiers du kit** (archive `app-complete-v1.2.1.zip`
+> À coller au début de la conversation avec Claude, en joignant **tous les fichiers du kit** (archive `app-complete-v1.3.0.zip`
 > décompressée, dont `modele/`). Remplace les éléments entre ⟦ ⟧ (ceux qui commencent par « ? » sont facultatifs).
 > Dans l'Atelier de Blocs : Créer une app › Nouvelle app remplit ce prompt pour toi.
 
@@ -28,8 +28,8 @@ base PostgreSQL automatique, comptes, sécurité, API d'administration utilisée
 
 ## Règles non négociables
 
-- Copie `modele/` en entier. **Ne modifie jamais** `serveur.js`, `noyau/`, `public/noyau.js`, `public/socle.css`.
-  Tu écris seulement `app/app.js`, `db/migrations/` et `public/app-ecrans.js` (plus titre, icônes et charte).
+- Copie `modele/` en entier. **Ne modifie jamais** `serveur.js`, `noyau/`, `public/noyau.js`, `public/charte.css`, `public/socle.css`.
+  Tu écris seulement `app/app.js`, `db/migrations/` et `public/app-ecrans.js` (plus titre, icônes et `public/univers.css`).
 - Chaque variable d'environnement est **déclarée** dans `app/app.js → variables` et lue par `env.get()` ; jamais de
   `process.env` ; `.env.example` régénéré (`npm run env:exemple`).
 - Base optimisée (KIT.md § 9) : `uuid`, `cree_le`/`modifie_le`, `numeric(12,2)`, `timestamptz`, index sur chaque
@@ -41,8 +41,11 @@ base PostgreSQL automatique, comptes, sécurité, API d'administration utilisée
 
 ## Charte commune de mes apps (KIT.md § 17)
 
-- **Style** : la charte du kit telle quelle ; seules `--primaire`, `--sur-primaire`, `--accent`, `--sur-accent`,
-  `theme-color` et les icônes changent. Écrans faits avec les classes de `charte.css` et `socle.css`, rien en dur.
+- **Style** : un univers graphique **propre à cette app**, adapté à son besoin (`public/univers.css` et `UNIVERS.md` :
+  palette, polices, formes, motif, illustrations, ton), sur le socle commun qui la garde fluide, lisible et colorée.
+  Couleurs douces par défaut, vives seulement si le concept s'y prête. Si je joins `univers.css`, copie-le tel quel ;
+  sinon, choisis ses valeurs selon le besoin (KIT.md § 17.1). Écrans faits avec les classes de `charte.css` et
+  `socle.css`, rien en dur.
 - **Rôles** : `admin`, `vip` et `utilisateur` viennent du socle, ne les redéclare pas ; `vip` a tous les avantages du
   palier le plus haut sans payer. Déclare dans `app.roles` chaque rôle métier utile : `{ id, libelle, description }`.
 - **Offre** : `app.offre` au format commun, `gratuit` (avec pub, limites) puis `premium` (sans pub) ; fonctions payantes

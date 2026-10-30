@@ -11,35 +11,6 @@
  "noyau/migrations/0002_jetons.sql": "608f54d07683912cede8f205d2fe829c792a2c17300f8eb8c3575078e2b381b1",
  "noyau/migrations/0003_offre.sql": "8560dc1b2ecdfecc4e14820a512c0e399548669182dea9a65dbbff71925ba9ea",
  "public/noyau.js": "66779f5707d3c0413130fbe54c8e9df358cace647ccde171341c85df357545bd",
- "public/socle.css": "2bc10e5ff3d79206dbaa65d5ddabcb972b6cde50f133d909201666ada23f2bfb",
- "charte": {
-  "jetons": {
-   "primaire": "#001047",
-   "sur-primaire": "#ffffff",
-   "accent": "#2962ff",
-   "sur-accent": "#ffffff",
-   "fond": "#f4f5f7",
-   "carte": "#ffffff",
-   "texte": "#101012",
-   "doux": "#5f626c",
-   "bordure": "#e3e5ea",
-   "danger": "#c62828",
-   "succes": "#2e7d32",
-   "alerte": "#a15c00",
-   "police": "Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
-   "t-petit": "14px",
-   "t-normal": "16px",
-   "t-titre": "22px",
-   "t-grand-titre": "28px",
-   "rayon": "12px",
-   "ombre": "0 1px 2px rgba(16, 16, 18, .06), 0 4px 12px rgba(16, 16, 18, .06)",
-   "e1": "4px",
-   "e2": "8px",
-   "e3": "12px",
-   "e4": "16px",
-   "e5": "24px",
-   "e6": "32px"
-  },
-  "composants": "ccbd16a9a5e3fd5a8203b6c5a87c8a643697f1e7277aadbb4e41ec22a6769fbd"
- }
+ "public/socle.css": "ee8bcf9f5bbac5d78f661eea9836dc49d3778a7b2275809b92c15ada50567dff",
+ "public/charte.css": "a77efcd5e59dc18d693feef13da494ec4c41a3eaccd47bfaaf4dd55e9491fea6"
 }

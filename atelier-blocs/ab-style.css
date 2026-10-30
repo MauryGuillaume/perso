@@ -368,6 +368,23 @@ html.em-grand-ouvert { overflow: hidden; }
 .id-vide { display: grid; place-items: center; border: 1px dashed var(--border); border-radius: 20px; color: var(--text-3); font-size: 28px; }
 .id-couleur { display: flex; align-items: center; gap: 4px; cursor: pointer; }
 .id-couleur input { width: 28px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.id-univers-liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 6px; }
+.id-univers { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 6px; cursor: pointer; font: inherit; color: var(--text); text-align: left; }
+.id-univers:hover { border-color: var(--color-accent); }
+.id-univers.actif { border-color: var(--color-accent); background: var(--color-accent-bg); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.id-u-barre { display: block; padding: 8px 10px; border-radius: 8px 8px 0 0; font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.id-u-corps { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px 10px; border-radius: 0 0 8px 8px; margin-top: -6px; }
+.id-u-titre { font-size: 17px; line-height: 1.1; }
+.id-u-nuancier { display: flex; gap: 3px; }
+.id-u-nuancier i { width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.id-u-btn { align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 12px; }
+.id-u-detail { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 14px; margin-top: 12px; align-items: start; }
+.id-u-apercu { width: 260px; height: 520px; border: 1px solid var(--border); border-radius: 22px; background: #fff; }
+.id-reglages { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px 8px; }
+.id-reglage { display: flex; flex-direction: column; gap: 2px; }
+.id-reglage .tv-select { padding-top: 4px; padding-bottom: 4px; font-size: 13px; }
+.id-u-controles { display: flex; flex-direction: column; gap: 3px; padding: 8px 10px; border-radius: var(--radius); background: var(--bg-2, rgba(0,0,0,.03)); }
+@media (max-width: 760px) { .id-u-detail { grid-template-columns: minmax(0, 1fr); } .id-u-apercu { width: 100%; } }
 .id-dans-msg { display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
 .id-mini { width: 1em; height: 1em; vertical-align: -0.12em; }
 .app-card-icon .id-mini { width: 36px; height: 36px; }

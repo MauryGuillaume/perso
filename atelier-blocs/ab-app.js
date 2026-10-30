@@ -27,7 +27,7 @@
 (function () {
   const U = AB.u;
   const A = AB.app = {};
-  A.VERSION = '1.29.1';   // même numéro que VERSION dans serveur.js
+  A.VERSION = '1.30';   // même numéro que VERSION dans serveur.js
 
   /* Trois espaces : créer (prompt, pack, blocs), gérer ses apps, gérer ses kits ; et la veille (une idée d'app par jour). */
   const NAV = [

@@ -94,7 +94,7 @@
     pack.kits.forEach(({ k, chemins }) => out.push(`- \`kits/${k.id}/\` : le kit « ${k.nom} » (\`KIT-ATELIER.md\` reprend ses règles)${chemins.length ? `, avec ${chemins.length} document(s) : ${chemins.slice(0, 12).map(c => `\`${c}\``).join(', ')}${chemins.length > 12 ? '…' : ''}` : ''}`));
     pack.blocs.forEach(d => out.push(`- \`blocs/${d.id}.js\` : le bloc « ${d.nom} » (définition, écrans, code)`));
     pack.bases.forEach(b => out.push(`- \`bases/${b.fichier}\` : le schéma de la base « ${b.base.nom} » (SQL de création)`));
-    if (pack.identite) out.push('- `identite/` : le logo de l’app (`icone.svg`, `icone-512.png`, `icone-192.png`, `icone-180.png`)');
+    if (pack.identite) out.push('- `identite/` : le logo de l’app (`icone.svg`, `icone-512.png`, `icone-192.png`, `icone-180.png`) s’il est choisi, son univers graphique (`univers.css`, `UNIVERS.md`)');
     if (pack.code) out.push(`- \`code-actuel/\` : le code actuel de l’app (version ${pack.code}). Pars de lui.`);
     return out.join('\n');
   }
@@ -219,7 +219,7 @@
   P.metaPack = function (opts, cheminsKits) {
     const app = opts.app || null;
     const slug = U.slug(opts.nom || (app && app.nom) || 'app') || 'app';
-    const pack = { nom: `pack-${slug}.zip`, racine: `pack-${slug}/`, kits: [], blocs: opts.blocs || [], bases: [], code: 0, identite: !!(opts.identite && opts.identite.logo) };
+    const pack = { nom: `pack-${slug}.zip`, racine: `pack-${slug}/`, kits: [], blocs: opts.blocs || [], bases: [], code: 0, identite: AB.identite.aDesFichiers(opts.identite) };
     (opts.kits || []).forEach(k => pack.kits.push({ k, chemins: (cheminsKits[AB.kits.proprio(k)] || []).slice().sort() }));
     if (app) {
       AB.bases.de(app);
@@ -239,7 +239,7 @@
     for (const k of opts.kits || []) Object.assign(contenu, await AB.kits.contenuZip(k, `${racine}kits/${k.id}/`, false));
     pack.blocs.forEach(d => { contenu[`${racine}blocs/${d.id}.js`] = AB.blocs.versFichier(d); });
     pack.bases.forEach(({ fichier, base }) => { contenu[`${racine}bases/${fichier}`] = AB.bases.sql(app, base); });
-    if (pack.identite) Object.assign(contenu, await AB.identite.fichiers(opts.identite.logo, `${racine}identite/`));
+    if (pack.identite) Object.assign(contenu, await AB.identite.fichiersIdentite(opts.identite, `${racine}identite/`, opts.nom || ''));
     if (pack.code) {
       const { fichiers } = await AB.fichiers.lireZip(await AB.code.zip(app));
       Object.entries(fichiers).forEach(([c, o]) => { if (!/(^|\/)(node_modules|\.git)\//.test(c) && !/(^|\/)\.env$/.test(c)) contenu[`${racine}code-actuel/${c}`] = o; });

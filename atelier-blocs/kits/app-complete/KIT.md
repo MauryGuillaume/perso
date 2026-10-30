@@ -1,6 +1,6 @@
 # Kit « App complète » — référence complète
 
-> **Version du kit : 1.2** (2026-10-23). Pour toute app avec des comptes et des données. Lis ce fichier en entier avant de coder.
+> **Version du kit : 1.3** (2026-10-30). Pour toute app avec des comptes et des données. Lis ce fichier en entier avant de coder.
 
 ## 1. Principe
 
@@ -14,7 +14,8 @@ chaque app, et toujours de la même façon :
   journal, RGPD, sauvegarde, réglages, état de la configuration et de la base ;
 - **sécurité** : CSP stricte, protection CSRF, limite de requêtes, cookies HttpOnly, secrets jamais affichés ;
 - **front** installable (PWA) avec ses écrans de compte et un admin de dépannage ;
-- **charte commune des apps** (§ 17) : le même style, les rôles `admin`, `vip` et `utilisateur` dans toutes les apps,
+- **charte commune des apps** (§ 17) : un socle de qualité commun (lisible, fluide, coloré, accessible) et un **univers
+  graphique propre à chaque app** (palette, polices, formes, motif, illustrations, ton), les rôles `admin`, `vip` et `utilisateur` dans toutes les apps,
   la même offre (Gratuit avec pub, Premium sans pub), le même écran Abonnement et le même bandeau de pub, éteints
   tant que `PUB_ACTIVE` et `PAIEMENT_ACTIF` ne sont pas à 1.
 
@@ -25,8 +26,9 @@ Le travail sur une nouvelle app se limite à **trois endroits** :
 | `app/app.js` | Nom, variables propres, rôles métier, offre (paliers), tables (libellés), RGPD, réglages, routes de l'API métier |
 | `db/migrations/` | Les tables de l'app (SQL), une migration par évolution |
 | `public/app-ecrans.js` | Les écrans de l'app |
+| `public/univers.css` | L'univers graphique de l'app (fourni par l'Atelier, § 17.1) |
 
-Tout le reste (`serveur.js`, `noyau/`, `public/noyau.js`, `public/socle.css`) se **copie tel quel et ne se modifie
+Tout le reste (`serveur.js`, `noyau/`, `public/noyau.js`, `public/charte.css`, `public/socle.css`) se **copie tel quel et ne se modifie
 jamais** : `outils/verifier-app.js` le contrôle par empreintes (règle 02). Si le socle ne permet pas quelque chose,
 dis-le-moi au lieu de le modifier : c'est une évolution du kit.
 
@@ -43,13 +45,15 @@ dis-le-moi au lieu de le modifier : c'est une évolution du kit.
 | `noyau/journal.js` | Journal des actions sensibles | non |
 | `noyau/offre.js` | Offre commune : paliers, rôle vip, abonnements, pub, paiement Stripe et RevenueCat (§ 17) | non |
 | `noyau/migrations/*.sql` | Tables du socle : `utilisateurs`, `sessions`, `journal`, `reglages`, `jetons`, `abonnements` | non |
-| `noyau/empreintes.json` | Empreintes du socle (règle 02) et de la charte (règle 24) | non |
+| `noyau/empreintes.json` | Empreintes du socle, de `charte.css` et de `socle.css` (règle 02) | non |
 | `app/app.js` | **Déclaration de l'app** (exemple « Suivi clients » à remplacer) | **oui** |
 | `db/migrations/*.sql` | **Tables de l'app** | **oui** |
 | `public/index.html` | Page unique (titre, couleur) | titre et `theme-color` seulement |
 | `public/noyau.js`, `public/socle.css` | Socle du front : API, routeur, écrans de compte et d'abonnement, bandeau de pub, dépannage | non |
 | `public/app-ecrans.js` | **Écrans de l'app** | **oui** |
-| `public/charte.css` | Charte commune (kit « Charte de base ») | **les 4 couleurs de marque seulement** (§ 17.1) |
+| `public/univers.css` | **Univers graphique de l'app** : palette, polices, formes, ombres, motif, illustration, rythme (jetons) | **oui, les valeurs** (§ 17.1, règles 24 à 26) |
+| `public/charte.css` | Composants communs (cartes, boutons, champs, pastilles…), qualité de lecture et fluidité | non |
+| `UNIVERS.md` | Direction artistique de l'app : palette, icônes, illustrations, ton des textes | oui (fourni par l'Atelier) |
 | `public/affichage.js` | Kit « Affichage FR » | selon ce kit |
 | `public/sw.js`, `manifest.webmanifest`, icônes | PWA | nom, couleurs, icônes, `VERSION` |
 | `.env.example` | Toutes les variables, sans secret (généré : `npm run env:exemple`) | régénérer |
@@ -319,7 +323,7 @@ Adresses : `GET /api/admin/etat`, `GET /api/admin/tables`, `GET|POST /api/admin/
 | N° | Règle | Niveau |
 | --- | --- | --- |
 | 01 | Fichiers du kit présents | obligatoire |
-| 02 | Noyau intact (noyau/, serveur.js, public/noyau.js, public/socle.css non modifiés) | obligatoire |
+| 02 | Noyau intact (noyau/, serveur.js, public/noyau.js, public/socle.css, public/charte.css non modifiés) | obligatoire |
 | 03 | package.json : script start, kitAppComplete, pg déclaré | obligatoire |
 | 04 | Pas de dépendance en plus de pg (chaque ajout se justifie) | recommandé |
 | 05 | process.env lu uniquement par noyau/env.js (sinon : déclarer dans app/app.js → variables, puis env.get) | obligatoire |
@@ -341,8 +345,9 @@ Adresses : `GET /api/admin/etat`, `GET /api/admin/tables`, `GET|POST /api/admin/
 | 21 | Rôles : admin, vip et utilisateur viennent du socle ; chaque rôle métier a un id, un libellé et une description de ses droits | obligatoire |
 | 22 | Offre au format commun : gratuit d'abord, 3 paliers au plus, prix TTC mois/an et avantages des paliers payants, le plus haut sans pub | obligatoire |
 | 23 | Pub, paiement et droits passent par le socle (aucun SDK de pub ou de paiement, aucun test du rôle vip dans le code de l'app) | obligatoire |
-| 24 | Charte commune : composants identiques, seules les couleurs primaire et accent changent (contraste 4,5:1), rien en dur dans les écrans | obligatoire |
-| 25 | theme-color de index.html = --primaire de la charte | recommandé |
+| 24 | Univers graphique propre à l'app, socle commun : tous les jetons présents, textes à 4,5:1, app colorée, texte à 16 px, animations ≤ 400 ms, rien en dur dans les écrans | obligatoire |
+| 25 | theme-color de index.html = --primaire d'univers.css | recommandé |
+| 26 | Couleurs douces par défaut (vives seulement si `--intensite: vive`), fond et cartes très clairs | recommandé |
 
 ### 13.2 De bout en bout : `node outils/recette-app.js postgres://…/postgres`
 
@@ -420,19 +425,48 @@ propres, routes publiques justifiées, **tableau des rôles et de leurs droits, 
 
 ## 17. Charte commune des apps
 
-Toutes les apps de l'Atelier se ressemblent et se gèrent de la même façon. Ce qui change d'une app à l'autre : son nom, son
-logo, ses deux couleurs de marque, ses rôles métier, le contenu de ses paliers et ses prix. Tout le reste est fourni par le
-socle et contrôlé par les outils de recette.
+Toutes les apps de l'Atelier se gèrent de la même façon et ont la même qualité d'usage, mais **chacune a son propre univers
+graphique**, adapté à son besoin. Ce qui change d'une app à l'autre : son nom, son logo, son univers, ses rôles métier, le
+contenu de ses paliers et ses prix. Tout le reste est fourni par le socle et contrôlé par les outils de recette.
 
-### 17.1 Le style
+### 17.1 Le style : un socle de qualité commun, un univers par app
 
-- La charte (`public/charte.css`, kit « Charte de base ») est la même partout. Une app ne change que les valeurs de
-  `--primaire`, `--sur-primaire`, `--accent` et `--sur-accent` (contraste 4,5:1 vérifié, règle 24), plus `theme-color` dans
-  `index.html` (= `--primaire`, règle 25) et les icônes.
-- Les écrans de l'app n'utilisent que les classes de `charte.css` et `socle.css` : `carte`, `btn`, `btn-secondaire`,
-  `champ`, `liste`, `ligne`, `pastille`, `actions`, `vide`… Aucune couleur, police ni ombre écrite en dur (règle 24).
-- Disposition commune : barre du haut à la couleur primaire avec le nom de l'app et le bouton du compte, contenu en
-  cartes, onglets en bas (3 à 5, le dernier « Compte »), bandeau de pub juste au-dessus des onglets, messages en bas.
+**Le socle commun** (`public/charte.css` et `public/socle.css`, jamais modifiés) garantit dans toutes les apps :
+
+- **lisibilité** : texte à 16 px au moins, interligne aéré, titres équilibrés, contraste 4,5:1 de tous les textes ;
+- **confort** : boutons et champs de 44 px de haut, focus visible, zone de toucher sans délai ;
+- **fluidité** : écrans qui entrent en douceur, boutons qui réagissent au toucher, feuilles qui glissent, toujours courts
+  (≤ 400 ms) et coupés si l'appareil demande moins d'animations ;
+- **disposition** : barre du haut avec le nom de l'app et le bouton du compte, contenu en cartes, onglets en bas (3 à 5,
+  le dernier « Compte »), bandeau de pub juste au-dessus des onglets, messages en bas.
+
+**L'univers de l'app** (`public/univers.css`, valeurs propres à l'app, et `UNIVERS.md`) est fourni par l'Atelier (Nouvelle
+app › « Nom, logo et univers ») : il est déduit de la description de l'app (13 ambiances : soin, calme, nature, gourmand,
+pro, finance, ludique, sport, culture, voyage, tech, élégance, communauté) puis ajustable, ou proposé par Claude. Il fixe :
+
+| Jetons | Ce qu'ils règlent |
+| --- | --- |
+| `--primaire`, `--accent`, `--fond`, `--carte`, `--texte`, `--doux`, `--bordure`, `--teinte`, `--couleur-2`, `--couleur-3`, `--danger`, `--succes`, `--alerte`, `--sur-primaire`, `--sur-accent` | La palette (`--teinte` : fonds clairs des pastilles, survols et onglet actif ; `--couleur-2`/`-3` : catégories et illustrations) |
+| `--barre-fond`, `--btn-fond` | Barre du haut et boutons : couleur pleine ou dégradé |
+| `--police`, `--police-titres`, `--graisse-titres`, `--casse-titres`, `--lettrage-titres`, `--t-*` | La typographie |
+| `--rayon`, `--rayon-btn`, `--rayon-champ`, `--trait`, `--ombre`, `--ombre-forte`, `--btn-ombre` | Les formes et le relief |
+| `--motif`, `--motif-taille`, `--fond-motif`, `--illustration` | Le motif de la barre et de l'accueil, l'illustration des écrans vides |
+| `--duree`, `--courbe`, `--e1` à `--e6` | Le rythme des animations et la densité |
+
+- **Couleurs douces par défaut**, pas agressives : fond très clair, couleurs posées. **Vives** (`--intensite: vive`)
+  seulement si le concept s'y prête (enfants, jeu, sport, fête). Toujours **colorées** : une app grise ne passe pas.
+- Si `univers.css` est joint, il se copie **tel quel**. Sinon, pars de celui du modèle et choisis les valeurs selon le
+  besoin, en suivant les mêmes principes. Une valeur peut changer, un nom de jeton jamais (règle 24).
+- Polices : celles du système (les piles d'`univers.css`) ou des fichiers dans `public/polices/` déclarés par `@font-face`
+  dans `univers.css` ; jamais de CDN (bloqué par la CSP). Images du motif et de l'illustration : SVG en `data:` ou fichier
+  de `public/`.
+- Les écrans n'utilisent que les classes de `charte.css` et `socle.css` : `carte`, `carte-teinte`, `carte-cliquable`,
+  `btn`, `btn-secondaire`, `btn-discret`, `champ`, `liste`, `ligne`, `pastille`, `pastille-2`, `pastille-3`, `actions`,
+  `illustration`, `vide`… Un fichier CSS propre à l'app (`public/app.css`) est permis pour la mise en page de ses écrans,
+  uniquement avec les jetons : aucune couleur, police ni ombre écrite en dur (règle 24).
+- `UNIVERS.md` donne la direction artistique à suivre dans tous les écrans : style des icônes (une seule famille, SVG
+  dans `public/icones/`, `currentColor`), illustrations (`public/illustrations/`, dans la palette), ton des textes.
+- `theme-color` de `index.html` et du manifeste = `--primaire` (règle 25) ; `background_color` du manifeste = `--fond`.
 
 ### 17.2 Les rôles
 
@@ -503,6 +537,22 @@ offre: {
    puis `PAIEMENT_ACTIF=1`. L'Atelier signale dans « État » une variable de paiement manquante.
 
 ## 18. Historique des versions du kit
+
+### 1.3.0 — 2026-10-30
+
+Un univers graphique propre à chaque app (§ 17.1). La charte se sépare en deux : `public/charte.css` (composants communs,
+désormais contrôlé par empreinte comme `socle.css`) et `public/univers.css` (jetons propres à l'app : palette complète,
+polices des titres et du texte, formes, ombres, barre et boutons en dégradé ou pleins, motif, illustration des écrans
+vides, rythme et densité), avec `UNIVERS.md` pour la direction artistique. Couleurs douces par défaut. Socle plus fluide :
+entrée des écrans, retour au toucher des boutons, feuilles qui glissent, onglet actif en pastille, illustration dans les
+listes vides ; classes `carte-teinte`, `carte-cliquable`, `btn-discret`, `pastille-2`, `pastille-3`, `illustration`.
+Règle 24 réécrite (jetons présents, 14 paires de contraste à 4,5:1 y compris dans les dégradés, app colorée, texte à
+16 px, animations ≤ 400 ms, aucune ressource externe, ordre des feuilles), règle 25 sur `univers.css`, nouvelle règle 26
+(couleurs douces, recommandée). Mise à jour d'une app 1.2.x : remplacer `public/charte.css`, `public/socle.css`,
+`noyau/empreintes.json`, `outils/verifier-app.js` ; ajouter `public/univers.css` (généré par l'Atelier : fiche de l'app ›
+Discussion « Propose-moi 3 univers », ou Nouvelle app) ; dans `index.html`, `<link rel="stylesheet" href="/univers.css">`
+avant `charte.css` et `theme-color` = `--primaire` ; ajouter `/univers.css` aux `FICHIERS` de `sw.js` et changer
+`VERSION` ; `kitAppComplete` à 1.3.0. Rien à changer dans `app/`.
 
 ### 1.2.1 — 2026-10-26
 

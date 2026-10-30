@@ -1,6 +1,6 @@
 # Kit « App complète »
 
-**Version 1.2** (2026-10-23) — kit de l'Atelier de Blocs.
+**Version 1.3** (2026-10-30) — kit de l'Atelier de Blocs.
 
 Le point de départ de toute app avec des comptes et des données. Le dossier `modele/` est une **app qui tourne déjà** :
 variables d'environnement vérifiées, base PostgreSQL créée automatiquement et optimisée, comptes et rôles, sécurité,
@@ -10,7 +10,11 @@ comptes, journal, sauvegarde) sans jamais régler de connexion à la base. Claud
 
 Chaque app démarre avec un compte **`admin` / `adminadmin`**, à changer obligatoirement à la première connexion.
 
-**Charte commune (v1.2)** : toutes les apps ont le même style, les rôles `admin`, `vip` (tous les avantages payants
+**Univers propre à chaque app (v1.3)** : chaque app a son univers graphique (palette douce ou vive selon le concept,
+polices, formes, motif, illustrations, ton : `public/univers.css` et `UNIVERS.md`), sur un socle commun qui la garde
+fluide, lisible, colorée et accessible (KIT.md § 17.1).
+
+**Charte commune (v1.2)** : toutes les apps ont les rôles `admin`, `vip` (tous les avantages payants
 sans payer) et `utilisateur` plus leurs rôles métier, la même offre Gratuit (avec pub) / Premium (sans pub), le même
 écran Abonnement et le même bandeau de pub. Pub et paiement sont éteints tant que `PUB_ACTIVE` et `PAIEMENT_ACTIF`
 ne sont pas à 1 (KIT.md § 17).
@@ -20,7 +24,7 @@ ne sont pas à 1 (KIT.md § 17).
 | `PROMPT.md` | **Prompt d'entrée** à donner à Claude (hors Atelier ; dans l'Atelier, le prompt généré contient déjà ce kit). |
 | `KIT.md` | **Référence complète** : socle, variables, base, API, écrans, conventions, comptes, RGPD, Atelier, recette, mise en ligne. |
 | `modele/` | L'app de départ, prête et testée (exemple « Suivi clients ») : à copier en entier, puis remplacer l'exemple. |
-| `modele/outils/verifier-app.js` | Contrôle sans lancer l'app : 25 règles (socle intact, variables, base optimisée, front sûr, charte commune…). |
+| `modele/outils/verifier-app.js` | Contrôle sans lancer l'app : 26 règles (socle intact, variables, base optimisée, front sûr, univers lisible et coloré…). |
 | `modele/outils/recette-app.js` | Recette de bout en bout sur une base jetable : 33 scénarios. |
 
 ## Essai rapide (Node 18+ et PostgreSQL 13+)

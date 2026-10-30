@@ -103,7 +103,7 @@
           <div class="panel-body stack">
             <div class="grid grid-2">
               <div class="input-group"><label class="input-label">Package joint</label><select class="tv-select" id="npKit">${kitsUniques.map(c => `<option value="${esc(c.k.id)}">${esc(c.k.nom)}</option>`).join('')}</select>
-                <div class="small muted">À joindre à la conversation : <a href="#" id="npZip">télécharger le kit (.zip)</a>, avec le logo choisi</div></div>
+                <div class="small muted">À joindre à la conversation : <a href="#" id="npZip">télécharger le kit (.zip)</a>, avec le logo et l’univers choisis</div></div>
               <div class="input-group"><label class="input-label">Version du prompt</label><select class="tv-select" id="npVersion"></select></div>
             </div>
             <div id="npChamps" class="stack"></div>
@@ -164,8 +164,8 @@
     $('#npZip').onclick = async ev => {
       ev.preventDefault();
       const k = etat.choix.k, contenu = await AB.kits.contenuZip(k, `${k.id}/`, true);
-      if (etat.identite.logo) Object.assign(contenu, await AB.identite.fichiers(etat.identite.logo, `${k.id}/identite/`));
-      U.download(`${k.id}-v${k.version}${etat.identite.logo ? '-' + (slug(nomApp()) || 'app') : ''}.zip`, AB.zip(contenu));
+      Object.assign(contenu, await AB.identite.fichiersIdentite(etat.identite, `${k.id}/identite/`, nomApp()));
+      U.download(`${k.id}-v${k.version}${AB.identite.aDesFichiers(etat.identite) ? '-' + (slug(nomApp()) || 'app') : ''}.zip`, AB.zip(contenu));
     };
     $('#npCopier').onclick = async () => {
       const m = manquants();
@@ -186,7 +186,7 @@
         kitApp: etat.choix.k.id, prompt: { kit: etat.choix.k.id, version: etat.choix.k.version, valeurs: Object.assign({}, etat.valeurs), texte: texte(), date: U.now() },
         journal: [{ date: U.now(), texte: `Projet créé : prompt du kit ${etat.choix.k.nom} v${etat.choix.k.version}` }]
       };
-      try { await AB.identite.enregistrerDansApp(app, etat.identite); } catch (e) { U.toast('warning', 'Logo non enregistré', e.message); }
+      try { await AB.identite.enregistrerDansApp(app, etat.identite); } catch (e) { U.toast('warning', 'Logo ou univers non enregistré', e.message); }
       await AB.apps.enregistrer(app);
       await AB.fichiers.ajouter('app:' + app.id, 'prompt/PROMPT.md', new TextEncoder().encode(app.prompt.texte), []);
       await AB.db.setMeta('brouillonNouvelleApp', null);

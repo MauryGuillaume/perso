@@ -94,7 +94,7 @@ Il y a aussi la Veille technologique (une idée d'app grand public par jour) et 
   D.systeme = (app, contexte) => `Tu es Claude, l'assistant de l'Atelier de Blocs. Tu discutes en français avec son utilisateur, qui crée et publie des apps${app ? `, à propos de son app « ${app.nom} »` : ''}.
 Tu l'aides à comprendre comment ${app ? 'l’app' : 'l’Atelier et ses apps'} fonctionne${app ? '' : 'nt'} (appuie-toi sur le contexte ci-dessous et cite les fichiers quand c'est utile), à choisir et chiffrer des moyens de monétisation (abonnement, achats intégrés, publicité, freemium, vente, dons… avec les règles de l'App Store et de Google Play, les commissions, le RGPD), et à décider des prochaines évolutions.
 Sois concret et honnête : donne des chiffres d'ordre de grandeur quand tu peux, dis quand une information manque au contexte, et propose une prochaine étape. Réponds en Markdown simple (titres courts, listes, gras), sans longueurs inutiles.
-${app ? `Si l'utilisateur veut un autre nom ou un autre logo, propose-en plusieurs et termine ta réponse par un bloc de code \`\`\`identite contenant un JSON de la forme
+${app ? `Si l'utilisateur veut un autre nom, un autre logo ou un autre univers graphique, propose-en plusieurs et termine ta réponse par un bloc de code \`\`\`identite contenant un JSON de la forme
 ${AB.identite.FORMAT}
 (l'Atelier l'affiche en cartes que l'utilisateur adopte d'un clic). ${AB.identite.REGLES_LOGO()}
 ` : ''}
@@ -153,6 +153,10 @@ ${contexte}`;
     logo: async l => {
       try { await AB.identite.enregistrerDansApp(app, { logo: l, accroche: (app.identite && app.identite.accroche) || '' }); await AB.apps.enregistrer(app); U.toast('success', 'Logo adopté', 'Les icônes sont dans les fichiers de l’app (identite/).'); }
       catch (e) { U.toast('error', 'Logo impossible', e.message); }
+    },
+    univers: async u => {
+      try { await AB.identite.enregistrerUnivers(app, u, app.identite && app.identite.logo); U.toast('success', 'Univers adopté', 'univers.css et UNIVERS.md sont dans les fichiers de l’app (identite/).'); }
+      catch (e) { U.toast('error', 'Univers impossible', e.message); }
     }
   });
 
@@ -205,12 +209,12 @@ ${contexte}`;
     /** Les nouvelles propositions d'une réponse rejoignent aussi la liste du panneau « Nom et logo ». */
     const recues = texte => { if (opts.identite && opts.identite.ajouter) AB.identite.extraire(texte).propositions.forEach(p => opts.identite.ajouter(p)); };
     function brancherCartes(el) {
-      el.querySelectorAll('[data-idn], [data-idl]').forEach(b => b.onclick = () => {
-        const [n, k, i] = (b.dataset.idn || b.dataset.idl).split(':').map(Number);
+      el.querySelectorAll('[data-idn], [data-idl], [data-idu]').forEach(b => b.onclick = () => {
+        const [n, k, i] = (b.dataset.idn || b.dataset.idl || b.dataset.idu).split(':').map(Number);
         if (Number.isNaN(n) || !courante.messages[n]) return U.toast('info', 'Un instant', 'Attends la fin de la réponse de Claude.');
         const p = AB.identite.extraire(courante.messages[n].content).propositions[k];
         if (!adopter) return U.toast('info', 'À adopter depuis une app', 'Ouvre l’onglet Discussion de l’app, ou « Nom et logo » à la création.');
-        if (b.dataset.idn) adopter.nom(p.noms[i]); else adopter.logo(p.logos[i]);
+        if (b.dataset.idn) adopter.nom(p.noms[i]); else if (b.dataset.idu) { if (adopter.univers) adopter.univers(p.univers[i]); } else adopter.logo(p.logos[i]);
         b.classList.add('actif');
       });
     }
