@@ -2,7 +2,8 @@
    1. Charge et vérifie les variables d'environnement (noyau + app/app.js) : arrêt net si une est absente ou invalide.
    2. Crée la base si besoin et applique les migrations (noyau puis db/migrations).
    3. Branche les routes : comptes, offre commune (paliers, abonnements, pub), administration (Atelier), puis celles de l'app.
-   4. Écoute sur PORT. Arrêt propre sur SIGTERM / SIGINT. */
+   4. Efface chaque jour le journal plus ancien que JOURNAL_MOIS.
+   5. Écoute sur PORT. Arrêt propre sur SIGTERM / SIGINT. */
 'use strict';
 const path = require('path');
 const env = require('./noyau/env');
@@ -35,6 +36,8 @@ async function demarrer({ ecouter = true } = {}) {
   if (typeof app.routes === 'function') app.routes(r, { base, journal, env, erreur: http.erreur, offre });
   const serveur = http.creerServeur({ routeur: r, auth: comptes.auth, contexte: { base, journal, env, offre }, racinePublic: path.join(__dirname, 'public') });
   await comptes.annoncerInstallation();
+  await journal.purger(env.get('JOURNAL_MOIS'));
+  setInterval(() => journal.purger(env.get('JOURNAL_MOIS')), 24 * 3600e3).unref();
   if (typeof app.demarrage === 'function') await app.demarrage({ base, env, journal });
   if (ecouter) await new Promise(ok => serveur.listen(env.get('PORT'), ok));
   if (ecouter) console.log(`[serveur] ${app.nom || 'App'} v${app.version || '1.0.0'} prête sur le port ${env.get('PORT')} (${env.get('APP_ENV')})`);

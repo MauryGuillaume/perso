@@ -315,4 +315,4 @@ async function nomApp(app) {
 
 module.exports = { auth, routes, hacher, verifier, controlerMdp, controlerEmail, mdpProvisoire, annoncerInstallation, installationAFaire,
   enregistrerReglage, nomApp, adminDefautActif, rolesDe, PUBLIC_UTILISATEUR, egal,
-  signerJeton, lireJeton, ouvrirJetons, renouvelerJetons, fermerJetons, verifierConnexion, bloque, noterEchec, ADMIN_DEFAUT };
+  signerJeton, lireJeton, ouvrirJetons, renouvelerJetons, fermerJetons, verifierConnexion, bloque, noterEchec, cookieSession, ADMIN_DEFAUT };

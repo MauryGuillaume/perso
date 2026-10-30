@@ -1,4 +1,4 @@
-# Atelier de Blocs — v1.30
+# Atelier de Blocs — v1.31
 
 Plateforme HTML en **trois espaces** :
 
@@ -68,6 +68,28 @@ Onglet « Base de données » dans l'espace de chaque app (composeur et fiche) :
 réglages, plusieurs bases par app. « Importer un schéma » lit un fichier SQL (CREATE TABLE, migrations) ou un
 `schema.prisma`. Les fiches PostLocal, RelancePro, Livora, Podology et Training arrivent avec leurs tables.
 
+### Prêt pour Google Play et l'App Store (v1.31)
+
+Chaque app du kit **App complète 1.4** arrive avec tout ce que les deux stores demandent, préparé par Claude en même
+temps que l'app à partir d'une seule fiche, `store/store.json`.
+
+- **Dans l'app** : « Supprimer mon compte » (écran Compte, exigé par Apple et Google), liens « Aide et contact ·
+  Confidentialité · Conditions d'utilisation » sous les écrans Compte et Abonnement, et quatre pages publiques servies
+  sans compte : `/confidentialite.html`, `/support.html`, `/suppression-compte.html`, `/conditions.html`. Le journal est
+  purgé après `JOURNAL_MOIS` mois, la durée annoncée dans la politique de confidentialité.
+- **`node outils/store-app.js`** : le dossier `store/` — `PUBLIER.md` (comptes, mise en ligne, app mobile, envois, dans
+  l'ordre), `GOOGLE-PLAY.md` et `APP-STORE.md` (chaque champ des deux consoles, dans leur ordre : textes prêts à copier
+  avec leur compteur, catégories, sécurité des données, confidentialité de l'app, classifications PEGI et Apple, public
+  cible, accès pour la revue et compte de démo, annonces, abonnements et droits RevenueCat, notes de revue).
+- **`node outils/store-visuels.js postgres://…`** : icône 512 et bannière 1024 × 500 (Play), icône 1024 (App Store),
+  captures iPhone 6,9", iPad 13", téléphone et tablette Android aux tailles exactes, avec une légende et les couleurs de
+  l'univers de l'app (sur une base jetable remplie de données d'exemple, comme la recette).
+- `verifier-app.js` : règles 27 à 30 (fiche complète et dans les limites des stores, déclarations cohérentes avec l'app
+  dont `rgpd`, dossier à jour, visuels aux bonnes tailles) ; `recette-app.js` : scénario 34 (suppression du compte).
+- **App mobile › Stores** : panneau « Fiches des stores » (résumé de la fiche, identifiant à aligner, documents à
+  ouvrir et copier, visuels) ; le dossier `store/` est joint au projet mobile téléchargé.
+- Mise à jour d'une app 1.3.x : `kits/app-complete/KIT.md` § 19.
+
 ### Un univers graphique propre à chaque app (v1.30)
 
 Les apps ne se ressemblent plus toutes : chacune reçoit **son univers**, adapté à son besoin, sur un socle commun qui la
@@ -88,7 +110,7 @@ garde **fluide, lisible, colorée et accessible**. Kit **App complète 1.3**.
 - Kit : `public/univers.css` (palette complète, polices, formes, ombres, dégradés, motif, illustration des écrans vides,
   rythme) ; `charte.css` devient les composants communs, plus fluides (entrée des écrans, retour au toucher, feuilles qui
   glissent, onglet actif en pastille). `verifier-app.js` : règle 24 réécrite, 25 sur `univers.css`, 26 couleurs douces.
-  Mise à jour d'une app 1.2.x : `kits/app-complete/KIT.md` § 18.
+  Mise à jour d'une app 1.2.x : `kits/app-complete/KIT.md` § 19.
 
 ### Kit « App complète » 1.2.1 : mot de passe et écrans d'accueil (v1.29.1)
 
@@ -97,7 +119,7 @@ garde **fluide, lisible, colorée et accessible**. Kit **App complète 1.3**.
 - Connexion, inscription, installation et mot de passe imposé : bandeau aux couleurs de l'app avec son logo et son nom,
   carte en relief, bouton pleine largeur, bouton « Afficher » dans les champs mot de passe. Rien à faire dans les apps :
   le style vient de `socle.css` et des 4 couleurs de marque.
-- Pour une app déjà livrée en 1.2.0 (Ressena…) : remplacer les fichiers du socle listés dans `KIT.md` § 18.
+- Pour une app déjà livrée en 1.2.0 (Ressena…) : remplacer les fichiers du socle listés dans `KIT.md` § 19.
 
 ### Le Studio design prend les avatars dans le code de l'app (v1.29)
 

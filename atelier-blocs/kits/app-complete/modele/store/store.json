@@ -1,0 +1,205 @@
+{
+  "$kit": "Fiche des stores de l'app (KIT.md § 18). Claude la remplit avec l'app ; tu la relis. « node outils/store-app.js » génère tout le reste du dossier store/ et les pages publiques, « node outils/store-visuels.js postgres://…/postgres » les visuels.",
+  "langue": "fr-FR",
+  "identifiant": "fr.techview.suiviclients",
+  "nom": "Suivi clients",
+  "sousTitre": "Clients, visites et relances",
+  "descriptionCourte": "Vos clients, vos interventions et les relances à faire, au même endroit.",
+  "description": "Suivi clients rassemble vos clients et tout ce que vous faites pour eux : chaque visite, chaque appel, chaque intervention, avec la date, la durée et le montant.\n\nL'app vous dit qui relancer : les clients sans nouvelles depuis 30 jours apparaissent d'eux-mêmes dans la liste des relances.\n\nCE QUE VOUS POUVEZ FAIRE\n• Créer une fiche par client : nom, e-mail, téléphone\n• Noter chaque intervention en quelques secondes : date, durée, montant\n• Retrouver un client en tapant son nom\n• Voir la liste des relances à faire (Premium)\n\nGRATUIT OU PREMIUM\nL'offre Gratuite suit jusqu'à 20 clients, avec un bandeau publicitaire discret. Premium supprime la limite et la publicité, et ajoute la liste des relances.\n\nVOS DONNÉES\nVos données restent les vôtres : elles ne sont jamais revendues, et vous pouvez supprimer votre compte et toutes vos données depuis l'app, à tout moment.",
+  "motsCles": [
+    "crm",
+    "clients",
+    "prospects",
+    "relance",
+    "intervention",
+    "commercial",
+    "artisan",
+    "suivi",
+    "rendez-vous",
+    "carnet"
+  ],
+  "textePromo": "Ne laissez plus un client sans nouvelles : la liste des relances se remplit toute seule.",
+  "nouveautes": "Première version de Suivi clients.",
+  "categorie": "entreprise",
+  "categorie2": "productivite",
+  "appareils": "iphone-ipad",
+  "prix": "gratuit",
+  "editeur": {
+    "nom": "⟦Ton nom ou ta société⟧",
+    "email": "⟦contact@ton-domaine.fr⟧",
+    "site": "",
+    "telephone": "",
+    "adresse": "⟦Adresse postale (obligatoire pour un compte organisation et pour vendre dans l'UE)⟧",
+    "pays": "France"
+  },
+  "copyright": "2026 ⟦Ton nom ou ta société⟧",
+  "urls": {
+    "app": "⟦https://suivi-clients.ton-domaine.fr⟧",
+    "marketing": ""
+  },
+  "soustraitants": [
+    {
+      "nom": "⟦Hébergeur (Scalingo, Render…)⟧",
+      "role": "hébergement de l'app et de sa base de données",
+      "pays": "⟦France (Union européenne)⟧"
+    }
+  ],
+  "public": {
+    "age": "18+",
+    "enfants": false
+  },
+  "contenu": {
+    "violence": false,
+    "peur": false,
+    "sexe": false,
+    "langage": false,
+    "drogues": false,
+    "jeuxArgent": false,
+    "medical": false,
+    "contenusPartages": false,
+    "messagerie": false,
+    "positionPartagee": false,
+    "navigateurWeb": false
+  },
+  "donnees": [
+    {
+      "type": "nom",
+      "pourquoi": "les fiches de vos clients",
+      "finalites": [
+        "fonctionnement"
+      ],
+      "facultatif": false,
+      "conservation": "3 ans après le dernier contact avec le client"
+    },
+    {
+      "type": "email",
+      "pourquoi": "les fiches de vos clients",
+      "finalites": [
+        "fonctionnement"
+      ],
+      "facultatif": true,
+      "conservation": "3 ans après le dernier contact avec le client"
+    },
+    {
+      "type": "telephone",
+      "pourquoi": "les fiches de vos clients",
+      "finalites": [
+        "fonctionnement"
+      ],
+      "facultatif": true,
+      "conservation": "3 ans après le dernier contact avec le client"
+    },
+    {
+      "type": "contenu",
+      "pourquoi": "les interventions (titre, date, durée, montant)",
+      "finalites": [
+        "fonctionnement"
+      ],
+      "facultatif": false,
+      "conservation": "tant que le compte existe"
+    }
+  ],
+  "pub": {
+    "admob": false,
+    "personnalisee": false
+  },
+  "revue": {
+    "compteDemo": "demo@suivi-clients.fr",
+    "notes": "Suivi clients aide les indépendants et les petites équipes à suivre leurs clients et leurs interventions. Toute l'app demande un compte : utilisez le compte de démonstration ci-dessus, qui contient déjà des clients et des interventions.",
+    "contact": {
+      "prenom": "⟦Prénom⟧",
+      "nom": "⟦Nom⟧",
+      "telephone": "⟦+33 6 00 00 00 00⟧",
+      "email": "⟦contact@ton-domaine.fr⟧"
+    }
+  },
+  "captures": {
+    "$doc": "Compte de démo à l'offre la plus haute (offre), données créées par l'API comme dans l'app ({{garder.chemin}} reprend une réponse, {{jour-3}} une date) ; un écran avec \"compte\": \"gratuit\" est pris avec un compte vide à l'offre gratuite.",
+    "offre": "premium",
+    "donnees": [
+      {
+        "garder": "c1",
+        "methode": "POST",
+        "chemin": "/api/clients",
+        "corps": {
+          "nom": "Boulangerie Martin",
+          "email": "contact@boulangerie-martin.fr",
+          "telephone": "01 23 45 67 89"
+        }
+      },
+      {
+        "garder": "c2",
+        "methode": "POST",
+        "chemin": "/api/clients",
+        "corps": {
+          "nom": "Garage des Tilleuls",
+          "email": "garage.tilleuls@exemple.fr"
+        }
+      },
+      {
+        "methode": "POST",
+        "chemin": "/api/clients",
+        "corps": {
+          "nom": "Cabinet Leroy",
+          "telephone": "06 12 34 56 78"
+        }
+      },
+      {
+        "methode": "POST",
+        "chemin": "/api/clients",
+        "corps": {
+          "nom": "Fleurs & Co",
+          "email": "bonjour@fleurs-co.fr"
+        }
+      },
+      {
+        "methode": "POST",
+        "chemin": "/api/clients/{{c1.client.id}}/interventions",
+        "corps": {
+          "titre": "Installation de la caisse",
+          "date_le": "{{jour-3}}T09:30:00+01:00",
+          "duree_min": 90,
+          "montant": 180
+        }
+      },
+      {
+        "methode": "POST",
+        "chemin": "/api/clients/{{c1.client.id}}/interventions",
+        "corps": {
+          "titre": "Formation de l'équipe",
+          "date_le": "{{jour-1}}T14:00:00+01:00",
+          "duree_min": 60,
+          "montant": 120
+        }
+      },
+      {
+        "methode": "POST",
+        "chemin": "/api/clients/{{c2.client.id}}/interventions",
+        "corps": {
+          "titre": "Visite de contrôle",
+          "date_le": "{{jour-45}}T10:15:00+01:00",
+          "duree_min": 30
+        }
+      }
+    ],
+    "ecrans": [
+      {
+        "route": "#/clients",
+        "legende": "Tous vos clients, au même endroit"
+      },
+      {
+        "route": "#/clients/{{c1.client.id}}",
+        "legende": "Chaque intervention, notée en quelques secondes"
+      },
+      {
+        "route": "#/relances",
+        "legende": "Les relances à faire, sans y penser"
+      },
+      {
+        "route": "#/abonnement",
+        "legende": "Gratuit jusqu'à 20 clients, Premium sans limite",
+        "compte": "gratuit"
+      }
+    ]
+  }
+}

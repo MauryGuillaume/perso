@@ -32,7 +32,7 @@
     ]],
     ['Fiches des stores', [
       ['confidentialite', 'Politique de confidentialité en ligne', ''],
-      ['captures', 'Captures d’écran (iPhone 6,9", iPad 13" si iPad, Android) et textes', ''],
+      ['captures', 'Captures d’écran (iPhone 6,9", iPad 13" si iPad, Android) et textes (kit App complète 1.4 : dossier store/)', ''],
       ['privacy', 'App Privacy (Apple) et Sécurité des données (Google) remplis', ''],
       ['demo', 'Compte de démonstration pour la revue (si connexion)', ''],
       ['age', 'Classification par âge et public cible', '']
@@ -597,6 +597,7 @@ npm run emulateur:ios       # simulateur iOS (Mac avec Xcode)</pre>
             ${l.map(([cle, texte, lien]) => `<label class="check" style="margin:4px 0"><input type="checkbox" data-etape="${cle}" ${cfg.etapes[cle] ? 'checked' : ''}><span>${esc(texte)}${lien ? ` <a href="${esc(lien)}" target="_blank" rel="noopener" class="small">ouvrir</a>` : ''}</span></label>`).join('')}</div>`).join('')}
           </div></div>
         <div class="stack">
+          ${panneauStore()}
           <div class="panel"><div class="panel-head"><span class="panel-label"><span class="mdi mdi-console"></span>Construire</span></div><div class="panel-body stack">
             <p class="small muted" style="margin:0">Dézippe le projet, puis dans son dossier :</p>
             <pre class="code">npm run preparer   # iOS + Android, icônes, version, copie de l’app
@@ -609,6 +610,32 @@ npm run ios        # Xcode (sur Mac)</pre>
           </tbody></table></div></div></div>
         </div></div>`;
       body.querySelectorAll('[data-etape]').forEach(c => c.onchange = () => { cfg.etapes[c.dataset.etape] = c.checked; enregistrer(); dessinerCorps(); });
+      const dossier = M.dossierStore(SOURCES[id]);
+      body.querySelectorAll('[data-store-doc]').forEach(b => b.onclick = () => {
+        const texte = M.texte(dossier.fichiers[b.dataset.storeDoc]).replace(/^<!--[\s\S]*?-->\n/, '');
+        U.dialog({ title: b.dataset.storeDoc, size: 'lg', body: `<pre class="code" style="white-space:pre-wrap;max-height:65vh;overflow:auto;margin:0">${esc(texte)}</pre>`,
+          actions: [{ label: 'Copier', icon: 'mdi-content-copy', cls: 'btn-outline', onClick: () => { navigator.clipboard.writeText(texte).then(() => U.toast('success', 'Copié')); return false; } }, { label: 'Fermer', cls: 'btn-primary' }] });
+      });
+      const memeId = body.querySelector('#moStoreId');
+      if (memeId) memeId.onclick = () => { cfg.appId = dossier.fiche.identifiant; enregistrer(); dessinerCorps(); };
+    }
+
+    /** Dossier des stores préparé avec l'app (kit App complète 1.4 : store/store.json et les fichiers générés). */
+    function panneauStore() {
+      const dossier = M.dossierStore(SOURCES[id]);
+      const tete = '<div class="panel"><div class="panel-head"><span class="panel-label"><span class="mdi mdi-storefront-outline"></span>Fiches des stores</span></div><div class="panel-body stack">';
+      if (!dossier) return `${tete}<p class="small muted" style="margin:0">Les apps du kit « App complète » 1.4 arrivent avec leur dossier <b>store/</b> : textes des deux fiches,
+        sécurité des données, confidentialité, classification, notes de revue, pages publiques et captures. Pour une app plus ancienne : mets-la à jour
+        (KIT.md § 19), remplis <code>store/store.json</code>, puis <code>node outils/store-app.js</code> et <code>node outils/store-visuels.js</code>.</p></div></div>`;
+      const f = dossier.fiche || {};
+      const docs = ['PUBLIER.md', 'GOOGLE-PLAY.md', 'APP-STORE.md'].filter(n => dossier.fichiers[n]);
+      const aRemplir = dossier.fiche && JSON.stringify(dossier.fiche).includes('⟦');
+      return `${tete}${!dossier.fiche ? '<div class="bar crit"><span class="mdi mdi-close-octagon-outline"></span><div>store/store.json est illisible.</div></div>' : `
+        <div><b>${esc(f.nom || '')}</b> <span class="muted">— ${esc(f.sousTitre || '')}</span><div class="small muted">${esc(f.descriptionCourte || '')}</div></div>
+        ${f.identifiant && f.identifiant !== cfg.appId ? `<div class="bar warn"><span class="mdi mdi-alert-outline"></span><div style="flex:1">La fiche annonce l’identifiant <code>${esc(f.identifiant)}</code>, le projet mobile <code>${esc(cfg.appId)}</code> : ils doivent être identiques.</div><button class="btn btn-outline btn-xs" id="moStoreId">Prendre ${esc(f.identifiant)}</button></div>` : ''}
+        ${aRemplir ? '<div class="bar warn"><span class="mdi mdi-alert-outline"></span><div>La fiche contient encore des ⟦…⟧ (éditeur, adresse, contact) : complète-les puis relance <code>node outils/store-app.js</code>.</div></div>' : ''}
+        <div class="row">${docs.map(n => `<button class="btn btn-outline btn-sm" data-store-doc="${esc(n)}"><span class="mdi mdi-file-document-outline"></span>${esc(n)}</button>`).join('') || '<span class="small muted">Documents pas encore générés : node outils/store-app.js</span>'}</div>
+        <div class="small muted">${dossier.visuels ? `${dossier.visuels} visuel(s) dans store/visuels/` : 'Visuels pas encore générés : node outils/store-visuels.js postgres://…'} · pages publiques : ${dossier.pages.length} / 4 · tout est joint au projet téléchargé.</div>`}</div></div>`;
     }
 
     function dessinerCorps() {

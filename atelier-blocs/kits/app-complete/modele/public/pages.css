@@ -1,0 +1,27 @@
+/* pages.css — pages publiques (confidentialité, aide, suppression du compte, conditions).
+   Généré par outils/store-app.js (KIT.md § 18) avec univers.css et charte.css. store-empreinte: 2cc13ba2e97bb8dc */
+.page-publique { margin: 0; min-height: 100vh; background: var(--fond); color: var(--texte); font: var(--t-normal, 16px)/1.6 var(--police); }
+.page-publique .barre { display: flex; align-items: center; gap: var(--e3); padding: var(--e3) var(--e4); padding-top: max(var(--e3), env(safe-area-inset-top)); }
+.page-publique .barre a { color: var(--sur-primaire); text-decoration: none; }
+.page-publique .barre-titre { font: var(--graisse-titres) 1.15rem var(--police-titres); flex: 1; }
+.page-retour { font-weight: 600; }
+.page-contenu { max-width: 760px; margin: 0 auto; padding: var(--e4); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--e4); overflow-wrap: break-word; }
+.page-contenu h1 { font: var(--graisse-titres) var(--t-grand-titre, 1.6rem)/1.2 var(--police-titres); margin: var(--e2) 0 0; }
+.page-contenu > .doux { margin: 0; }
+.page-contenu .carte h2 { font: var(--graisse-titres) var(--t-titre, 1.15rem)/1.3 var(--police-titres); margin-top: 0; }
+.page-contenu .carte h3 { font-size: 1rem; margin: var(--e3) 0 var(--e1); }
+.page-contenu a { color: var(--accent); }
+.page-tableau { overflow-x: auto; }
+.page-tableau table { width: 100%; border-collapse: collapse; font-size: var(--t-petit, 14px); }
+@media (max-width: 600px) {
+  .page-tableau thead { display: none; }
+  .page-tableau tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: var(--e2) 0; border-bottom: 1px solid var(--bordure); }
+  .page-tableau tr td { border: 0; padding: 2px 0; }
+  .page-tableau td:first-child { font-weight: 600; }
+  .page-tableau td:nth-child(3)::before { content: "Base légale : "; color: var(--doux); }
+  .page-tableau td:nth-child(4)::before { content: "Conservation : "; color: var(--doux); }
+}
+.page-tableau th, .page-tableau td { text-align: left; vertical-align: top; padding: var(--e2); border-bottom: 1px solid var(--bordure); }
+.page-tableau th { background: var(--teinte); }
+.page-pied { max-width: 760px; margin: 0 auto; padding: var(--e4); text-align: center; }
+.page-pied a { color: inherit; }

@@ -35,3 +35,9 @@ Toutes les variables : `.env.example`. Aucune route n'est ouverte sans compte.
 npm run verifier                                      # Conforme
 npm run recette -- postgres://postgres@localhost:5432/postgres   # Conforme
 ```
+
+## Stores
+
+Fiche : `store/store.json`. `node outils/store-app.js` génère le dossier `store/` (PUBLIER.md, GOOGLE-PLAY.md,
+APP-STORE.md) et les pages publiques (`/confidentialite.html`, `/support.html`, `/suppression-compte.html`,
+`/conditions.html`) ; `node outils/store-visuels.js postgres://…/postgres` les icônes, la bannière et les captures.

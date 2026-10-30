@@ -283,8 +283,31 @@
       <div class="actions"><a class="btn btn-secondaire" href="#/mot-de-passe">Changer de mot de passe</a>
       ${u.role === 'admin' ? '<a class="btn btn-secondaire" href="#/admin">Dépannage admin</a>' : ''}
       <button class="btn btn-secondaire" id="deconnexion">Se déconnecter</button></div></div>
-      <p class="doux">${esc(session.app.nom)} · version ${esc(session.app.version)}</p>`;
+      <p class="ligne"><span class="doux pousse">${esc(session.app.nom)} · version ${esc(session.app.version)}</span><a href="#/compte/supprimer">Supprimer mon compte</a></p>
+      ${liensLegaux()}`;
     $('#deconnexion').onclick = async () => { await api('POST', '/api/deconnexion'); session.utilisateur = null; appli.utilisateur = null; aller('#/connexion'); };
+  });
+
+  /* Pages publiques générées par outils/store-app.js (KIT.md § 18) : à portée de main dans l'app, comme l'exigent
+     l'App Store (5.1.1, 3.1.2) et Google Play. Sur iPhone, les conditions d'un abonnement acheté dans l'app sont celles d'Apple. */
+  const EULA_APPLE = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
+  const liensLegaux = () => `<p class="doux liens-legaux"><a href="/support.html">Aide et contact</a> · <a href="/confidentialite.html">Confidentialité</a> ·
+    <a href="${natif() && plateforme() === 'ios' ? EULA_APPLE : '/conditions.html'}"${natif() && plateforme() === 'ios' ? ' target="_blank" rel="noopener"' : ''}>Conditions d’utilisation</a></p>`;
+
+  // Suppression du compte par la personne elle-même (exigée par l'App Store et Google Play) : POST /api/moi/supprimer
+  ecran('#/compte/supprimer', { titre: 'Supprimer mon compte' }, async vue => {
+    const o = offre(), store = o.palier !== 'gratuit' && (o.source === 'apple' || o.source === 'google');
+    vue.innerHTML = `<div class="centre"><form class="carte carte-relief" novalidate><h1>Supprimer mon compte</h1>
+      <p>Ton compte et toutes tes données dans ${esc(session.app.nom)} seront <strong>effacés définitivement</strong>. Cette action ne peut pas être annulée.</p>
+      ${o.gere && o.statut !== 'annule' ? '<p class="erreur">Ton abonnement est encore actif : résilie-le d’abord depuis l’écran <a href="#/abonnement">Abonnement</a>.</p>' : ''}
+      ${store ? `<p class="erreur">Ton abonnement a été pris sur ${o.source === 'apple' ? 'l’App Store' : 'Google Play'} : supprimer le compte ne l’arrête pas. Résilie-le dans les réglages du téléphone.</p>` : ''}
+      ${champMdp('mdp', 'Mot de passe, pour confirmer', 'current-password')}
+      <div class="actions"><button class="btn btn-danger" type="submit">Supprimer définitivement</button><a class="btn btn-secondaire" href="#/compte">Annuler</a></div></form></div>`;
+    formulaire(vue.querySelector('form'), async d => {
+      await api('POST', '/api/moi/supprimer', d);
+      session.utilisateur = null; appli.utilisateur = null;
+      toast('Ton compte a été supprimé.'); aller('#/connexion');
+    });
   });
 
   /* ---------- Abonnement : le même écran dans toutes les apps ---------- */
@@ -328,7 +351,8 @@
         }).join('')}</div>
         <p class="doux">Prix TTC. L’abonnement se renouvelle automatiquement à la fin de chaque période ; il se résilie à tout moment, en quelques clics, et reste actif jusqu’à la fin de la période payée.
           ${natif() ? '' : 'Paiement sécurisé par Stripe.'}</p>
-        ${natif() && o.paiement ? '<p><button class="btn btn-secondaire" id="restaurer">Restaurer mes achats</button></p>' : ''}`;
+        ${natif() && o.paiement ? '<p><button class="btn btn-secondaire" id="restaurer">Restaurer mes achats</button></p>' : ''}
+        ${liensLegaux()}`;
       vue.querySelectorAll('[data-periode]').forEach(b => b.onclick = () => { periode = b.dataset.periode; dessiner(); });
       vue.querySelectorAll('[data-acheter]').forEach(b => b.onclick = () => acheter(b, b.dataset.acheter, periode));
       const portail = $('#portail');

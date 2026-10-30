@@ -1,6 +1,6 @@
 # Prompt d'entrée — app complète (comptes, base, administration depuis l'Atelier)
 
-> À coller au début de la conversation avec Claude, en joignant **tous les fichiers du kit** (archive `app-complete-v1.3.0.zip`
+> À coller au début de la conversation avec Claude, en joignant **tous les fichiers du kit** (archive `app-complete-v1.4.0.zip`
 > décompressée, dont `modele/`). Remplace les éléments entre ⟦ ⟧ (ceux qui commencent par « ? » sont facultatifs).
 > Dans l'Atelier de Blocs : Créer une app › Nouvelle app remplit ce prompt pour toi.
 
@@ -53,12 +53,24 @@ base PostgreSQL automatique, comptes, sécurité, API d'administration utilisée
 - **Pub et abonnement** : uniquement ceux du socle (bandeau du bas, écran Abonnement, invitation). Aucun SDK de pub
   ou de paiement ajouté. Ils restent éteints (`PUB_ACTIVE=0`, `PAIEMENT_ACTIF=0`) tant que je ne les allume pas.
 
+## Stores (KIT.md § 18)
+
+- Remplis `store/store.json` pour cette app : nom (30), sous-titre (30), description courte (80) et complète, mots-clés,
+  catégorie, public, contenu, **toutes les données que l'app collecte** (au moins une par table de `rgpd`), compte de
+  démo et captures (données d'exemple sans marque connue, 2 à 8 écrans légendés). Laisse en ⟦…⟧ ce que tu ne sais pas
+  (éditeur, adresse en ligne, contact) et dis-le-moi.
+- Toute table qui pointe vers `utilisateurs` est dans `rgpd` ou en `on delete cascade` : la suppression du compte depuis
+  l'app doit marcher.
+- `node outils/store-app.js` (dossier `store/` et pages publiques) ; si un PostgreSQL de test est disponible,
+  `node outils/store-visuels.js postgres://…` et regarde les captures.
+
 ## Livraison
 
 - Le nom du paquet (`package.json`) et le dossier sont le code technique ci-dessus.
 - L'app complète en un ZIP (sans `node_modules` ni `.env`), avec `package-lock.json`, `.env.example` et
   `atelier-app.json` (`"kit": "app-complete"`) à jour, et un README (tables, variables propres, routes, rôles et
   matrice des droits, paliers de l'offre).
+- Le dossier `store/` (fiche remplie, documents générés, visuels si possible) et les pages publiques de `public/`.
 - Les sorties de `node outils/verifier-app.js` et `node outils/recette-app.js postgres://…` : **« Conforme »**.
 
 Commence par la lecture de `KIT.md`, puis présente-moi le modèle de données, les rôles et leurs droits, l'offre, les variables et les écrans.

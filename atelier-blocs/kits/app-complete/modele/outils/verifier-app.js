@@ -155,7 +155,8 @@ else {
 regle('22', 'Offre au format commun : gratuit d’abord, 3 paliers au plus, prix TTC mois/an et avantages des paliers payants, le plus haut sans pub', !offreKo, offreKo);
 const metier = code.filter(r => (r.startsWith('app/') || r === 'public/app-ecrans.js' || (r.startsWith('public/') && r.endsWith('.html'))));
 const SDK = /(adsbygoogle|googletagservices|googlesyndication|doubleclick|js\.stripe\.com|checkout\.stripe|api\.stripe\.com|revenuecat|Plugins\.(AdMob|Purchases)|role\s*===?\s*['"]vip['"]|['"]vip['"]\s*===?)/i;
-const horsSocle = metier.filter(r => SDK.test(lire(r)));
+// les pages publiques générées par store-app.js nomment les prestataires (Stripe, AdMob…) : ce n'est pas du code
+const horsSocle = metier.filter(r => SDK.test(lire(r)) && !/store-empreinte: /.test(lire(r)));
 regle('23', 'Pub, paiement et droits passent par le socle (aucun SDK de pub ou de paiement, aucun test du rôle vip dans le code de l’app)', !horsSocle.length,
   extrait(horsSocle) + ' — utilise { palier } dans les routes, offre.limite(), appli.exiger()');
 /* 24 Univers graphique propre à l'app, socle de qualité commun (KIT.md § 17.1) */
@@ -206,8 +207,20 @@ const fondCharge = univ && ['fond', 'carte'].some(n => HEXA.test(univ[n] || '') 
 regle('26', 'Couleurs douces par défaut (vives seulement si --intensite: vive), fond et cartes très clairs', univ && !criard && !fondCharge,
   fondCharge ? 'fond ou cartes trop foncés ou trop colorés' : 'principale ou accent très saturés alors que l’univers est doux', true);
 
+/* 27–30 Publication sur Google Play et l'App Store (KIT.md § 18, outils/store-app.js) */
+let problemesStore = [];
+try { const store = require('./store-app.js'); problemesStore = store.controler(store.charger(racine)); }
+catch (e) { problemesStore = [{ regle: '27', niveau: 'crit', texte: 'outils/store-app.js : ' + e.message }]; }
+const store_ = (num, niveau) => problemesStore.filter(p => p.regle === num && (!niveau || p.niveau === niveau)).map(p => p.texte).join(' ; ');
+regle('27', 'Fiche des stores complète (store/store.json) : textes dans les limites de Google Play et de l’App Store, catégorie, éditeur, adresse https, compte de démo', !store_('27', 'crit'), store_('27', 'crit'));
+regle('28', 'Déclarations des stores cohérentes avec l’app : contenu, données collectées (dont app.rgpd), publicité, captures', !store_('28', 'crit'), store_('28', 'crit'));
+regle('29', 'Dossier des stores et pages publiques à jour (confidentialité, aide, suppression du compte, conditions) : node outils/store-app.js', !store_('29', 'crit'), store_('29', 'crit'));
+regle('30', 'Prêt à publier : plus aucun ⟦…⟧ dans store.json, icônes, bannière et captures aux tailles des stores (node outils/store-visuels.js)', !store_('30'), store_('30'), true);
+const conseilsStore = problemesStore.filter(p => p.niveau === 'warn' && p.regle !== '30');
+
 console.log(`Contrôle de l’app — ${racine}\n`);
 resultats.forEach(r => console.log(`  ${r.ok ? '✓' : r.recommande ? '!' : '✗'} ${r.num} ${r.texte}${!r.ok && r.detail ? ' : ' + r.detail : ''}${!r.ok && r.recommande ? ' (recommandé)' : ''}`));
 const ko = resultats.filter(r => !r.ok && !r.recommande).length;
+if (conseilsStore.length) console.log('\n  Conseils pour les stores :\n' + conseilsStore.map(p => `  · ${p.regle} ${p.texte}`).join('\n'));
 console.log(ko ? `\nNon conforme : ${ko} règle(s) obligatoire(s) en échec.` : '\nConforme (lance ensuite la recette de bout en bout : node outils/recette-app.js).');
 process.exitCode = ko ? 1 : 0;

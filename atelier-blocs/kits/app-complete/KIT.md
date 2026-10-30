@@ -1,6 +1,6 @@
 # Kit « App complète » — référence complète
 
-> **Version du kit : 1.3** (2026-10-30). Pour toute app avec des comptes et des données. Lis ce fichier en entier avant de coder.
+> **Version du kit : 1.4** (2026-10-30). Pour toute app avec des comptes et des données. Lis ce fichier en entier avant de coder.
 
 ## 1. Principe
 
@@ -17,7 +17,10 @@ chaque app, et toujours de la même façon :
 - **charte commune des apps** (§ 17) : un socle de qualité commun (lisible, fluide, coloré, accessible) et un **univers
   graphique propre à chaque app** (palette, polices, formes, motif, illustrations, ton), les rôles `admin`, `vip` et `utilisateur` dans toutes les apps,
   la même offre (Gratuit avec pub, Premium sans pub), le même écran Abonnement et le même bandeau de pub, éteints
-  tant que `PUB_ACTIVE` et `PAIEMENT_ACTIF` ne sont pas à 1.
+  tant que `PUB_ACTIVE` et `PAIEMENT_ACTIF` ne sont pas à 1 ;
+- **publication sur Google Play et l'App Store** (§ 18) : suppression du compte dans l'app, pages publiques
+  (confidentialité, aide, suppression du compte, conditions), fiches des deux stores, déclarations de confidentialité,
+  classification, notes de revue et visuels aux bonnes tailles, générés à partir d'une seule fiche, `store/store.json`.
 
 Le travail sur une nouvelle app se limite à **trois endroits** :
 
@@ -27,6 +30,7 @@ Le travail sur une nouvelle app se limite à **trois endroits** :
 | `db/migrations/` | Les tables de l'app (SQL), une migration par évolution |
 | `public/app-ecrans.js` | Les écrans de l'app |
 | `public/univers.css` | L'univers graphique de l'app (fourni par l'Atelier, § 17.1) |
+| `store/store.json` | La fiche des stores : textes, catégorie, public, données collectées, compte de démo, captures (§ 18) |
 
 Tout le reste (`serveur.js`, `noyau/`, `public/noyau.js`, `public/charte.css`, `public/socle.css`) se **copie tel quel et ne se modifie
 jamais** : `outils/verifier-app.js` le contrôle par empreintes (règle 02). Si le socle ne permet pas quelque chose,
@@ -58,7 +62,12 @@ dis-le-moi au lieu de le modifier : c'est une évolution du kit.
 | `public/sw.js`, `manifest.webmanifest`, icônes | PWA | nom, couleurs, icônes, `VERSION` |
 | `.env.example` | Toutes les variables, sans secret (généré : `npm run env:exemple`) | régénérer |
 | `atelier-app.json` | Fiche de l'app pour l'Atelier (`"kit": "app-complete"`) | oui |
+| `store/store.json` | **Fiche des stores** (§ 18) | **oui** |
+| `store/LISEZMOI.md`, `PUBLIER.md`, `GOOGLE-PLAY.md`, `APP-STORE.md` | Dossier de publication, généré par `outils/store-app.js` | non (régénérer) |
+| `store/visuels/` | Icônes, bannière Play, captures, générés par `outils/store-visuels.js` | non (régénérer) |
+| `public/confidentialite.html`, `support.html`, `suppression-compte.html`, `conditions.html`, `pages.css` | Pages publiques des stores, générées par `outils/store-app.js` | non (régénérer) |
 | `outils/verifier-app.js`, `outils/recette-app.js`, `outils/schema-doc.js` | Recette (§ 13), pas livrés en production | non |
+| `outils/store-app.js`, `outils/store-visuels.js` | Publication sur les stores (§ 18), pas livrés en production | non |
 
 ## 3. Démarrer
 
@@ -115,6 +124,7 @@ Avec `ADMIN_DEFAUT=0`, pas de compte par défaut : à la première ouverture, l'
 | `JETON_SECRET` | texte |  | Signature des jetons de connexion (front séparé, app mobile) ; vide = tirée au hasard à chaque démarrage. Obligatoire en production si l’app utilise les jetons **Secrète.** |
 | `JETON_MINUTES` | entier | `15` | Durée du jeton d’accès, en minutes |
 | `JETON_JOURS` | entier | `30` | Durée du jeton de renouvellement, en jours |
+| `JOURNAL_MOIS` | entier | `12` | Durée de conservation du journal des actions sensibles (adresses IP comprises), en mois : les lignes plus anciennes sont effacées chaque jour ; elle figure dans la politique de confidentialité |
 | `REQUETES_PAR_MINUTE` | entier | `300` | Limite de requêtes par adresse IP et par minute |
 | `PUB_ACTIVE` | booleen | `0` | 1 : bandeau de publicité en bas de l’écran pour les paliers « avec pub » (Gratuit) ; 0 : aucune publicité |
 | `ADMOB_BANNIERE_ANDROID` | texte |  | Identifiant du bloc d’annonces AdMob « bannière » Android (ca-app-pub-…/…) ; vide = bandeau maison (promotion de l’offre payante) |
@@ -243,6 +253,13 @@ Ces règles sont contrôlées deux fois : sur les fichiers (`verifier-app.js`, r
   Mot de passe oublié : l'admin en génère un nouveau provisoire.
 - Compte par défaut `admin` / `adminadmin` (§ 3) : changement de mot de passe imposé avant toute autre action,
   alerte dans l'Atelier tant qu'il garde ce mot de passe ; `ADMIN_DEFAUT=0` le supprime de la procédure.
+- **Suppression de son compte** (exigée par l'App Store et Google Play) : écran Compte › « Supprimer mon compte »,
+  `POST /api/moi/supprimer { mdp }`. Mot de passe vérifié comme à la connexion (essais limités) ; les données de
+  `app/app.js → rgpd` sont effacées ou anonymisées comme pour une suppression RGPD, puis le compte, ses sessions et
+  ses abonnements ; journalisé (`compte_supprime_par_soi`). Un abonnement Stripe en cours doit d'abord être résilié
+  (409) ; un abonnement App Store / Google Play se résilie dans le téléphone (l'écran le rappelle). Le dernier admin
+  ne peut pas se supprimer. Toute table de l'app qui pointe vers `utilisateurs` doit donc figurer dans `rgpd` ou avoir
+  `on delete cascade` / `set null`.
 - Rôles : `admin`, `vip`, `utilisateur` (socle, dans toutes les apps), plus les rôles métier de `app.roles` (§ 17.2).
   Le dernier admin ne peut pas être retiré ni supprimé.
 - Écritures : en-tête `X-Appli`, jeton `Authorization: Bearer` ou corps JSON (`Content-Type: application/json`) obligatoire (CSRF : un
@@ -348,6 +365,10 @@ Adresses : `GET /api/admin/etat`, `GET /api/admin/tables`, `GET|POST /api/admin/
 | 24 | Univers graphique propre à l'app, socle commun : tous les jetons présents, textes à 4,5:1, app colorée, texte à 16 px, animations ≤ 400 ms, rien en dur dans les écrans | obligatoire |
 | 25 | theme-color de index.html = --primaire d'univers.css | recommandé |
 | 26 | Couleurs douces par défaut (vives seulement si `--intensite: vive`), fond et cartes très clairs | recommandé |
+| 27 | Fiche des stores complète (`store/store.json`) : textes dans les limites de Google Play et de l'App Store, catégorie, éditeur, adresse https, compte de démo | obligatoire |
+| 28 | Déclarations des stores cohérentes avec l'app : contenu, données collectées (dont `app.rgpd`), publicité, captures | obligatoire |
+| 29 | Dossier des stores et pages publiques à jour (`node outils/store-app.js`) | obligatoire |
+| 30 | Prêt à publier : plus aucun ⟦…⟧ dans `store.json`, icônes, bannière et captures aux tailles des stores | recommandé |
 
 ### 13.2 De bout en bout : `node outils/recette-app.js postgres://…/postgres`
 
@@ -389,6 +410,7 @@ les scénarios, arrête l'app et supprime la base.
 | 31 | Publicité : un seul bandeau, seulement pour les paliers avec pub (PUB_ACTIVE=1) | obligatoire |
 | 32 | Abonnement offert depuis l'Atelier : palier donné tout de suite, retiré à l'expiration | obligatoire |
 | 33 | Webhooks de paiement : signature Stripe et clé RevenueCat vérifiées, abonnement ouvert puis fermé | obligatoire |
+| 34 | Suppression de son compte depuis l'app : mot de passe exigé, compte et données effacés, session fermée, abonnement Stripe à résilier d'abord, journalisé sans mot de passe | obligatoire |
 
 ### 13.3 À la main
 
@@ -410,7 +432,9 @@ l'Atelier puis Gestion › Tester la connexion › Données : chaque table s'ouv
 
 L'app complète (sans `node_modules` ni `.env`), `package-lock.json`, `.env.example` à jour, `atelier-app.json`
 (`"kit": "app-complete"`, `"admin": { "api": "/api/admin" }`), un README (rôle de l'app, tableau des tables, variables
-propres, routes publiques justifiées, **tableau des rôles et de leurs droits, tableau des paliers de l'offre**) et la sortie des deux outils de recette : **« Conforme »**.
+propres, routes publiques justifiées, **tableau des rôles et de leurs droits, tableau des paliers de l'offre**), le
+**dossier des stores** (`store/store.json` rempli, `store/*.md` et pages publiques générés ; `store/visuels/` si un
+PostgreSQL de test était disponible) et la sortie des deux outils de recette : **« Conforme »**.
 
 ## 16. Pièges connus
 
@@ -536,7 +560,101 @@ offre: {
 3. Paiement : compte Stripe (web) et/ou comptes développeur Apple et Google + RevenueCat (mobile), variables ci-dessus,
    puis `PAIEMENT_ACTIF=1`. L'Atelier signale dans « État » une variable de paiement manquante.
 
-## 18. Historique des versions du kit
+## 18. Publier sur Google Play et l'App Store
+
+Tout ce que les deux stores demandent se prépare **avec l'app**, à partir d'une seule fiche : `store/store.json`.
+Claude la remplit en même temps que l'app (textes, catégorie, données collectées, captures à faire) ; tu complètes les
+⟦…⟧ (éditeur, adresse en ligne, contact) et tu relis. Les outils produisent le reste. L'app mobile elle-même (projet
+Capacitor, icône de l'app, signature, build) se fait dans l'Atelier › Mes apps › App mobile.
+
+### 18.1 Ce que le socle fournit
+
+- **Suppression du compte depuis l'app** (§ 10) : App Store 5.1.1(v), Google Play « Suppression de compte ».
+- **Pages publiques**, servies par l'app sans compte, avec les liens « Aide et contact · Confidentialité · Conditions
+  d'utilisation » en bas des écrans Compte et Abonnement (sur iPhone, les conditions d'un abonnement sont le CLUF
+  standard d'Apple) : `/confidentialite.html`, `/support.html`, `/suppression-compte.html`, `/conditions.html`.
+- **Journal purgé** après `JOURNAL_MOIS` mois : la durée annoncée dans la politique de confidentialité est tenue.
+
+### 18.2 `store/store.json`
+
+| Clé | Contenu | Limite |
+| --- | --- | --- |
+| `identifiant` | Nom du paquet / Bundle ID, domaine inversé (`fr.techview.monapp`), le même que dans l'Atelier › App mobile ; ne change plus une fois publié | |
+| `nom` | Nom sur les deux stores | 30 caractères |
+| `sousTitre` | Sous-titre App Store | 30 |
+| `descriptionCourte` | Description courte Google Play | 80 |
+| `description` | Description complète (les deux stores) ; ne cite ni Android ni iPhone | 4000 |
+| `motsCles` | Mots-clés App Store (liste), sans répéter le nom | 100 octets en tout |
+| `textePromo`, `nouveautes` | Texte promotionnel App Store ; notes de version | 170 ; 500 |
+| `categorie`, `categorie2` | Clé commune, traduite pour chaque store : `productivite`, `entreprise`, `finance`, `sante-forme`, `medical`, `style-de-vie`, `education`, `outils`, `cuisine`, `shopping`, `social`, `communication`, `voyage`, `sport`, `divertissement`, `actualites`, `photo`, `musique`, `navigation`, `livres`, `reference`, `meteo`, `maison`, `parents`, `auto`, `beaute`, `evenements`, `art-design` | |
+| `appareils` | `iphone-ipad` (captures iPad et tablette exigées) ou `iphone` | |
+| `editeur` | Nom, e-mail, site, téléphone, adresse, pays : fiche des stores, pages publiques, statut de commerçant (UE) | |
+| `urls.app` | Adresse en ligne de l'app, **https** : les adresses des pages publiques en découlent | |
+| `soustraitants` | Hébergeur, envoi d'e-mails… (Stripe, RevenueCat et AdMob sont ajoutés d'office selon l'offre) | |
+| `public` | `age` : `tous`, `13+`, `16+` ou `18+` ; `enfants` | |
+| `contenu` | `true` / `false` pour chaque question des classifications : `violence`, `peur`, `sexe`, `langage`, `drogues`, `jeuxArgent`, `medical`, `contenusPartages`, `messagerie`, `positionPartagee`, `navigateurWeb` | |
+| `donnees` | Données que **l'app** collecte en plus du compte : `{ type, pourquoi, finalites, facultatif, conservation, partage }` (ci-dessous) | |
+| `pub` | `admob` : `true` si l'app mobile affichera AdMob ; `personnalisee` : `false` (sinon autorisation de suivi ATT à ajouter) | |
+| `revue` | `compteDemo` (identifiant, **jamais le mot de passe**), `notes` pour les équipes de revue, `contact` | notes : 4000 |
+| `captures` | `offre` du compte de démo, `donnees` (appels d'API qui créent l'exemple), `ecrans` (2 à 8 : `route`, `legende`, `compte: "gratuit"`) | 8 écrans |
+| `journalMois` | Si `JOURNAL_MOIS` n'est pas 12 | |
+
+**Données** — `type` parmi `nom`, `email`, `telephone`, `adresse`, `identifiant`, `infosPerso`, `sensibles`, `finances`,
+`paiement`, `achats`, `sante`, `forme`, `messages`, `photos`, `videos`, `audio`, `fichiers`, `agenda`, `contacts`,
+`contenu`, `recherches`, `interactions`, `positionPrecise`, `positionApprox`, `plantages`, `performances`, `idAppareil` ;
+`finalites` parmi `fonctionnement`, `compte`, `securite`, `analyse`, `communications`, `personnalisation`, `publicite`.
+L'outil les traduit dans les catégories de « Sécurité des données » (Google) et de « Confidentialité de l'app » (Apple).
+Le socle ajoute de lui-même l'e-mail, le nom et l'identifiant du compte, l'historique des achats (offre payante) et
+l'identifiant publicitaire (AdMob). Chaque table de `app.rgpd` doit se retrouver dans `donnees` (règle 28).
+`partage` ne liste que les tiers qui reçoivent des données **pour leur propre usage** (pas les sous-traitants).
+
+**Captures** — le compte de démo est créé à l'offre `captures.offre`, puis chaque élément de `captures.donnees` est
+envoyé à l'API de l'app avec sa session : `{ "garder": "c1", "methode": "POST", "chemin": "/api/clients", "corps": {…} }`.
+`{{c1.client.id}}` reprend une valeur d'une réponse gardée, `{{jour-3}}` donne une date (aaaa-mm-jj, `{{jour+7}}`
+aussi). Des données d'exemple réalistes, **sans marque connue** (Apple refuse les marques des autres dans les captures,
+règle 5.2), et un écran `#/abonnement` avec `"compte": "gratuit"` quand l'app vend un abonnement (Apple demande la
+capture de l'écran d'achat).
+
+### 18.3 Les outils
+
+| Commande | Ce qu'elle fait |
+| --- | --- |
+| `node outils/store-app.js` | Génère `store/LISEZMOI.md`, `PUBLIER.md` (la liste complète : comptes, mise en ligne, app mobile, envois), `GOOGLE-PLAY.md` et `APP-STORE.md` (chaque champ des deux consoles, dans leur ordre, textes prêts à copier avec leur compteur), et les pages publiques. Rien d'autre ne se modifie à la main : chaque fichier porte l'empreinte de ce qui l'a produit |
+| `node outils/store-visuels.js postgres://…/postgres` | Sur un PostgreSQL **de test** : base jetable, app lancée, compte de démo et données d'exemple, puis `store/visuels/` : icône 512 et bannière 1024 × 500 (Play), icône 1024 sans transparence (App Store), captures iPhone 6,9" (1320 × 2868), iPad 13" (2064 × 2752), téléphone Android (1080 × 1920) et tablette (1600 × 2560), avec la légende et l'univers de l'app (`--brut` : sans cadre). Demande Playwright (`npm install --no-save playwright && npx playwright install chromium`) ; `--sans-captures` : icônes et bannière seules |
+| `node outils/verifier-app.js` | Règles 27 à 30 (§ 13.1) |
+
+### 18.4 Ce que l'outil déclare pour toi (à relire)
+
+- **Google Play** : accès à l'app (compte de démo), annonces, classification IARC (PEGI 3 attendu si tout est `false`),
+  public cible, sécurité des données (chiffrement en transit, suppression possible, URL de suppression), déclarations
+  santé et fonctionnalités financières, identifiant publicitaire, fiche (textes, visuels), catégorie et contact,
+  abonnements (`<palier>_mensuel`, `<palier>_annuel`), test fermé de 12 testeurs pendant 14 jours pour un compte personnel.
+- **App Store** : Bundle ID, informations (sous-titre, catégories, droits sur le contenu, statut de commerçant DSA),
+  classification par âge (4+ attendu si tout est `false`), prix, confidentialité de l'app (types, usages, liés à
+  l'identité, suivi), fiche de la version (captures, texte promotionnel, description avec les liens obligatoires des
+  abonnements, mots-clés, URL d'assistance, copyright), informations de revue et remarques, abonnements
+  (`<identifiant>.<palier>.mensuel`) avec les droits RevenueCat aux ids des paliers.
+
+Ces textes décrivent ce que fait le socle et ce que dit `store.json` : si l'app ajoute un service tiers (mesure
+d'audience, rapport de plantage, carte…), il se déclare dans `donnees` et `soustraitants`. La politique de
+confidentialité et les conditions sont des modèles sérieux, pas un avis juridique : à faire relire pour une app sensible.
+
+## 19. Historique des versions du kit
+
+### 1.4.0 — 2026-10-30
+
+Publication sur Google Play et l'App Store (§ 18). Socle : suppression de son compte depuis l'app (écran Compte ›
+« Supprimer mon compte », `POST /api/moi/supprimer`), liens « Aide et contact · Confidentialité · Conditions
+d'utilisation » en bas des écrans Compte et Abonnement, journal purgé après `JOURNAL_MOIS` mois (12 par défaut). Fiche
+`store/store.json` et deux outils : `store-app.js` (dossier `store/` : liste de publication, chaque champ de la Play
+Console et d'App Store Connect, sécurité des données, confidentialité de l'app, classifications, notes de revue,
+abonnements ; pages publiques `confidentialite`, `support`, `suppression-compte`, `conditions`) et `store-visuels.js`
+(icônes, bannière Play, captures aux tailles exactes des deux stores, mises en scène aux couleurs de l'univers).
+`verifier-app.js` : règles 27 à 30 ; `recette-app.js` : scénario 34.
+Mise à jour d'une app 1.3.x : remplacer `serveur.js`, `noyau/` (dont `empreintes.json`), `public/noyau.js` et `outils/`
+par ceux du kit ; `npm run env:exemple` (nouvelle variable `JOURNAL_MOIS`) ; copier `store/store.json` du kit et le
+remplir pour l'app ; `node outils/store-app.js` ; `kitAppComplete` à 1.4.0. Rien à changer dans `app/` (vérifier
+seulement que chaque table qui pointe vers `utilisateurs` est dans `rgpd` ou en `on delete cascade`).
 
 ### 1.3.0 — 2026-10-30
 

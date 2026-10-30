@@ -545,6 +545,23 @@ button{font:inherit;font-weight:600;margin-top:16px;padding:12px 22px;border:0;b
 `;
   }
 
+  /* ======================= Dossier des stores (kit App complète 1.4) ======================= */
+
+  /** Le dossier store/ d'une app du kit (fiche, documents générés, visuels) trouvé dans la source, ou null. */
+  M.dossierStore = function (source) {
+    const tous = source && (source.tous || source.fichiers);
+    if (!tous) return null;
+    const fiche = Object.keys(tous).filter(c => /(^|\/)store\/store\.json$/.test(c)).sort((a, b) => a.length - b.length)[0];
+    if (!fiche) return null;
+    const prefixe = fiche.slice(0, -'store.json'.length);
+    const fichiers = {};
+    Object.keys(tous).forEach(c => { if (c.startsWith(prefixe) && /^(store\.json|[A-Z-]+\.md|visuels\/.+\.png)$/.test(c.slice(prefixe.length))) fichiers[c.slice(prefixe.length)] = tous[c]; });
+    let json = null;
+    try { json = JSON.parse(M.texte(tous[fiche])); } catch (e) { /* fiche illisible : signalée par l'écran */ }
+    const pages = ['confidentialite', 'support', 'suppression-compte', 'conditions'].filter(n => Object.keys(tous).some(c => c.endsWith('public/' + n + '.html') || c === n + '.html'));
+    return { fiche: json, fichiers, pages, visuels: Object.keys(fichiers).filter(c => c.startsWith('visuels/')).length };
+  };
+
   /* ======================= Fichiers du projet ======================= */
 
   /** Le projet Capacitor complet : { chemin: texte | octets }. images = M.images(...). */
@@ -621,7 +638,10 @@ button{font:inherit;font-weight:600;margin-top:16px;padding:12px 22px;border:0;b
     f['.gitignore'] = 'node_modules/\nandroid/app/build/\nandroid/.gradle/\nandroid/build/\nios/App/build/\nios/DerivedData/\n*.keystore\n*.jks\n.env\n';
     f['.github/workflows/android.yml'] = workflowAndroid();
     f['README.md'] = readme(app, cfg, diag);
-    f['GUIDE-STORES.md'] = guideStores(cfg, diag);
+    // Dossier des stores de l'app (kit App complète 1.4) : joint tel quel, à côté du guide
+    const dossier = M.dossierStore(source);
+    if (dossier) Object.keys(dossier.fichiers).forEach(c => { f['store/' + c] = dossier.fichiers[c]; });
+    f['GUIDE-STORES.md'] = guideStores(cfg, diag, dossier);
     f['SERVEUR.md'] = serveurMd(cfg, diag);
     return f;
   };
@@ -1008,12 +1028,18 @@ ${liste(diag.constats, ['crit', 'warn', 'info', 'ok']) || '- Rien à signaler.'}
 `;
   }
 
-  function guideStores(cfg, diag) {
+  function guideStores(cfg, diag, dossier) {
+    const fiche = dossier && dossier.fiche;
     return `# Publier ${cfg.nom} sur l’App Store et Google Play
 
 Ce que l’Atelier ne peut pas faire à ta place : les comptes, la signature, les fiches et l’envoi.
 Identifiant de l’app : \`${cfg.appId}\` (le même sur les deux stores ; il ne change plus une fois publié).
-
+${dossier ? `
+**Le dossier \`store/\` de l’app est joint** (kit « App complète » 1.4) : \`store/PUBLIER.md\` (la liste complète),
+\`store/GOOGLE-PLAY.md\` et \`store/APP-STORE.md\` (chaque champ des deux consoles, prêt à copier)${dossier.visuels ? ', et \`store/visuels/\` (icônes, bannière, captures)' : ''}.
+Ils remplacent l’étape 5 ci-dessous.${fiche && fiche.identifiant && fiche.identifiant !== cfg.appId ? `
+⚠️ La fiche des stores annonce l’identifiant \`${fiche.identifiant}\`, différent de celui du projet : mets le même des deux côtés.` : ''}
+` : ''}
 ## 1. Les comptes (une seule fois)
 
 - **Apple Developer Program** : 99 $ par an, sur developer.apple.com/programs. Compte personnel (ton nom affiché)
